@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2020 at 03:36 PM
+-- Generation Time: Jan 13, 2020 at 04:18 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -323,7 +323,9 @@ INSERT INTO `gail` (`org_id`, `head`, `contact_head`, `zone_id`, `sub_zone_id`, 
 
 CREATE TABLE `middleman` (
   `middle_id` int(11) NOT NULL,
-  `name` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` text NOT NULL,
   `address` varchar(100) NOT NULL,
   `invited_by` int(11) NOT NULL,
   `other_details` text DEFAULT NULL
@@ -333,32 +335,32 @@ CREATE TABLE `middleman` (
 -- Dumping data for table `middleman`
 --
 
-INSERT INTO `middleman` (`middle_id`, `name`, `address`, `invited_by`, `other_details`) VALUES
-(1, 0, 'Address1', 78, NULL),
-(2, 0, 'Address2', 167, NULL),
-(3, 0, 'Address3', 134, NULL),
-(4, 0, 'Address4', 147, NULL),
-(5, 0, 'Address5', 98, NULL),
-(6, 0, 'Address6', 21, NULL),
-(7, 0, 'Address7', 164, NULL),
-(8, 0, 'Address8', 120, NULL),
-(9, 0, 'Address9', 117, NULL),
-(10, 0, 'Address10', 87, NULL),
-(11, 0, 'Address11', 27, NULL),
-(12, 0, 'Address12', 25, NULL),
-(13, 0, 'Address13', 67, NULL),
-(14, 0, 'Address14', 144, NULL),
-(15, 0, 'Address15', 197, NULL),
-(16, 0, 'Address16', 15, NULL),
-(17, 0, 'Address17', 165, NULL),
-(18, 0, 'Address18', 118, NULL),
-(19, 0, 'Address19', 90, NULL),
-(20, 0, 'Address20', 13, NULL),
-(21, 0, 'Address21', 23, NULL),
-(22, 0, 'Address22', 62, NULL),
-(23, 0, 'Address23', 91, NULL),
-(24, 0, 'Address24', 12, NULL),
-(25, 0, 'Address25', 190, NULL);
+INSERT INTO `middleman` (`middle_id`, `name`, `email`, `password`, `address`, `invited_by`, `other_details`) VALUES
+(1, 'MiddleMan1', 'email1@gmail.com', 'pass1', 'Address1', 25, NULL),
+(2, 'MiddleMan2', 'email2@gmail.com', 'pass2', 'Address2', 70, NULL),
+(3, 'MiddleMan3', 'email3@gmail.com', 'pass3', 'Address3', 53, NULL),
+(4, 'MiddleMan4', 'email4@gmail.com', 'pass4', 'Address4', 131, NULL),
+(5, 'MiddleMan5', 'email5@gmail.com', 'pass5', 'Address5', 97, NULL),
+(6, 'MiddleMan6', 'email6@gmail.com', 'pass6', 'Address6', 25, NULL),
+(7, 'MiddleMan7', 'email7@gmail.com', 'pass7', 'Address7', 156, NULL),
+(8, 'MiddleMan8', 'email8@gmail.com', 'pass8', 'Address8', 123, NULL),
+(9, 'MiddleMan9', 'email9@gmail.com', 'pass9', 'Address9', 95, NULL),
+(10, 'MiddleMan10', 'email10@gmail.com', 'pass10', 'Address10', 54, NULL),
+(11, 'MiddleMan11', 'email11@gmail.com', 'pass11', 'Address11', 16, NULL),
+(12, 'MiddleMan12', 'email12@gmail.com', 'pass12', 'Address12', 171, NULL),
+(13, 'MiddleMan13', 'email13@gmail.com', 'pass13', 'Address13', 76, NULL),
+(14, 'MiddleMan14', 'email14@gmail.com', 'pass14', 'Address14', 75, NULL),
+(15, 'MiddleMan15', 'email15@gmail.com', 'pass15', 'Address15', 68, NULL),
+(16, 'MiddleMan16', 'email16@gmail.com', 'pass16', 'Address16', 38, NULL),
+(17, 'MiddleMan17', 'email17@gmail.com', 'pass17', 'Address17', 157, NULL),
+(18, 'MiddleMan18', 'email18@gmail.com', 'pass18', 'Address18', 3, NULL),
+(19, 'MiddleMan19', 'email19@gmail.com', 'pass19', 'Address19', 41, NULL),
+(20, 'MiddleMan20', 'email20@gmail.com', 'pass20', 'Address20', 159, NULL),
+(21, 'MiddleMan21', 'email21@gmail.com', 'pass21', 'Address21', 138, NULL),
+(22, 'MiddleMan22', 'email22@gmail.com', 'pass22', 'Address22', 88, NULL),
+(23, 'MiddleMan23', 'email23@gmail.com', 'pass23', 'Address23', 159, NULL),
+(24, 'MiddleMan24', 'email24@gmail.com', 'pass24', 'Address24', 28, NULL),
+(25, 'MiddleMan25', 'email25@gmail.com', 'pass25', 'Address25', 22, NULL);
 
 -- --------------------------------------------------------
 
@@ -376,6 +378,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`role_id`, `function`) VALUES
+(0, 'Admin'),
 (1, 'adds tenders'),
 (2, 'validates tenders'),
 (3, 'views bids'),
@@ -386,7 +389,9 @@ INSERT INTO `roles` (`role_id`, `function`) VALUES
 (8, 'centre head'),
 (9, 'zonal head'),
 (10, 'sub zonal head'),
-(11, 'HQ head');
+(11, 'HQ head'),
+(12, 'Logging travel status , Middle men'),
+(13, 'Upload Bids , Vendor');
 
 -- --------------------------------------------------------
 
@@ -1319,6 +1324,7 @@ ALTER TABLE `gail`
 --
 ALTER TABLE `middleman`
   ADD PRIMARY KEY (`middle_id`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `invited_by` (`invited_by`);
 
 --
@@ -1475,7 +1481,7 @@ ALTER TABLE `gail`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `social_auth_association`
