@@ -141,7 +141,7 @@ CREATE TABLE `zone_subzone_mapping` (
 --
 ALTER TABLE `gail`
   ADD PRIMARY KEY (`org_id`),
-  ADD UNIQUE KEY `eth_address` (`eth_address`),
+  -- ADD UNIQUE KEY `eth_address` (`eth_address`),
   ADD KEY `contact_head` (`contact_head`),
   ADD KEY `head` (`head`),
   ADD KEY `zone_id` (`zone_id`),
