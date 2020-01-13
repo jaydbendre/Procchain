@@ -1308,7 +1308,7 @@ ALTER TABLE `django_session`
 --
 ALTER TABLE `gail`
   ADD PRIMARY KEY (`org_id`),
-  ADD UNIQUE KEY `eth_address` (`eth_address`),
+  -- ADD UNIQUE KEY `eth_address` (`eth_address`),
   ADD KEY `contact_head` (`contact_head`),
   ADD KEY `head` (`head`),
   ADD KEY `zone_id` (`zone_id`),
@@ -1331,15 +1331,15 @@ ALTER TABLE `roles`
 -- Indexes for table `social_auth_association`
 --
 ALTER TABLE `social_auth_association`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `social_auth_association_server_url_handle_078befa2_uniq` (`server_url`,`handle`);
+  ADD PRIMARY KEY (`id`);
+  -- ADD UNIQUE KEY `social_auth_association_server_url_handle_078befa2_uniq` (`server_url`,`handle`);
 
 --
 -- Indexes for table `social_auth_code`
 --
 ALTER TABLE `social_auth_code`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `social_auth_code_email_code_801b2d02_uniq` (`email`,`code`),
+  -- ADD UNIQUE KEY `social_auth_code_email_code_801b2d02_uniq` (`email`,`code`),
   ADD KEY `social_auth_code_code_a2393167` (`code`),
   ADD KEY `social_auth_code_timestamp_176b341f` (`timestamp`);
 
@@ -1347,8 +1347,8 @@ ALTER TABLE `social_auth_code`
 -- Indexes for table `social_auth_nonce`
 --
 ALTER TABLE `social_auth_nonce`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `social_auth_nonce_server_url_timestamp_salt_f6284463_uniq` (`server_url`,`timestamp`,`salt`);
+  ADD PRIMARY KEY (`id`);
+  -- ADD UNIQUE KEY `social_auth_nonce_server_url_timestamp_salt_f6284463_uniq` (`server_url`,`timestamp`,`salt`);
 
 --
 -- Indexes for table `social_auth_partial`
@@ -1363,7 +1363,7 @@ ALTER TABLE `social_auth_partial`
 --
 ALTER TABLE `social_auth_usersocialauth`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `social_auth_usersocialauth_provider_uid_e6b5e668_uniq` (`provider`,`uid`),
+  -- ADD UNIQUE KEY `social_auth_usersocialauth_provider_uid_e6b5e668_uniq` (`provider`,`uid`),
   ADD KEY `social_auth_usersocialauth_user_id_17d28448_fk_auth_user_id` (`user_id`);
 
 --
