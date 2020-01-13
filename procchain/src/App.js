@@ -4,6 +4,7 @@ import React from 'react';
 
 import LandingPage from './routes/LandingPage';
 import Auth from './routes/Auth';
+import Gail from './routes/Gail'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       
       <LandingPage />
       <Auth />
+      <Gail />
       
     </div>
   );
