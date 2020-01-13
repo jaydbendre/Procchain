@@ -6,6 +6,7 @@ import LandingPage from './routes/LandingPage';
 import Auth from './routes/Auth';
 import Gail from './routes/Gail';
 import Supplier from './routes/Suppliers';
+import Shipment from './routes/Shipment';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Auth />
       <Gail />
       <Supplier />
+      <Shipment />
       
     </div>
   );
