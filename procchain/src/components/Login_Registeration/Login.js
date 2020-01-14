@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import logo from '../../assets/frontend/images/logoWhiteBg.png';
+import {withFormik} from 'formik';
+import * as Yup from 'yup'; 
 
-export default class Login extends Component {
+class Login extends Component {
     render() {
         return (
             <div className="page-body login-page">
@@ -35,15 +37,29 @@ export default class Login extends Component {
                             </div>  */}
 
                             {/* Form */}
-                            <form method="post"> 
-                                {/* Username */}
+                            <form method="post" onSubmit={this.props.handleSubmit}> 
+                                {/* Email */}
                                 <div className="form-group"> 
                                     <div className="input-group"> 
                                         <div className="input-group-addon"> 
                                             <i className="entypo-user"></i> 
                                         </div> 
-                                        <input type="text" className="form-control" name="username" id="username" placeholder="Username" autocomplete="off" /> 
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            name="email" 
+                                            id="email" 
+                                            placeholder="Email" 
+                                            autocomplete="off" 
+                                            onChange = {this.props.handleChange}
+                                            onBlur = {this.props.onBlur}
+                                        /> 
                                     </div>
+                                    <p className="text-danger error">
+                                        {(this.props.touched["email"] && this.props.errors["email"]) &&
+                                            <span>{this.props.errors["email"]}</span>
+                                        }
+                                    </p>
                                 </div> 
                                 {/* Password */}
                                 <div className="form-group"> 
@@ -51,8 +67,22 @@ export default class Login extends Component {
                                         <div className="input-group-addon"> 
                                             <i className="entypo-key"></i> 
                                         </div> 
-                                        <input type="password" className="form-control" name="password" id="password" placeholder="Password" autocomplete="off" /> 
+                                        <input 
+                                            type="password" 
+                                            className="form-control" 
+                                            name="password" 
+                                            id="password" 
+                                            placeholder="Password" 
+                                            autocomplete="off" 
+                                            onChange = {this.props.handleChange}
+                                            onBlur = {this.props.onBlur}
+                                        /> 
                                     </div> 
+                                    <p className="text-danger error">
+                                        {(this.props.touched["password"] && this.props.errors["password"]) &&
+                                            <span>{this.props.errors["password"]}</span>
+                                        }
+                                    </p>
                                 </div> 
                                 <div className="form-group"> 
                                     <button type="submit" className="btn btn-primary btn-block btn-login"> 
@@ -74,3 +104,35 @@ export default class Login extends Component {
         )
     }
 }
+
+export default withFormik({
+    mapPropsToValues: () => ({
+        email : '',
+        password : '',
+    }),
+
+    validationSchema : Yup.object().shape({
+        email: Yup.string().email("Enter a valid email").required('This is a required field.'),
+        password : Yup.string().required("Fill the password!"),
+    }),
+
+    handleSubmit : (values, {setSubmitting}) => {
+        console.log("Values : ", JSON.stringify(values));
+
+        fetch('http://127.0.0.1:8000/login/', {
+            method : 'POST',
+            // dataType : 'jsonp',
+            headers : {
+                'Content-Type' : 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW;application/json; charset=UTF-8',
+                // 'Accept': 'application/json, text/plain',
+            },
+            mode: 'no-cors',
+            body : JSON.stringify(values)
+        })
+        .then(res => res.json())
+        .then(res => console.log("JSON", JSON.stringify(res)))
+        .catch(err => console.log(err))
+
+    }
+
+})(Login);
