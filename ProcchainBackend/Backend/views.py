@@ -20,6 +20,9 @@ Testing working of Djangox
 def index(request) :
     return HttpResponse("<div class = 'container col-md-3 mr-auto'>Testing</div>")
 
+"""
+Login
+"""
 @api_view(["POST"])
 def login(request):
     with connection.cursor() as cursor :
@@ -29,7 +32,7 @@ def login(request):
         password = data["password"]
         
         if email !=''  or password != '':
-            cursor.execute("SELECT * from users where email = '{}' and password = '{}'".format(email,password))
+            cursor.execute("SELECT * from users where email = '{}' and password = '{}' and active_status =1 ".format(email,password))
             user = cursor.fetchone()
             
             user_data = {
@@ -165,3 +168,68 @@ def login(request):
                         return Response({"jwt" : jwt , "user_data" : user_data })
         else:
             return Response({"Error" : "Email or password cannot be null"})
+        
+"""
+Register
+"""
+@api_view(["POST"])
+def register(request) :
+    return Response({"Hi" : "Hey"})
+
+"""
+CRUD of users
+"""
+class UserView(APIView) :
+    """
+    Getting user details for edit profile
+    """
+    def get(self,request,pk,format=None):
+       with connection.cursor() as cursor :
+            cursor.execute("SELECT * from users where uid = {} ".format(pk))
+            user = cursor.fetchall()
+            
+            if len(user) != 0:
+                user = user[0]
+                user_data = {
+                    "fname" : user[1],
+                    "lname" : user[2],
+                    "details" : user[3],
+                    "email" : user[4],
+                    "password" : user[5]
+                }
+                
+                return Response(user_data)
+            else :
+                return Response({"Error" : "No Records Found"})
+        
+        
+    """
+    To update an existing user
+    """
+    def post(self , request ,pk, format=None ):
+        with connection.cursor() as cursor : 
+            user_data = dict(request.data)
+            
+            if user_data != None:
+                fname = user_data["fname"]
+                lname = user_data["lname"]
+                details = user_data["details"]
+                email = user_data["email"]
+                password = user_data["password"]
+                
+                if fname == '' or lname == '' or details == '' or email == '' or password == '' :
+                    return Response({"Error" : "Fields cant be empty"})
+                else:
+                    cursor.execute("UPDATE users set fname = '{}' , lname = '{}' ,details = '{}' , email = '{}' , password = '{}' where uid = {}".format(fname,lname,details,email,password,pk))
+                
+                    return Response({"Success" : "Updated Successfully"})
+            else :
+                return Response({"Error" : "No Data found"})
+
+    """
+    Delete an User from the table ie. change active status
+    """
+    def delete(self,request,pk,format=None):
+        with connection.cursor() as cursor :
+            cursor.execute("UPDATE users set active_status = 0 where uid = {} ".format(pk))
+            return Response({"Success" : "Record Deleted Successfully"})
