@@ -5,6 +5,7 @@ import Gail from '../../components/Gail';
 import AdminOnboardGailCentre from '../../components/Gail/Admin/OnboardGailCentre';
 import AdminOnboardGailEmployees from '../../components/Gail/Admin/OnboardGailEmployees';
 import TenderRoutes from './tender';
+import BidRoutes from './bids';
 
 export default class index extends Component {
     render() {
@@ -16,6 +17,7 @@ export default class index extends Component {
                     <Route exact path="/admin/onboard-gail-employees" component={AdminOnboardGailEmployees} />
                 </BrowserRouter>
                 <TenderRoutes />
+                <BidRoutes />
             </div>
         )
     }
