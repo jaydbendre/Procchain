@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
-import logo from '../../assets/frontend/images/logo@2x.png';
+import logo from '../../assets/frontend/images/logo.png';
 
 import NavLinks from '../common/LandingPage/NavLinks';
 
@@ -22,7 +22,7 @@ export default class NavBar extends Component {
                         <header className="site-header">
                             <section className="site-logo">
                                 <Link to="/">
-                                    <img src={logo} width = "120" alt = "ProcChain" />
+                                    <img src={logo} width = "200" alt = "ProcChain" />
                                 </Link>
                             </section>
                             <nav className="site-nav">

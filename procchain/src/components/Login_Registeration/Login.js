@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import logo from '../../assets/frontend/images/logoWhiteBg.png';
 
 export default class Login extends Component {
     render() {
@@ -10,7 +11,7 @@ export default class Login extends Component {
                     <div className="login-header login-caret"> 
                         <div className="login-content"> 
                             <a href="/" className="logo"> 
-                                <img src="../../assets/images/logo@2x.png" width="120" alt="" /> 
+                                <img src={logo} width="250" alt="" /> 
                             </a> 
                             <p className="description">Dear user, log in unlock access to ProcChain!</p> 
                             {/* <div className="login-progressbar-indicator"> 

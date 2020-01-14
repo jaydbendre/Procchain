@@ -6,11 +6,12 @@ export default class CarouselSlide extends Component {
         return (
             <div class="slide"> 
                 <div class="slide-content"> 
-                    <h2> 
+                    <h2 style ={{fontSize : '20px'}} >
                         {this.props.message}
-                    </h2> 
-                    <p>
-                        Neon &ndash; is flat admin template for multi-purpose usage built<br /> with the latest version of Bootstrap &ndash; 3.
+                    </h2 > 
+                    <p style ={{fontSize : '15px'}}>
+                        {/* Neon &ndash; is flat admin template for multi-purpose usage built<br /> with the latest version of Bootstrap &ndash; 3. */}
+                        {this.props.text}
                         
                     </p>
                     <p>

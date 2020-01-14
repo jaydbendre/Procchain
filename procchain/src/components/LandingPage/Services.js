@@ -92,6 +92,7 @@ export default class Services extends Component {
                                     return (
                                         <div key = {index}>
                                             <h3 style={{textAlign: "center"}}>{service.name}</h3>
+                                            <hr />
                                             {service.sectionService.map((sec, index) => {
                                                 return <Service 
                                                     {...sec}

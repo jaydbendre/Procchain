@@ -8,8 +8,8 @@ export default class Service extends Component {
                     <h3> 
                         <i class={this.props.icon}></i>
                         {this.props.heading}
-                    </h3> 
-                    <p>
+                    </h3>
+                    <p style ={{fontSize : '15px'}}>
                         {this.props.para}
                     </p> 
                 </div> 

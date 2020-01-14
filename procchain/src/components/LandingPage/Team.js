@@ -27,7 +27,7 @@ export default class Team extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <h1 style={{textAlign: "center"}}> TEAM </h1>
-                            <p style={{textAlign: "center"}}> Meet the people behind ProcChain. </p>
+                            <p style={{textAlign: "center" , fontSize: '15px'}}> Meet the people behind ProcChain. </p>
                         </div>
                     </div>
                     {members.sections.map((section, sectionIndex) => {

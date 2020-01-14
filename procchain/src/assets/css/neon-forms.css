@@ -15,6 +15,14 @@
   opacity: @opacity / 100;
   filter: ~"alpha(opacity=@{opacity})";
 }*/
+
+.login-options button {
+  /* float: left; */
+  color: white;
+  display: inline-block;
+  text-align: justify;
+}
+
 .has-switch {
   display: inline-block;
   cursor: pointer;
@@ -4082,7 +4090,7 @@ hr + .mail-env {
   background: #303641;
 }
 .login-page .login-content {
-  position: relative;
+  /* position: relative; */
   width: 320px;
   margin: 0 auto;
   text-align: center;
@@ -4596,6 +4604,11 @@ hr + .mail-env {
 .login-page .form-steps .step {
   display: none;
 }
+
+.form-steps{
+  float: right;
+}
+
 .login-page .form-steps .step.current {
   display: block;
 }
