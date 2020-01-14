@@ -1,3 +1,11 @@
+## Routes
+Gail : 
+1. GailOrg : first dashboard
+2. edit-tender
+3. upload-tender
+4. view-tender
+
+## File Structure
 Contents of various folders :
 
 ### assets
