@@ -18,8 +18,8 @@ const links = {
 export default class index extends Component {
     render() {
         return (
-            <header className="navbar navbar-fixed-top">
-                <div className="navbar-inner">
+            <header className="navbar navbar-fixed-top" style = {{marginRight : "-2px", right : "0", width: "100%"}}>
+                <div className="navbar-inner" style = {{marginRight : "-2px", right : "0", width: "100%"}}>
 
                     {/* Logo */}
                     <Logo />

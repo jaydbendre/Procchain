@@ -21,7 +21,7 @@ export const links = {
 export default class index extends Component {
     render() {
         return (
-            <div className="page-body">
+            <div className="page-body" style = {{marginRight : "-2px", right : "0", width: "100%"}}>
                 <HorizontalMenu 
                     links = {links}
                     loaction = {this.props.location}
