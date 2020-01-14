@@ -25,8 +25,10 @@ Login
 """
 @api_view(["POST"])
 def login(request):
+    # print(json.loads(request.body.decode()))
+    # return Response({"Error" : "Email or password cannot be null"})
     with connection.cursor() as cursor :
-        data = dict(request.data)
+        data = json.loads(request.body.decode())
         
         email = data["email"]
         password = data["password"]
