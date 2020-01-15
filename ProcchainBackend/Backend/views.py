@@ -15,21 +15,26 @@ import json
 
 
 """
-Testing working of Djangox
+Testing working of Django
 """
 def index(request) :
     return HttpResponse("<div class = 'container col-md-3 mr-auto'>Testing</div>")
 
+"""
+Login
+"""
 @api_view(["POST"])
 def login(request):
+    # print(json.loads(request.body.decode()))
+    # return Response({"Error" : "Email or password cannot be null"})
     with connection.cursor() as cursor :
-        data = dict(request.data)
+        data = json.loads(request.body.decode())
         
         email = data["email"]
         password = data["password"]
         
         if email !=''  or password != '':
-            cursor.execute("SELECT * from users where email = '{}' and password = '{}'".format(email,password))
+            cursor.execute("SELECT * from users where email = '{}' and password = '{}' and active_status =1 ".format(email,password))
             user = cursor.fetchone()
             
             user_data = {
@@ -167,9 +172,6 @@ def login(request):
             return Response({"Error" : "Email or password cannot be null"})
 
 
-from django.test import TestCase
-
-# Create your tests here.
 class Register(APIView):
 
     """Register new users"""
@@ -210,3 +212,113 @@ class Register(APIView):
 
             else:
                 return Response("error")
+        
+"""
+Register
+"""
+@api_view(["POST"])
+def register(request) :
+    return Response({"Hi" : "Hey"})
+
+"""
+CRUD of users
+"""
+class UserView(APIView) :
+    """
+    Getting user details for edit profile
+    """
+    def get(self,request,pk,format=None):
+       with connection.cursor() as cursor :
+            cursor.execute("SELECT * from users where uid = {} ".format(pk))
+            user = cursor.fetchall()
+            
+            if len(user) != 0:
+                user = user[0]
+                user_data = {
+                    "fname" : user[1],
+                    "lname" : user[2],
+                    "details" : user[3],
+                    "email" : user[4],
+                    "password" : user[5]
+                }
+                
+                return Response(user_data)
+            else :
+                return Response({"Error" : "No Records Found"})
+        
+        
+    """
+    To update an existing user
+    """
+    def post(self , request ,pk, format=None ):
+        with connection.cursor() as cursor : 
+            user_data = dict(request.data)
+            
+            if user_data != None:
+                fname = user_data["fname"]
+                lname = user_data["lname"]
+                details = user_data["details"]
+                email = user_data["email"]
+                password = user_data["password"]
+                
+                if fname == '' or lname == '' or details == '' or email == '' or password == '' :
+                    return Response({"Error" : "Fields cant be empty"})
+                else:
+                    cursor.execute("UPDATE users set fname = '{}' , lname = '{}' ,details = '{}' , email = '{}' , password = '{}' where uid = {}".format(fname,lname,details,email,password,pk))
+                
+                    return Response({"Success" : "Updated Successfully"})
+            else :
+                return Response({"Error" : "No Data found"})
+
+    """
+    Delete an User from the table ie. change active status
+    """
+    def delete(self,request,pk,format=None):
+        with connection.cursor() as cursor :
+            cursor.execute("UPDATE users set active_status = 0 where uid = {} ".format(pk))
+            return Response({"Success" : "Record Deleted Successfully"})
+
+
+class TenderView(APIView):
+    """
+    Uploading files and generating their hash
+    """
+    
+    """
+    Retrieval of the uploaded files
+    """
+    def get(self , request , tender_id , format = None):
+        """
+        Getting files pertaining that tender id
+        """
+        with connection.cursor() as cursor :
+            cursor.execute("SELECT file_path, file_hash, uploaded_at , uploaded_by ,approved_at , approved_by from tender where tender_id = {} ".format(tender_id))
+            file = cursor.fetchall()[0]
+            
+            file_data = {
+                # "file_path" : json.loads(file[0]),
+                # "file_hash" : json.loads(file[1]),
+                "uploaded_at" : file[2],
+                "approved_at" : file[4]
+            }
+            
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[3]))
+            uploader = cursor.fetchall()[0]
+            
+            file_data["uploaded_by"] = uploader[0] + ' ' + uploader[1]
+            
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[5]))
+            approver = cursor.fetchall()[0]
+            
+            file_data["approved_by"] = approver[0] + ' ' + approver[1]
+            
+            return Response(file_data)
+        
+    def post( self, request, tender_id ,format = None):
+        with connection.cursor() as cursor : 
+            data = dict(request.data)
+            
+            jwt = data["jwt"]
+            jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
+            return Response(jwt)
+        
