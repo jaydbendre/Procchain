@@ -16,8 +16,15 @@ import hashlib
 import os
 from functools import partial
 
+
+"""
+Utility
+"""
 def index(request) : 
     return render(request,"LandingPage/index.html")
+
+def authLogin(request):
+    return render(request, 'Login/login.html')
 
 def login(request) : 
     with connection.cursor() as cursor :
@@ -168,33 +175,23 @@ def login(request) :
         else:
             return HttpResponse("Error : Email or password cannot be null")
 
+
+def logout(request):
+    """ Logs out the user """
+    del request.session
+    return redirect('/')
+
+
+"""
+Testing
+"""
+
 def render_file(request) :
     return render(request,"testing/upload.html")
 
 
 def test(request):
     return render(request, "Gail/Bids/BidDetails.html")
-
-def authLogin(request):
-    return render(request, 'Login/login.html')
-
-def gailOrg(request):
-    return render(request, 'Gail/index.html')
-
-def vendor(request):
-    return render(request, 'Vendor/index.html')
-
-def middleman(request):
-    return render(request, 'Middleman/index.html')
-
-def uploadTenderRender(request):
-    """ Renders Tender Form """
-    return render(request, 'Gail/Tender/UploadTenderForm.html')
-
-def logout(request):
-    """ Logs out the user """
-    del request.session
-    return redirect('/')
 
 
 
@@ -264,6 +261,13 @@ def make_bids(request,tender_id):
 """
 Gail Org
 """
+def gailOrg(request):
+    return render(request, 'Gail/index.html')
+
+def uploadTenderRender(request):
+    """ Renders Tender Form """
+    return render(request, 'Gail/Tender/UploadTenderForm.html')
+
 
 def organisation_retrieve(request, org_id):
     """
@@ -336,7 +340,7 @@ def organisation_create(request):
             org_location = org["location_name"]
             org_eth = org["org_eth"]
 
-        if org_head_fname == '' or org_head_lname== '' or org_zone_name = '' or org_subzone_name = '' or org_location = '' or org_eth = '' or  org_details == '':
+        if org_head_fname == '' or org_head_lname== '' or org_zone_name == '' or org_subzone_name == '' or org_location == '' or org_eth == '' or  org_details == '':
             return Response({'Error': 'Fields cannot be blank'})
         else:
             cursor.execute("select zone_id from zone where zone_name = {}".format(org_zone))
@@ -440,4 +444,5 @@ def tender_file_upload(request) :
 Middleman
 """
 
-
+def middleman(request):
+    return render(request, 'Middleman/index.html')
