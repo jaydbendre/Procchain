@@ -27,7 +27,7 @@ def login(request):
     # print(json.loads(request.body.decode()))
     # return Response({"Error" : "Email or password cannot be null"})
     with connection.cursor() as cursor :
-        data = json.loads(request.body.decode())
+        data = eval(request.body.decode())
         
         email = data["email"]
         password = data["password"]
@@ -320,3 +320,7 @@ class TenderView(APIView):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
+
+
+def test(request):
+    return render(request, "Gail/Tender/TenderList.html")
