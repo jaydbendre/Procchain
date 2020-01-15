@@ -548,3 +548,12 @@ def test(request):
 
 def authLogin(request):
     return render(request, 'Login/login.html')
+
+def gailOrg(request):
+    return render(request, 'Gail/index.html')
+
+def vendor(request):
+    return render(request, 'Vendor/index.html')
+
+def middleman(request):
+    return render(request, 'Middleman/index.html')
