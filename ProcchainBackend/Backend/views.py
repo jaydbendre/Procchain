@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.db import connection
 from django.contrib.auth import authenticate
@@ -555,3 +555,7 @@ def middleman(request):
 def uploadTenderRender(request):
     """ Renders Tender Form """
     return render(request, 'Gail/Tender/UploadTenderForm.html')
+
+def logout(request):
+    """ Logs out the user """
+    return redirect('/')
