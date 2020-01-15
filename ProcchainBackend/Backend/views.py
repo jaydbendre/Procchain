@@ -177,7 +177,7 @@ class Register(APIView):
     """Register new users"""
 
     def post(request):
-        with connection.cursor as cursor():
+        with connection.cursor() as cursor:
             data = dict(request.data)
 
             email = data['email']
