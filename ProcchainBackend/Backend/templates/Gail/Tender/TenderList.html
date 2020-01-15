@@ -1,0 +1,36 @@
+{% extends 'Gail/layout/header.html' %}
+{% block Gail %}
+    <div class="mail-env">
+        <div class="mail-body">
+            <div class="row" id="search_results">
+                <div class="member-entry" style="margin-left: 30px; margin-right: 30px; left: 0"> 
+                    <div class="member-details"> 
+                        <h4> 
+                            <a href="#job_details" data-toggle="modal" data-target="#job_details" onclick="job_details({{i}},{{j}})">
+                                Tender Name
+                            </a>
+                            <!-- <a href="" class="btn btn-danger pull-right">View Bids</a> 
+                            <a href="" class="btn btn-primary pull-right">View Tender</a> -->
+                            
+                        </h4> 
+                        <!-- <small><i class="entypo-calendar"></i>Closing Date <a href="#">Date</a></small> -->
+                        <div class="row info-list"> 
+                            <div class="col-sm-4"> 
+                                <i class="entypo-calendar"></i>Closing Date <a href="#">Date</a> 
+                            </div>
+                            <div class="col-sm-4"> 
+                                <a href="" class="btn btn-danger pull-right">View Bids</a>     
+                            </div>
+                            <div class="col-sm-4"> 
+                                <a href="" class="btn btn-primary pull-right">View Tender</a>
+                            </div> 
+                            <div class="clear"></div> 
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+        {% include 'Gail/Tender/TenderFilters.html' %}
+    </div>
+    
+{% endblock %}
