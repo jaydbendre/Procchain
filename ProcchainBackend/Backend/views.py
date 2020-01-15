@@ -329,8 +329,8 @@ def index(request) :
 
 def login(request) : 
     with connection.cursor() as cursor :
-        # email = request.POST["email"]
-        # password = request.POST["password"]
+        email = request.POST["email"]
+        password = request.POST["password"]
         
         email  = "BertHorne@gmail.com" 
         password = "pass1"
@@ -522,3 +522,26 @@ def make_bids(request , tender_id):
             for f in request.FILES.getlist('bids'):
                 pass
                 
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[3]))
+            uploader = cursor.fetchall()[0]
+            
+            file_data["uploaded_by"] = uploader[0] + ' ' + uploader[1]
+            
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[5]))
+            approver = cursor.fetchall()[0]
+            
+            file_data["approved_by"] = approver[0] + ' ' + approver[1]
+            
+            return Response(file_data)
+        
+    def post( self, request, tender_id ,format = None):
+        with connection.cursor() as cursor : 
+            data = dict(request.data)
+            
+            jwt = data["jwt"]
+            jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
+            return Response(jwt)
+
+
+def test(request):
+    return render(request, "Gail/Bids/BidsList.html")

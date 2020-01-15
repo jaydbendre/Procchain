@@ -1,0 +1,28 @@
+{% extends 'Gail/layout/header.html' %}
+{% block Gail %}
+{% include 'Gail/Tender/TenderDetailsPanel.html' %}
+
+<table class="table table-bordered table-responsive table-hover table-primary text-center">
+    <thead>
+        <tr>
+            <td>Vendor Name</td>
+            <td>Bidded At</td>
+            <td>Bid</td>
+            <!-- <td>CV Rank</td>
+            <td>Total Rank</td> -->
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <!-- <td>&nbsp;</td> -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>XYZ</td>
+            <td>Today</td>
+            <td>File</td>
+            <td><button class="btn btn-primary" onclick="accept({{value.u_id}})">Accept</button></td>
+            <td><button class="btn btn-danger" onclick="reject({{value.u_id}})">Reject</button></td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
