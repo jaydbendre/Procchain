@@ -16,6 +16,7 @@ urlpatterns =[
     path('GailOrg/', views.gailOrg,name = "gailorg"),
     path('Supplier', views.vendor,name = "supplier"),
     path("Middleman/", views.middleman, name = "middleman"),
-    path("GailOrg/upload-tender/", views.uploadTenderRender, name = "upload-tender")
+    path("GailOrg/upload-tender/", views.uploadTenderRender, name = "upload-tender"),
+    path("logout/", views.logout, name = "logout")
 
 ] 
