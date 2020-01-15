@@ -14,7 +14,7 @@ urlpatterns =[
     
     #Vendor
     path("Vendor/",views.vendor, name = "vendor"),
-    path("Vendor/view_tenders" , views.view_tenders , name = "view_tenders"),
+    path("Vendor/view_tenders" , views.view_tenders , name = "view_tenders"),#list of all active tenders
     path("Vendor/tender/<int:tender_id>" , views.tender , name = "view_tender"),
     path("Vendor/tender/<int:tender_id>/make_bids" , views.make_bids , name = "make_bids")
     
