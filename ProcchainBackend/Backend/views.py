@@ -15,7 +15,7 @@ import json
 
 
 """
-Testing working of Djangox
+Testing working of Django
 """
 def index(request) :
     return HttpResponse("<div class = 'container col-md-3 mr-auto'>Testing</div>")
