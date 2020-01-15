@@ -20,6 +20,7 @@ Testing working of Django
 def index(request) :
     return render(request,"LandingPage/index.html")
 
+
 """
 Login
 """
