@@ -177,7 +177,7 @@ class Register(APIView):
     """Register new users"""
 
     def post(request):
-        with connection.cursor as cursor():
+        with connection.cursor() as cursor:
             data = dict(request.data)
 
             email = data['email']
@@ -321,3 +321,18 @@ class TenderView(APIView):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
+
+
+
+
+
+
+
+
+
+
+def vendor(request):
+    return render(request , 'Vendor/index.html')
+
+def browse_tenders(request):
+    return render(request , 'Vendor/browse_tenders.html')

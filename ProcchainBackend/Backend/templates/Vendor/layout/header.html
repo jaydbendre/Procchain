@@ -5,7 +5,9 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <meta name="description" content="Neon Admin Panel" /> <meta name="author" content="Laborator.co" />
-        <link rel="icon" href="{% static 'img/logo_title.png' %}">
+        {% comment %}
+        <!-- <link rel="icon" href="{% static 'img/logo_title.png' %}"> -->
+        {% endcomment %}
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141030632-1"></script> 
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -75,7 +77,7 @@
                             <span class="badge badge-success chat-notifications-badge is-hidden">0</span> </a> 
                         </li> 
                         <li class="sep"></li>  -->
-                        <li> <a href="{% url 'logout' %}">
+                        <li> <a href="#">
                             Log Out <i class="entypo-logout right"></i> </a> 
                         </li> 
                     </ul> 

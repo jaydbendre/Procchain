@@ -42,13 +42,13 @@
                     </a> 
                 </div> 
                 <div class="sui-hover inline-links animate-in"> 
-                    <a href="{% url 'Company:company_profile' %}"> 
+                    <a href="#"> 
                         <i class="entypo-user"></i>Profile
                     </a> 
-                    <a href="{% url 'Company:company_post_jobs' %}"> 
+                    <a href="#">
                         <i class="entypo-briefcase"></i>Jobs
                     </a> 
-                    <a href="{% url 'logout' %}"> 
+                    <a href="#"> 
                         <i class="entypo-lock"></i>Log Out
                     </a> 
                     <span class="close-sui-popup">&times;</span>
@@ -59,7 +59,7 @@
             <ul id="main-menu" class="main-menu"> 
                 <!-- Changed -->
                 <li>
-                    <a href="{% url 'Company:index' %}"><i class="entypo-gauge"></i>
+                    <a href="#"><i class="entypo-gauge"></i>
                     <span class="title">Dashboard</span></a>
                 </li> 
                 {% comment %}
@@ -117,9 +117,11 @@
                 </ul> 
             </li>  -->
             {% endcomment %}
-            <li> <a href="{% url 'Company:company_post_jobs' %}" >
-                <i class="entypo-docs"></i>
-                <span class="title">Post Jobs</span></a> 
+            <li> 
+                <a href="#" >
+                    <i class="entypo-docs"></i>
+                    <span class="title">Post Jobs</span>
+                </a> 
             </li> 
             {% comment %}
             <!-- <li class="has-sub"> <a href="ui/panels/index.html">
@@ -170,7 +172,7 @@
                 </ul> 
             </li>  -->
             <!-- <li>
-                <a href="{% url 'company_view_jobs' %}">
+                <a href="#">
                     <i class="entypo-tools"></i>
                     <span class="title">Edit Job Details</span>
                 </a>
@@ -196,14 +198,14 @@
             </li>  -->
             {% endcomment %}
             <!-- <li>
-                <a href="{% url 'Company:index' %}">
+                <a href="#">
                     <i class="entypo-tools"></i>
                     <span class="title">Edit Job Details</span>
                 </a>
             </li> -->
                 
             <!-- <li>
-                <a href="{% url 'Company:index' %}">
+                <a href="#">
                     <i class="entypo-users"></i>
                     <span class="title">View Applicants</span>
                 </a>
