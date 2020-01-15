@@ -12,9 +12,10 @@ urlpatterns =[
     # path('user/<int:pk>',views.UserView.as_view()),
     # path('tender_info/<int:tender_id>',views.TenderView.as_view()),
     path('auth-login/', views.authLogin, name = "authLogin"),
-    path('testing', views.test, name = "testing"),
+    path('testing/', views.test, name = "testing"),
     path('GailOrg/', views.gailOrg,name = "gailorg"),
     path('Supplier', views.vendor,name = "supplier"),
     path("Middleman/", views.middleman, name = "middleman"),
+    path("GailOrg/upload-tender/", views.uploadTenderRender, name = "upload-tender")
 
 ] 

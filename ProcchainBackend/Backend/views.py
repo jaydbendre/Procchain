@@ -544,7 +544,7 @@ def make_bids(request , tender_id):
 
 
 def test(request):
-    return render(request, "Gail/Bids/BidsList.html")
+    return render(request, "Gail/Bids/BidDetails.html")
 
 def authLogin(request):
     return render(request, 'Login/login.html')
@@ -557,3 +557,7 @@ def vendor(request):
 
 def middleman(request):
     return render(request, 'Middleman/index.html')
+
+def uploadTenderRender(request):
+    """ Renders Tender Form """
+    return render(request, 'Gail/Tender/UploadTenderForm.html')

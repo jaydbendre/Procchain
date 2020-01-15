@@ -21,28 +21,46 @@
                     <br />
                     File
                 </p>
-                <div class="row">
-                    <div class="col-sm-3">
+                <div class="row text-center">
+                    <div class="col-md-4 col-sm-12">
                         <button class="btn btn-basic" onclick=payOrderForm()>Generate Pay Order</button>
                     </div>
-                    <div class="col-sm-3">
+                    <span class="visible-xs">
+                        <br />
+                    </span>
+                    <div class="col-md-4 col-sm-12">
                         <button class="btn btn-primary">View Pay Order</button>
                     </div>
-                    <div class="col-sm-3">
+                    <span class="visible-xs">
+                        <br />
+                    </span>
+                    <div class="col-md-4 col-sm-12">
                         <button class="btn btn-warning">View Invoice</button>
                     </div>
-                    <div class="col-sm-3">
+                    <span class="visible-xs">
+                        <br />
+                    </span>
+                    <!-- <div class="col-md-3 col-sm-12">
                         <button class="btn btn-danger">Shipment Details</button>
-                    </div>
+                    </div> -->
                 </div>
-                
+                <br />
+                <div class="row text-center">
+                    <div class="col-md-4 col-sm-12">
+                        <button class="btn btn-danger" onclick=logPaymentForm()>Log Payment</button>
+                    </div>
+                    <span class="visible-xs">
+                        <br />
+                    </span>
+                    <div class="col-md-4 col-sm-12">
+                        <button class="btn btn-success" onclick=shipmentDetails()>Shipment Details</button>
+                    </div>
+                    <span class="visible-xs">
+                        <br />
+                    </span>
+                </div>
                 <!-- {{applicants.applicant_list}} -->
                 <br />
-                <div class="row">
-                    <div id = "form">
-
-                    </div>
-                </div>
                 
             </div> 
             <!-- <div class="panel-footer">
@@ -52,7 +70,18 @@
     </div>
 </div>
 
+<div class="row">
+    <div id = "form">
+
+    </div>
+</div>
+
+<div id = "shipmentDetails" style="visibility: hidden;">
+    {% include 'Gail/ShipmentPayment/ShipmentDetails.html' %}
+</div>
+
 <script>
+    
     function payOrderForm() {
         var form = '<form role="form" class="form-horizontal">'
             + '{% csrf_token %}'
@@ -61,7 +90,7 @@
             + '<div class="col-sm-5"> '
             + '<a class="file-input-wrapper btn form-control file2 inline btn btn-primary">'
             + '<i class="glyphicon glyphicon-file"></i> Browse '
-            + '<input type="file" class="form-control file2 inline btn btn-primary" data-label="Browse" style="left: 41.7px; top: 17.2125px;" />'
+            + '<input type="file" required="yes" class="form-control file2 inline btn btn-primary" data-label="Browse" style="left: 41.7px; top: 17.2125px;" />'
             + '</a>'
             + '</div>' 
             + '</div>'
@@ -74,5 +103,29 @@
             + '</form>';
         $("#form").empty();
         $("#form").append(form);
+    }
+
+    function logPaymentForm(){
+        var form = '<form role="form" class="form-horizontal">'
+            + '{% csrf_token %}'
+            + '<div class="form-group">' 
+            + '<label for="tender" class="col-sm-3 control-label">Amount</label> '
+            + '<div class="col-sm-5"> '
+            + '<input type="text" class="form-control" placeholder="Amount" required="yes" data-label="" style="left: 41.7px; top: 17.2125px;" />'
+            + '</div>' 
+            + '</div>'
+            + '<div class="form-group">'
+            + '<div class="col-sm-3"></div>'
+            + '<div class="col-sm-4">'
+            + '<button type="submit" class="btn btn-primary">Log</button>'
+            + '</div>'
+            + '</div>'
+            + '</form>';
+        $("#form").empty();
+        $("#form").append(form);
+    }
+
+    function shipmentDetails(){
+        $("#shipmentDetails").css("visibility", 'visible');
     }
 </script>
