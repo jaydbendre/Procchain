@@ -38,15 +38,15 @@
                 <div class="sui-normal"> 
                     <a href="#" class="user-link"> 
                         <img src="{% static 'assets/images/thumb-1@2x.png' %}" width="55" alt="" class="img-circle" /> 
-                        <span>Welcome,</span> <strong>{{name}}</strong> 
+                        <span>Welcome,</span> <strong>{{ user_data.fname}}</strong> 
                     </a> 
                 </div> 
                 <div class="sui-hover inline-links animate-in"> 
-                    <a href=""> 
-                        <i class="entypo-user"></i>Profile
+                    <a href="/Vendor/view_tenders"> 
+                        <i class="entypo-view"></i>Views active tenders
                     </a> 
                     <a href=""> 
-                        <i class="entypo-briefcase"></i>Jobs
+                        <i class="entypo-briefcase"></i>History of Bids
                     </a> 
                     <a href="{% url 'logout' %}"> 
                         <i class="entypo-lock"></i>Log Out
@@ -59,17 +59,17 @@
             <ul id="main-menu" class="main-menu"> 
                 <!-- Changed -->
                 <li>
-                    <a href=""><i class="entypo-gauge"></i>
-                    <span class="title">Dashboard</span></a>
+                    <a href="/Vendor/view_tenders"><i class="entypo-gauge"></i>
+                    <span class="title">View Active Tenders</span></a>
                 </li> 
             <li> <a href="" >
                 <i class="entypo-search"></i>
-                <span class="title">Browse Jobs</span></a> 
+                <span class="title">History of Bids</span></a> 
             </li> 
-            <li> <a href="https://docs.google.com/document/d/{{ cv_file_path }}/edit" target="_blank">
+            {% comment %} <li> <a href="https://docs.google.com/document/d/{{ cv_file_path }}/edit" target="_blank">
                 <i class="entypo-vcard"></i>
                 <span class="title">View CV</span></a> 
-            </li>
+            </li> {% endcomment %}
             </ul> 
         
         </div> 

@@ -17,6 +17,11 @@ urlpatterns =[
     path('Supplier', views.vendor,name = "supplier"),
     path("Middleman/", views.middleman, name = "middleman"),
     path("GailOrg/upload-tender/", views.uploadTenderRender, name = "upload-tender"),
-    path("logout/", views.logout, name = "logout")
-
+    path("logout/", views.logout, name = "logout"),
+    path("GailOrg/tender/make_bids" , views.make_bids, name = "make_bids"),
+    #Vendor
+    path("Vendor/",views.vendor, name = "vendor"),
+    path("Vendor/view_tenders" , views.view_tenders , name = "view_tenders"),
+    path("Vendor/tender/<int:tender_id>" , views.tender , name = "view_tender"),
+    path("Vendor/tender/<int:tender_id>/make_bids" , views.make_bids , name = "make_bids")
 ] 

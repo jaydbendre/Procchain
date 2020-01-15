@@ -479,63 +479,6 @@ def login(request) :
 def render_file(request) :
     return render(request,"testing/upload.html")
 
-def tender_file_upload(request) : 
-    with connection.cursor() as cursor : 
-        cursor.execute("SELECT max(tender_id) from tender")
-        tender_id = cursor.fetchall()[0][0]
-        uid = 1 
-        file_path = 'documents\\tenders\\{}\\'.format(tender_id)
-        folder=os.path.join(settings.BASE_DIR,'documents\\tenders\\{}\\'.format(tender_id)) 
-        
-        if request.method == 'POST' and request.FILES['myfile']:
-            myfile = request.FILES['myfile']
-            fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
-            filename = fs.save(myfile.name, myfile)
-            file_url = fs.url(filename)
-            
-            hasher = hashlib.md5()
-            block_size=65536
-            for buf in iter(partial(myfile.read, block_size), b''):
-                hasher.update(buf)
-
-            tender_hash = hasher.hexdigest()
-
-            file_path = {
-                "bids" : [],
-                "tender" : file_path,
-                "tender_file_name" : file_url
-            }
-            
-            file_path = json.dumps(file_path)
-            file_hash = {
-                "bids" : [],
-                "hash" : hasher.hexdigest()
-            }
-            file_hash = json.dumps(file_hash)
-            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
-        return HttpResponse(hasher.hexdigest())
-
-def make_bids(request): 
-    with connection.cursor() as cursor : 
-        if request.method == "POST" and request.FILES.getlist('bids') : 
-            folder = os.path.join(settings.BASE_DIR,"documents\\tender\\{}\\bids\\".format(10024))
-            bids_path = []
-            bids_hash = []
-            for f in request.FILES.getlist('bids'):
-                fs = FileSystemStorage(location=folder)  
-                filename = fs.save(f.name, f)
-                file_url = fs.url(filename)
-                hasher = hashlib.md5()
-                block_size=65536
-                for buf in iter(partial(myfile.read, block_size), b''):
-                    hasher.update(buf)
-
-                bid_hash = hasher.hexdigest()
-                    
-                bids_path.append(file_url)
-                bids_hash.append(tender_hash)
-                
-        return HttpResponse(bids_path,bids_hash)
 
 def test(request):
     return render(request, "Gail/Bids/BidDetails.html")
@@ -560,3 +503,119 @@ def logout(request):
     """ Logs out the user """
     del request.session
     return redirect('/')
+
+
+
+"""
+Vendor
+"""
+def vendor(request) : 
+    return render(request,"Vendor/index.html")
+
+def tender(request,tender_id) :
+    with connection.cursor() as cursor :
+        cursor.execute("SELECT * from tender where tender_id = {} ".format(tender_id))
+        tender_data = cursor.fetchall()[0]
+        
+        tender = {
+            "tender_id" : tender_data[0],
+            "file_path" : tender_data[1],
+            "file_hash" : tender_data[2],
+            "uploaded_at" : str(tender_data[3])
+        }
+        
+        
+        return render(request , "Vendor/tender.html" , {"tender" : tender})
+def view_tenders(request):
+    return render(request,"Vendor/view_tenders.html")
+
+def make_bids(request,tender_id): 
+    with connection.cursor() as cursor : 
+        # return HttpResponse(request.FILES.getlist('bids'))
+        if request.method == "POST" and request.FILES.getlist('bids') : 
+            # tender_id = request.POST["tender_id"]
+            # return HttpResponse(f)
+            folder = os.path.join(settings.BASE_DIR,"documents\\tenders\\{}\\bids\\".format(tender_id))
+            cursor.execute("SELECT file_path , file_hash from tender where tender_id = {} ".format(tender_id))
+            tender_data = cursor.fetchall()[0]
+            # return HttpResponse(tender_data)
+            file_path = eval(tender_data[0])
+            file_hash = eval(tender_data[1])
+            
+            bids_path = []
+            bids_hash = []
+            for f in request.FILES.getlist('bids'):
+                fs = FileSystemStorage(location=folder)  
+                filename = fs.save(f.name, f)
+                file_url = fs.url(filename)
+                hasher = hashlib.md5()
+                block_size=65536
+                for buf in iter(partial(f.read, block_size), b''):
+                    hasher.update(buf)
+
+                bid_hash = hasher.hexdigest()
+                
+                # return HttpResponse(file_url)
+                bids_path.append("documents\\tenders\\{}\\bids\\{}".format(tender_id,file_url))
+                bids_hash.append(bid_hash)
+            
+            for bid_path in bids_path : 
+                file_path["bids"].append(bid_path)
+            
+            for bid_hash in bids_hash : 
+                file_hash["bids"].append(bid_hash)
+            
+            file_path = str(file_path)
+            file_hash = str(file_hash)
+            
+            cursor.execute("UPDATE tender set file_path = '{}' , file_hash = '{}' , uploaded_at = '{}' ,uploaded_by = '{}' where tender_id = {} ".format(file_path,file_hash,datetime.datetime.now(),request.session["uid"], tender_id))
+        
+        return redirect("/Vendor/tender/{}".format(tender_id))
+        return HttpResponse(bids_path,bids_hash)
+
+
+"""
+Gail Org
+"""
+
+def tender_file_upload(request) : 
+    with connection.cursor() as cursor : 
+        cursor.execute("SELECT max(tender_id) from tender")
+        tender_id = cursor.fetchall()[0][0]
+        uid = 1 
+        file_path = 'documents\\tenders\\{}\\'.format(tender_id+1)
+        folder=os.path.join(settings.BASE_DIR,'documents\\tenders\\{}\\'.format(tender_id+1)) 
+        
+        if request.method == 'POST' and request.FILES['myfile']:
+            myfile = request.FILES['myfile']
+            fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
+            filename = fs.save(myfile.name, myfile)
+            file_url = fs.url(filename)
+            
+            hasher = hashlib.md5()
+            block_size=65536
+            for buf in iter(partial(myfile.read, block_size), b''):
+                hasher.update(buf)
+
+            tender_hash = hasher.hexdigest()
+
+            file_path = {
+                "bids" : [],
+                "tender" : 'documents\\\\tenders\\\\{}'.format(tender_id+1),
+                "tender_file_name" : file_url,
+                "uploaded_at" : []
+            }
+            
+            file_path = str(file_path)
+            file_hash = {
+                "bids" : [],
+                "tender" : hasher.hexdigest()
+            }
+            file_hash = str(file_hash)
+            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
+        return HttpResponse(hasher.hexdigest())
+
+
+"""
+Middleman
+"""
