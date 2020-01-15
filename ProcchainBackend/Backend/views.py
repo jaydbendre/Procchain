@@ -235,3 +235,48 @@ class UserView(APIView) :
         with connection.cursor() as cursor :
             cursor.execute("UPDATE users set active_status = 0 where uid = {} ".format(pk))
             return Response({"Success" : "Record Deleted Successfully"})
+
+
+class TenderView(APIView):
+    """
+    Uploading files and generating their hash
+    """
+    
+    """
+    Retrieval of the uploaded files
+    """
+    def get(self , request , tender_id , format = None):
+        """
+        Getting files pertaining that tender id
+        """
+        with connection.cursor() as cursor :
+            cursor.execute("SELECT file_path, file_hash, uploaded_at , uploaded_by ,approved_at , approved_by from tender where tender_id = {} ".format(tender_id))
+            file = cursor.fetchall()[0]
+            
+            file_data = {
+                # "file_path" : json.loads(file[0]),
+                # "file_hash" : json.loads(file[1]),
+                "uploaded_at" : file[2],
+                "approved_at" : file[4]
+            }
+            
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[3]))
+            uploader = cursor.fetchall()[0]
+            
+            file_data["uploaded_by"] = uploader[0] + ' ' + uploader[1]
+            
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[5]))
+            approver = cursor.fetchall()[0]
+            
+            file_data["approved_by"] = approver[0] + ' ' + approver[1]
+            
+            return Response(file_data)
+        
+    def post( self, request, tender_id ,format = None):
+        with connection.cursor() as cursor : 
+            data = dict(request.data)
+            
+            jwt = data["jwt"]
+            jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
+            return Response(jwt)
+            
