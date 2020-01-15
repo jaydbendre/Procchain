@@ -484,9 +484,9 @@ def tender_file_upload(request) :
         cursor.execute("SELECT max(tender_id) from tender")
         tender_id = cursor.fetchall()[0][0]
         uid = 1 
-        # return HttpResponse(settings.BASE_DIR)
+        file_path = 'documents\\tenders\\{}\\'.format(tender_id)
         folder=os.path.join(settings.BASE_DIR,'documents\\tenders\\{}\\'.format(tender_id)) 
-        # return HttpResponse(folder)
+        
         if request.method == 'POST' and request.FILES['myfile']:
             myfile = request.FILES['myfile']
             fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
@@ -502,7 +502,7 @@ def tender_file_upload(request) :
 
             file_path = {
                 "bids" : [],
-                "tender" : folder,
+                "tender" : file_path,
                 "tender_file_name" : file_url
             }
             
