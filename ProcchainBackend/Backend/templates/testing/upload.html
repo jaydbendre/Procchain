@@ -4,7 +4,7 @@
 <form action="{% url 'file_upload'%}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
     Select document to upload:
-    <input type="file" name="myfile" id="fileToUpload">
+    <input type="file" name="myfile" id="fileToUpload" multiple>
     <input type="submit" value="Upload Image" name="submit">
 </form>
 </body>

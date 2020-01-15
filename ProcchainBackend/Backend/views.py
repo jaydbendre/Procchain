@@ -515,33 +515,27 @@ def tender_file_upload(request) :
             cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return HttpResponse(hasher.hexdigest())
 
-def make_bids(request , tender_id): 
+def make_bids(request): 
     with connection.cursor() as cursor : 
         if request.method == "POST" and request.FILES.getlist('bids') : 
-            folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format())
+            folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format(10024))
+            bids_path = []
+            bids_hash = []
             for f in request.FILES.getlist('bids'):
-                pass
-                
-            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[3]))
-            uploader = cursor.fetchall()[0]
-            
-            file_data["uploaded_by"] = uploader[0] + ' ' + uploader[1]
-            
-            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[5]))
-            approver = cursor.fetchall()[0]
-            
-            file_data["approved_by"] = approver[0] + ' ' + approver[1]
-            
-            return Response(file_data)
-        
-    def post( self, request, tender_id ,format = None):
-        with connection.cursor() as cursor : 
-            data = dict(request.data)
-            
-            jwt = data["jwt"]
-            jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
-            return Response(jwt)
+                fs = FileSystemStorage(location=folder)  
+                filename = fs.save(f.name, f)
+                file_url = fs.url(filename)
+                hasher = hashlib.md5()
+                block_size=65536
+                for buf in iter(partial(myfile.read, block_size), b''):
+                    hasher.update(buf)
 
+                bid_hash = hasher.hexdigest()
+                    
+                bids_path.append(file_url)
+                bids_hash.append(tender_hash)
+            
+        return HttpResponse(bids_path,bids_hash)
 
 def test(request):
     return render(request, "Gail/Bids/BidsList.html")
