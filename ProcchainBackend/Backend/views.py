@@ -323,4 +323,4 @@ class TenderView(APIView):
 
 
 def test(request):
-    return render(request, "Gail/Tender/TenderList.html")
+    return render(request, "Gail/Bids/BidsList.html")
