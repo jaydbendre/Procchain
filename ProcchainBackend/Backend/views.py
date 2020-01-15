@@ -320,3 +320,139 @@ class TenderView(APIView):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
+
+def organisation_retrieve(request, org_id):
+    """
+    Obtaining organization details 
+    """
+
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * from organisation where org_id = {}".format(org_id))
+        org = cursor.fetchall()[0]
+
+        if len(org) != 0:
+            organization = org[0]
+            org_head_id = org[1]
+            org_details = org[2]
+            org_zone = org[3]
+            org_subzone = org[4]
+            org_location = org[5]
+            org_eth = org[6]
+            
+            cursor.execute("select * from zone where zone_id = {}".org[3])
+            zone = cursor.fetchall()[0]
+            
+            if len(zone) !=0:
+                zone_name = zone[1]
+
+            cursor.execute("select * from sub_zone where sub_zone_id = {}".org[4])
+            sub_zone = cursor.fetchall()[0]
+
+            if len(sub_zone) !=0:
+                sub_zone_name = sub_zone[1]
+
+            cursor.execute("select * from location where location_id = {}".org[5])
+            location = cursor.fetchall()[0]
+
+            if len(location) !=0:
+                location_name = location[1]
+
+            cursor.execute("select fname, lname from users where uid = {}".format(org_head_id))
+            head = cursor.fetchall[0]
+            if len(head) !=0:
+                head_name = head[0] + head[1]
+
+            org_info = {
+                "org_head": head_name,
+                "org_details": org_details,
+                "org_zone": zone_name,
+                "org_subzone": sub_zone_name,
+                "org_loc": location_name,
+                "org_eth": org_eth
+            }
+
+            return JsonResponse(org_info)
+        else:
+            return JsonResponse({"Failure": "Failed to retrieve record"})
+
+def organisation_create(request):
+    """
+    Creating a new organization
+    """
+
+    with connection.cursor() as cursor:
+        org = dict(request.data)
+
+        if org != None:
+            org_head_fname = org["org_head_fname"]
+            org_head_lname = org["org_head_lname"]
+            org_details = org["org_details"]
+            org_zone_name = org["org_zone"]
+            org_subzone_name = org["org_subzone"]
+            org_location = org["location_name"]
+            org_eth = org["org_eth"]
+
+        if org_head_fname == '' or org_head_lname== '' or org_zone_name = '' or org_subzone_name = '' or org_location = '' or org_eth = '' or  org_details == '':
+            return Response({'Error': 'Fields cannot be blank'})
+        else:
+            cursor.execute("select zone_id from zone where zone_name = {}".format(org_zone))
+            zone = cursor.fetchall[0]
+            if len(head)!=0:
+                zone_id = zone[0]
+            
+            cursor.execute("select sub_zone_id from sub_zone where sub_zone_name = {}".format(org_subzone_name))
+            sub_zone = cursor.fetchall[0]
+            if len(head)!=0:
+                sub_zone_id = sub_zone[0]
+            
+            cursor.execute("select location_id from location where location_name = {}".format(org_location))
+            location = cursor.fetchall[0]
+            if len(head)!=0:
+                location_id = location_id[0]
+
+            cursor.execute("select uid from users where fname = {} and lname = {}".format(org_head_fname,org_head_lname))
+            head_id = cursor.fetchall[0]
+            if len(head)!=0:
+                head = head_id[0]
+
+            cursor.execute('INSERT into organisation(head,org_details, zone_id, sub_zone_id, location_id, eth_address) values({},{},{},{},{},{})'.format(head,org_details,zone_id, sub_zone_id, location_id, org_eth))
+            return Response({'Success':'Organisation added successfully'})
+
+def organisation_update(request, org_id):
+    """
+    Updating organization details
+    """
+    with connection.cursor() as cursor:
+        org = dict(request.data)
+        org_head_fname = org["org_head_fname"]
+        org_head_lname = org["org_head_lname"]
+        org_details = org["org_details"]
+
+        if org_head_fname != '' :
+            cursor.execute("select uid from users where fname = {} and lname = {}".format(org_head_fname,org_head_lname))
+            head_id = cursor.fetchall[0]
+            if len(head)!=0:
+                head = head_id[0]
+                cursor.execute('update organisation set head = {} where org_id = {}'.format(head,org_id))
+            
+            if org_zone != '' :
+                cursor.execute("select zone_id from zone where zone_name = {}".format(org_zone))
+                zone = cursor.fetchall[0]
+                if len(head)!=0:
+                    zone_id = zone[0]
+                
+                cursor.execute("select sub_zone_id from sub_zone where sub_zone_name = {}".format(org_subzone_name))
+                sub_zone = cursor.fetchall[0]
+                if len(head)!=0:
+                    sub_zone_id = sub_zone[0]
+                
+                cursor.execute("select location_id from location where location_name = {}".format(org_location))
+                location = cursor.fetchall[0]
+                if len(head)!=0:
+                    location_id = location_id[0]
+
+                cursor.execute("update organisation set zone_id = '{}', sub_zone_id = '{}', location_id = '{}' where org_id = {}".format(zone_id,sub_zone_id,location_id,org_id))
+                return Response({'Success': 'Updated successfully'})
+
+
+
