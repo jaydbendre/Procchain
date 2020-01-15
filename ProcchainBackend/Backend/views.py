@@ -332,8 +332,8 @@ def login(request) :
         email = request.POST["email"]
         password = request.POST["password"]
         
-        email  = "BertHorne@gmail.com" 
-        password = "pass1"
+        # email  = "BertHorne@gmail.com" 
+        # password = "pass1"
         if email !=''  or password != '':
             cursor.execute("SELECT * from users where email = '{}' and password = '{}' and active_status =1 ".format(email,password))
             user = cursor.fetchone()
@@ -538,4 +538,20 @@ def make_bids(request):
         return HttpResponse(bids_path,bids_hash)
 
 def test(request):
-    return render(request, "Gail/Bids/BidsList.html")
+    return render(request, "Gail/Bids/BidDetails.html")
+
+def authLogin(request):
+    return render(request, 'Login/login.html')
+
+def gailOrg(request):
+    return render(request, 'Gail/index.html')
+
+def vendor(request):
+    return render(request, 'Vendor/index.html')
+
+def middleman(request):
+    return render(request, 'Middleman/index.html')
+
+def uploadTenderRender(request):
+    """ Renders Tender Form """
+    return render(request, 'Gail/Tender/UploadTenderForm.html')
