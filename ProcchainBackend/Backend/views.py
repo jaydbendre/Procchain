@@ -18,17 +18,16 @@ import json
 Testing working of Django
 """
 def index(request) :
-    return HttpResponse("<div class = 'container col-md-3 mr-auto'>Testing</div>")
+    return render(request,"LandingPage/index.html")
 
 """
 Login
 """
-@api_view(["POST"])
 def login(request):
     # print(json.loads(request.body.decode()))
     # return Response({"Error" : "Email or password cannot be null"})
     with connection.cursor() as cursor :
-        data = json.loads(request.body.decode())
+        data = eval(request.body.decode())
         
         email = data["email"]
         password = data["password"]
@@ -88,7 +87,7 @@ def login(request):
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return Response({"jwt" : jwt , "user_data" : user_data })
+                        return render(request,"Gail/index.html",{"jwt" : jwt , "user_data" : user_data})
                     
                     elif role[0] in range(100,200):
                         """
@@ -125,7 +124,7 @@ def login(request):
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return Response({"jwt" : jwt , "user_data" : user_data })
+                        return render(request, "Vendor/index.html",{"jwt" : jwt , "user_data" : user_data })
                     elif role[0] in range(200,300):
                         """
                         Middle Man
@@ -160,7 +159,7 @@ def login(request):
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return Response({"jwt" : jwt , "user_data" : user_data })
+                        return render(request, "Middleman/index.html",{"jwt" : jwt , "user_data" : user_data })
                     else:
                         """
                         Admin
@@ -170,6 +169,48 @@ def login(request):
                         return Response({"jwt" : jwt , "user_data" : user_data })
         else:
             return Response({"Error" : "Email or password cannot be null"})
+
+
+class Register(APIView):
+
+    """Register new users"""
+
+    def post(request):
+        with connection.cursor() as cursor:
+            data = dict(request.data)
+
+            email = data['email']
+            password = data["password"]
+            details = ""
+            fname = data['fname']
+            lname = data['lname']
+
+            if email!='' and password!='' and fname!="" and lname!="":
+
+                sql = 'INSERT INTO users(fname , lname , email , details , password) VALUES ({},{},{},{})'.format(fname , lname , details , email , password)
+                cursor.execute(sql)
+
+                response_dict = {"basic_info" : "successful"}
+
+                """ vendor """
+                vendor_name  = data['vendor_name']
+                location_id  = data['location_id']
+                vendor_type  = data['type']
+                contact_head = data['contact_head']
+                verified_by  = data['verified_by']
+                verified_at  = datetime.timestamp(now)
+                on_chain     = data['on_chain']
+                document     = data['document']
+
+                sql = 'INSERT INTO vendor(vendor_name , location_id , vendor_type , contact_head , verified_by , verified_at , on_chain , document) VALUES ({},{},{},{},{},{},{},{},)'.format(vendor_name , location_id , vendor_type , contact_head , verified_by , verified_at , on_chain , document )
+                cursor.execute(sql)
+
+                response_dict['details'] = 'successful'
+
+                return Response(response_dict)
+
+            else:
+                return Response("error")
         
 """
 Register
@@ -279,4 +320,7 @@ class TenderView(APIView):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
-            
+
+
+def test(request):
+    return render(request, "Gail/Tender/TenderList.html")
