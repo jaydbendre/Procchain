@@ -492,7 +492,7 @@ def tender_file_upload(request) :
             fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
             filename = fs.save(myfile.name, myfile)
             file_url = fs.url(filename)
-            # return HttpResponse(file_url)
+            
             hasher = hashlib.md5()
             block_size=65536
             for buf in iter(partial(myfile.read, block_size), b''):
@@ -518,7 +518,7 @@ def tender_file_upload(request) :
 def make_bids(request): 
     with connection.cursor() as cursor : 
         if request.method == "POST" and request.FILES.getlist('bids') : 
-            folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format(10024))
+            folder = os.path.join(settings.BASE_DIR,"documents\\tender\\{}\\bids\\".format(10024))
             bids_path = []
             bids_hash = []
             for f in request.FILES.getlist('bids'):
@@ -534,7 +534,7 @@ def make_bids(request):
                     
                 bids_path.append(file_url)
                 bids_hash.append(tender_hash)
-            
+                
         return HttpResponse(bids_path,bids_hash)
 
 def test(request):
@@ -558,4 +558,5 @@ def uploadTenderRender(request):
 
 def logout(request):
     """ Logs out the user """
+    del request.session
     return redirect('/')
