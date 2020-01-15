@@ -18,12 +18,11 @@ import json
 Testing working of Django
 """
 def index(request) :
-    return HttpResponse("<div class = 'container col-md-3 mr-auto'>Testing</div>")
+    return render(request,"LandingPage/index.html")
 
 """
 Login
 """
-@api_view(["POST"])
 def login(request):
     # print(json.loads(request.body.decode()))
     # return Response({"Error" : "Email or password cannot be null"})
@@ -88,7 +87,7 @@ def login(request):
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return Response({"jwt" : jwt , "user_data" : user_data })
+                        return render(request,"Gail/index.html",{"jwt" : jwt , "user_data" : user_data})
                     
                     elif role[0] in range(100,200):
                         """
@@ -125,7 +124,7 @@ def login(request):
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return Response({"jwt" : jwt , "user_data" : user_data })
+                        return render(request, "Vendor/index.html",{"jwt" : jwt , "user_data" : user_data })
                     elif role[0] in range(200,300):
                         """
                         Middle Man
@@ -160,7 +159,7 @@ def login(request):
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return Response({"jwt" : jwt , "user_data" : user_data })
+                        return render(request, "Middleman/index.html",{"jwt" : jwt , "user_data" : user_data })
                     else:
                         """
                         Admin
@@ -279,4 +278,4 @@ class TenderView(APIView):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
-            
+
