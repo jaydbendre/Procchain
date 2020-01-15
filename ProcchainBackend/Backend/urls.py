@@ -7,7 +7,7 @@ urlpatterns =[
     path('auth-login/', views.authLogin, name = "authLogin"),#Render login
     path('login/', views.login ,name = "login"),#Login Functionality
     path("logout/", views.logout, name = "logout"),
-    
+    path("sendOTP/",views.sendOTP,name = "sendOTP"),
     
     # Dont know what this is tbh 
     # path('Supplier', views.vendor,name = "supplier"),

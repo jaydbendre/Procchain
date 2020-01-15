@@ -1,6 +1,7 @@
 {% extends 'Middleman/layout/header.html' %}
 {% load static %}
 {% block middleman %}
+{{ user_data.details.ph_no }}
     <h2>
         Current Orders
     </h2>
@@ -34,6 +35,7 @@
 
 <script>
     function getState(state){
+        sendOTP()
         $("#enter_otp_body_div").empty();
         if (state == 0) {
             $("#enter_otp_body_div").append("Arrived!");
@@ -41,6 +43,30 @@
             $("#enter_otp_body_div").append("Dispatched!");
         }
         
+    };
+    function sendOTP() {
+        $(".error").html("").hide();
+        var number = $("#phone_number").val();
+        console.log(number)
+        if (number.length == 10 && number != null) {
+            var input = {
+                "mobile_number" : number,
+                "action" : "send_otp",
+                "formData" : JSON.stringify($("#form1").serializeArray()),
+                "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+            };
+            $.ajax({
+                url : "{% url 'sendOTP' %}",
+                type : 'POST',
+                data : input,
+                success : function(response) {
+                    alert("hello")
+                }
+            });
+        } else {
+            $(".error").html('Please enter a valid number!')
+            $(".error").show();
+        }
     }
 </script>
 

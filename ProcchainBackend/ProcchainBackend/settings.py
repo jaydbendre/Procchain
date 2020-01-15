@@ -40,9 +40,14 @@ INSTALLED_APPS = [
     'Backend',
     'rest_framework',
     'social_django',
+    'smsish'
     # 'corsheaders'
 ]
 
+SMS_BACKEND_CONSOLE = 'smsish.sms.backends.console.SMSBackend'
+SMS_BACKEND_DUMMY = 'smsish.sms.backends.dummy.SMSBackend'
+SMS_BACKEND_TWILIO = 'smsish.sms.backends.twilio.SMSBackend'
+SMS_BACKEND = SMS_BACKEND_DUMMY
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',

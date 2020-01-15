@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.db import connection
 from django.contrib.auth import authenticate
 from django.conf import settings
+from django.views.decorators.csrf import csrf_protect
 from jose import jws
 
 from rest_framework import status ,exceptions
@@ -14,9 +15,12 @@ import datetime
 import json
 import hashlib
 import os
+import requests
+import urllib.request
+import urllib.parse
 from functools import partial
-
-
+import random
+import pyotp
 """
 Utility
 """
@@ -43,7 +47,7 @@ def login(request) :
                 "uid" : user[0],
                 "fname" : user[1],
                 "lname" : user[2],
-                "details" : user[3],
+                "details" : eval(user[3]),
                 "email" : email
             }
             
@@ -175,12 +179,25 @@ def login(request) :
         else:
             return HttpResponse("Error : Email or password cannot be null")
 
-
 def logout(request):
     """ Logs out the user """
     del request.session
     return redirect('/')
 
+
+@csrf_protect
+def sendOTP(request):
+    otp = "Your OTP is : "+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
+    print(otp)
+    data =  urllib.parse.urlencode({'apikey': "mJ1D4ri2AdQ-YOzrxeeKzfJGk3nXcMIYVEFzSYQXB1", 'numbers': "9082467851",
+        'message' : otp})
+    request.session["otp"] = otp
+    data = data.encode('utf-8')
+    request = urllib.request.Request("https://api.textlocal.in/send/?")
+    f = urllib.request.urlopen(request, data)
+    fr = f.read()
+    print(fr)
+    return JsonResponse({"otp" : otp})
 
 """
 Testing
@@ -189,11 +206,8 @@ Testing
 def render_file(request) :
     return render(request,"testing/upload.html")
 
-
 def test(request):
     return render(request, "Gail/Bids/BidDetails.html")
-
-
 
 """
 Vendor
@@ -438,7 +452,6 @@ def tender_file_upload(request) :
             file_hash = str(file_hash)
             cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return HttpResponse(hasher.hexdigest())
-
 
 """
 Middleman

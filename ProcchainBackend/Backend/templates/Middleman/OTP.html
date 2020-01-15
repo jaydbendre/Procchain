@@ -1,3 +1,4 @@
+
 <div class="modal fade responsive" id="enter_otp" tabindex="-1" role="dialog" aria-labelledby="enter_otp" aria-hidden="true" style="background-color: rgba(245, 106, 51, 0.308);"> 
     <div class="modal-dialog" role="document"> 
         <div class="modal-content"> 
@@ -7,7 +8,7 @@
             </div> 
             <div class="modal-body" id="enter_otp_body" style="color: rgb(34, 33, 33); font-size: 12px;"> 
                     
-                <form method="POST" role="form" class="form-horizontal">
+                <form method="POST" role="form" class="form-horizontal" id = "form1">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="order_id" class="col-sm-3 control-label">Order Id : </label> 
@@ -15,6 +16,15 @@
                             <input type="text" class="form-control" id="order_id" placeholder="Order Id" disabled> 
                         </div> 
                     </div>
+                    <div class="form-group">
+                        <label for="phone_no" class="col-sm-3 control-label">Phone Number : </label> 
+                        <div class="col-sm-5"> 
+                            <input type="text" class="form-control" id="phone_number" placeholder="phonenumber" value = "{{ user_data.details.ph_no }}" disabled> 
+                        </div> 
+                    </div>
+                    {% if request.session.otp != '' %}
+                    <div class="alert alert-success" id = "success">{{ request.session.otp }}</div>
+                    {% endif %}
                     <div class="form-group">
                         <label for="otp" class="col-sm-3 control-label">OTP : </label> 
                         <div class="col-sm-5"> 
