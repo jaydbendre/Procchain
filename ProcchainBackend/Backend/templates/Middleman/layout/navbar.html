@@ -11,7 +11,7 @@
             <header class="logo-env"> 
                 <!-- logo --> 
                 <div class="logo"> 
-                    <a href="#"> 
+                    <a href="{% url 'middleman'%}"> 
                         <img src="{% static 'img/hiresight3.png' %}" width="120" alt="" /> 
                         <!-- <p>HireSight</p> -->
                     </a> 
@@ -45,9 +45,6 @@
                     <a href=""> 
                         <i class="entypo-user"></i>Profile
                     </a> 
-                    <a href=""> 
-                        <i class="entypo-briefcase"></i>Jobs
-                    </a> 
                     <a href="{% url 'logout' %}"> 
                         <i class="entypo-lock"></i>Log Out
                     </a> 
@@ -59,17 +56,10 @@
             <ul id="main-menu" class="main-menu"> 
                 <!-- Changed -->
                 <li>
-                    <a href=""><i class="entypo-gauge"></i>
-                    <span class="title">Dashboard</span></a>
+                    <a href=""><i class="entypo-archive"></i>
+                    <span class="title">History</span></a>
                 </li> 
-            <li> <a href="" >
-                <i class="entypo-search"></i>
-                <span class="title">Browse Jobs</span></a> 
-            </li> 
-            <li> <a href="https://docs.google.com/document/d/{{ cv_file_path }}/edit" target="_blank">
-                <i class="entypo-vcard"></i>
-                <span class="title">View CV</span></a> 
-            </li>
+            
             </ul> 
         
         </div> 

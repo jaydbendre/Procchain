@@ -11,14 +11,14 @@
             <header class="logo-env"> 
                 <!-- logo --> 
                 <div class="logo"> 
-                    <a href="#"> 
+                    <a href="{% url 'gailorg' %}"> 
                         <img src="{% static 'img/hiresight3.png' %}" width="120" alt="" /> 
                         <!-- <p>HireSight</p> -->
                     </a> 
                 </div> 
                 <!-- logo collapse icon --> 
                 <div class="sidebar-collapse"> 
-                    <a href="#" class="sidebar-collapse-icon">
+                    <a href="" class="sidebar-collapse-icon">
                         <!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition --> 
                         <i class="entypo-menu"></i> 
                     </a> 
@@ -36,20 +36,18 @@
         
             <div class="sidebar-user-info"> 
                 <div class="sui-normal"> 
-                    <a href="#" class="user-link"> 
+                    <a href="" class="user-link"> 
                         <img src="{% static 'assets/images/thumb-1@2x.png' %}" width="55" alt="" class="img-circle" /> 
                         <span>Welcome,</span> <strong>{{user_data.fname}} {{user_data.lname}}</strong> 
                     </a> 
                 </div> 
                 <div class="sui-hover inline-links animate-in"> 
                     <a href=""> 
-                        <i class="entypo-user"></i>Profile
+                        <i class="entypo-user"></i>Edit Profile
                     </a> 
-                    <a href=""> 
-                        <i class="entypo-briefcase"></i>Jobs
-                    </a> 
+                    
                     <a href="{% url 'logout' %}"> 
-                        <i class="entypo-lock"></i>Log Out
+                        <i class="entypo-logout"></i>Log Out
                     </a> 
                     <span class="close-sui-popup">&times;</span>
                 </div> 
@@ -59,16 +57,16 @@
             <ul id="main-menu" class="main-menu"> 
                 <!-- Changed -->
                 <li>
-                    <a href=""><i class="entypo-gauge"></i>
+                    <a href="{% url 'gailorg' %}"><i class="entypo-progress-2"></i>
                     <span class="title">Dashboard</span></a>
                 </li> 
-            <li> <a href="" >
-                <i class="entypo-search"></i>
-                <span class="title">Browse Jobs</span></a> 
+            <li> <a href="{% url 'view_tender_org' %}" >
+                <i class="entypo-doc-text-inv"></i>
+                <span class="title">View All Tenders</span></a> 
             </li> 
-            <li> <a href="https://docs.google.com/document/d/{{ cv_file_path }}/edit" target="_blank">
-                <i class="entypo-vcard"></i>
-                <span class="title">View CV</span></a> 
+            <li> <a href="{% url 'upload-tender'%}">
+                <i class="entypo-upload"></i>
+                <span class="title">Upload Tender</span></a> 
             </li>
             </ul> 
         
