@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-=======
-{% load static from staticfiles %}
+{% load static %}
 <!DOCTYPE html> 
->>>>>>> a6ca54347ac8cc91f27c4c8581bcf28b6e8692ce
 <html lang="en">
     <head>
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,50 +16,49 @@
         <link rel="stylesheet" href="{% static 'assets/frontend/css/bootstrap.css' %}" id="style-resource-1">
         <link rel="stylesheet" href="{% static 'assets/frontend/css/font-icons/entypo/css/entypo.css' %}" id="style-resource-2">
         <link rel="stylesheet" href="{% static 'assets/frontend/css/neon.css' %}" id="style-resource-3">
+        <link rel="stylesheet" href="{% static 'assets/frontend/css/team.css' %}" >
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
         <script src="{% static 'assets/frontend/js/jquery-1.11.3.min.js' %}"></script> <!--[if lt IE 9]><script src="{%static/assets/frontend/js/ie8-responsive-file-warning.js"></script><![endif]--> <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --> <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]--> <!-- TS1564916727: Neon - Responsive Admin Template created by Laborator --> 
+    
     </head>
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+
+       .main-menu.hidden-xs li a{
+            text-decoration: none;
+            color: rgb(17, 14, 14);
+            font-size: 15px
+        }
+
+        
+    </style>
+
     <body>
         <!-- TS15649167275592: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
         <div class="wrap">
             <!-- TS156491672717752: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
-            <div class="site-header-container container">
+            <div class="site-header-container container"  id = "navbar">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-3  ">
                         <header class="site-header">
-                            <section class="site-logo"> <a href="index.html"> <img src="{% static 'assets/frontend/images/logo@2x.png' %}" width="120" /> </a> </section>
+                            <section class="site-logo"> <a href="index.html"> <img src="{% static 'assets/frontend/images/logo.png' %}" width="170" /> </a> </section>
                             <nav class="site-nav">
-                                <ul class="main-menu hidden-xs" id="main-menu">
-                                    <li class="active"> <a href="index.html"> <span>Home</span> </a> </li>
-                                    <li>
-                                        <a href="../about/index.html"> <span>Pages</span> </a> 
-                                        <ul>
-                                            <li> <a href="../about/index.html"> <span>About Us</span> </a> </li>
-                                            <li class="active"> <a href="#"> <span>Active Menu Item</span> </a> </li>
-                                            <li>
-                                                <a href="../gallery/index.html"> <span>Gallery</span> </a> 
-                                                <ul>
-                                                    <li> <a href="index-5649.html"> <span>Sub 1</span> </a> </li>
-                                                    <li>
-                                                        <a href="../about/index.html"> <span>Sub 2</span> </a> 
-                                                        <ul>
-                                                            <li> <a href="../contact/index.html"> <span>Sub of sub 1</span> </a> </li>
-                                                            <li> <a href="../portfolio/index.html"> <span>Sub of sub 2</span> </a> </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li> <a href="#"> <span>Sub 3</span> </a> </li>
-                                                </ul>
-                                            </li>
-                                            <li> <a href="../blog-post/index.html"> <span>Blog Post</span> </a> </li>
-                                            <li> <a href="../portfolio-single/index.html"> <span>Portfolio Item</span> </a> </li>
-                                        </ul>
-                                    </li>
-                                    <li> <a href="../portfolio/index.html"> <span>Portfolio</span> </a> </li>
-                                    <li> <a href="../blog/index.html"> <span>Blog</span> </a> </li>
-                                    <li> <a href="../contact/index.html"> <span>Contact</span> </a> </li>
-                                    <li class="search">
+                                <ul class="main-menu hidden-xs" id="main-menu" >
+                                    <li > <a href="#aboutUs"> <span>About Us</span> </a> </li>
+                                    <li > <a href="#features"> <span>Features</span> </a> </li>
+                                    <li> <a href="#team"> <span>Team</span> </a> </li>
+                                    <li> <a href="#contact"> <span>Contact Us</span> </a> </li>
+                                    <li> <a href="#"> <span>Sign In</span> </a> </li>
+                                    <li> <a href="#"> <span>Sign Up</span> </a> </li>
+                                    <!-- <li class="search">
                                         <a href="#"> <i class="entypo-search"></i> </a> 
                                         <form method="get" class="search-form" action="" enctype="application/x-www-form-urlencoded"> <input type="text" class="form-control" name="q" placeholder="Type to search..." /> </form>
-                                    </li>
+                                    </li> -->
                                 </ul>
                                 <div class="visible-xs"> <a href="#" class="menu-trigger"> <i class="entypo-menu"></i> </a> </div>
                             </nav>
@@ -78,39 +74,39 @@
                             <div class="slides">
                                 <div class="slide">
                                     <div class="slide-content">
-                                        <h2> <small>Neon - Bootstrap 3</small>
-                                            Dashboard &amp; Front-end
+                                        <h2> <small>Procchain</small>
+                                            Smart India Hackathon 2020
                                         </h2>
-                                        <p>
-                                            Neon &ndash; is flat admin template for multi-purpose usage built<br /> with the latest version of Bootstrap &ndash; 3.
+                                        <p style = 'font-size: 15px;'>
+                                            Blockchain Powered Procurement System for GAIL<br /> Team : Code Sparks
                                         </p>
                                     </div>
-                                    <div class="slide-image"> <a href="#"> <img src="{% static 'assets/frontend/images/slide-img-1.png' %}" class="img-responsive" /> </a> </div>
+                                    <div class="slide-image"><img src="{% static 'assets/frontend/images/hiclipart.com.png' %}" class="img-responsive" /> </a> </div>
                                 </div>
                                 <div class="slide" data-bg="{% static 'assets/frontend/images/slide-img-1-bg.png' %}">
-                                    <div class="slide-image"> <a href="#"> <img src="{% static 'assets/frontend/images/slide-img-2.png' %}" class="img-responsive" /> </a> </div>
+                                    <div class="slide-image"> <a href="#"> <img src="{% static 'assets/frontend/images/smartContract.png' %}" class="img-responsive" /> </a> </div>
                                     <div class="slide-content text-right">
-                                        <h2> <small>Neon - Bootstrap 3</small>
-                                            Powerful Admin Template
+                                        <h2> <small>Procchain</small>
+                                            Motive
                                         </h2>
-                                        <p>
-                                            Designed for Bootstrap Framework, the theme works <br />
-                                            perfectly on any device, you can use it on<br />
-                                            your smartphone, tablet or your laptop.
+                                        <p style = 'font-size: 15px;'>
+                                            Reducing latency time between the Vendor and GAIL, <br />
+                                            making Tender procurement secure and hence,<br />
+                                            more efficient using Ethereum.
                                         </p>
                                     </div>
                                 </div>
                                 <div class="slide">
                                     <div class="slide-content">
-                                        <h2> <small>Neon - Bootstrap 3</small>
-                                            Responsive &amp; Retina
+                                        <h2> <small>Procchain</small>
+                                            Solution
                                         </h2>
-                                        <p>
-                                            Device type is not a problem if you use Neon theme for your application UI.<br />
-                                            It's packed with latest Bootstrap framework and it's compatible for Large Screens, Tablets and Smartphones.
+                                        <p style = 'font-size: 15px;'>
+                                            Web-based Apllication capable of dealing with all<br />
+                                            users involved in the supply chain between GAIL and the Vendor. 
                                         </p>
                                     </div>
-                                    <div class="slide-image"> <a href="#"> <img src="{% static 'assets/frontend/images/slide-img-3.png' %}" class="img-responsive" /> </a> </div>
+                                    <div class="slide-image"> <a href="#"> <img src="{% static 'assets/frontend/images/slide-img-2.png' %}" class="img-responsive" /> </a> </div>
                                 </div>
                                 <div class="slides-nextprev-nav"> <a href="#" class="prev"> <i class="entypo-left-open-mini"></i> </a> <a href="#" class="next"> <i class="entypo-right-open-mini"></i> </a> </div>
                             </div>
@@ -119,15 +115,30 @@
                 </div>
             </section>
             <!-- TS156491672717418: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
-            <section class="features-blocks">
+            
+            <section class = "features-blocks" id = "aboutUs" name = 'about'>
+                <div class = "container">
+                    <h1 style= 'text-align: center'>ABOUT US</h1>
+                    <p style= 'font-size: 20px ; text-align: center ; padding: 10px; margin-left: 10% ; margin-right: 10% '>
+                        ProcChain is an easy-to-use, efficient, blockchain based software to digitise a company's procurement system. 
+                        It uses blockchain and proof of delivery for logistics and supply chain. 
+                        The process of bidding on tenders is also digitised and implemented on blockchain. 
+                        The software provides personalised dashboards according to your requirements making it very user-friendly.
+                    </p>
+                </div>
+            </section>
+            <br /> <br /> <br /> <br /> <br /> <br /> <br />
+            <h1 style = 'text-align: center' >FEATURES</h1>
+            <section class="features-blocks" id='features'>
                 <div class="container">
+                    <h3 style = 'text-align: center;'>GAIL</h3>
                     <div class="row vspace">
                         <div class="col-sm-4">
                             <div class="feature-block">
                                 <h3> <i class="entypo-cog"></i>
                                     Settings
                                 </h3>
-                                <p>
+                                <p style = 'font-size: 15px;'>
                                     Fifteen no inquiry cordial so resolve garrets as. Impression was estimating surrounded solicitude indulgence son shy.
                                 </p>
                             </div>
@@ -137,7 +148,7 @@
                                 <h3> <i class="entypo-gauge"></i>
                                     Dashboard
                                 </h3>
-                                <p>
+                                <p style = 'font-size: 15px;'>
                                     On am we offices expense thought. Its hence ten smile age means. Seven chief sight far point any. Of so high into easy.
                                 </p>
                             </div>
@@ -147,7 +158,7 @@
                                 <h3> <i class="entypo-lifebuoy"></i>
                                     24/7 Support
                                 </h3>
-                                <p>
+                                <p style = 'font-size: 15px;'>
                                     Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.
                                 </p>
                             </div>
@@ -159,9 +170,229 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="container">
+                    <h3 style = 'text-align: center;'>MiddleMan</h3>
+                    <div class="row vspace">
+                        <div class="col-sm-4">
+                            <div class="feature-block">
+                                <h3> <i class="entypo-cog"></i>
+                                    Settings
+                                </h3>
+                                <p style = 'font-size: 15px;'>
+                                    Fifteen no inquiry cordial so resolve garrets as. Impression was estimating surrounded solicitude indulgence son shy.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="feature-block">
+                                <h3> <i class="entypo-gauge"></i>
+                                    Dashboard
+                                </h3>
+                                <p style = 'font-size: 15px;'>
+                                    On am we offices expense thought. Its hence ten smile age means. Seven chief sight far point any. Of so high into easy.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="feature-block">
+                                <h3> <i class="entypo-lifebuoy"></i>
+                                    24/7 Support
+                                </h3>
+                                <p style = 'font-size: 15px;'>
+                                    Extremely eagerness principle estimable own was man. Men received far his dashwood subjects new.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+                    </div>
+                </div>  
             </section>
+
+            <section id="team" class="pb-5">
+                <div class="container">
+                    <h1 style = 'text-align: center' >OUR TEAM </h1>
+                    <br />
+                    <div class="row">
+                        <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card" style = 'border-style: solid ; border-color: rgb(233, 227, 227); '>
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                                                <br />
+                                                <h2 class="card-title">Ayesha Gulrajani</h2>
+                                                <h3 style = 'color:rgb(66, 60, 60)'>Frontend Developer</h3>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Ayesha Gulrajani</h4>
+                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+                        <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card" style = 'border-style: solid ; border-color: rgb(233, 227, 227); '>
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                                                <br />
+                                                <h2 class="card-title">Harshita Singh</h2>
+                                                <h3 style = 'color:rgb(66, 60, 60)'>UI/UX Designer</h3>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Harshita Singh</h4>
+                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+                        <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card" style = 'border-style: solid ; border-color: rgb(233, 227, 227); '>
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                                                <br />
+                                                <h2 class="card-title">Aishwarya Nair</h2>
+                                                <h3 style = 'color:rgb(66, 60, 60)'>Database Admin</h3>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Aishwarya Nair</h4>
+                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+                        <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card" style = 'border-style: solid ; border-color: rgb(233, 227, 227); '>
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                                                <br />
+                                                <h2 class="card-title">Jay Bendre</h2>
+                                                <h3 style = 'color:rgb(66, 60, 60)'>Backend Developer</h3>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Jay Bendre </h4>
+                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+                        <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card" style = 'border-style: solid ; border-color: rgb(233, 227, 227); '>
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                                                <br />
+                                                <h2 class="card-title">Vignesh Pillai</h2>
+                                                <h3 style = 'color:rgb(66, 60, 60)'>Blockchain Developer</h3>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Vignesh Pillai</h4>
+                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+                        <!-- Team member -->
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card" style = 'border-style: solid ; border-color: rgb(233, 227, 227); '>
+                                            <div class="card-body text-center">
+                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+                                                <br />
+                                                <h2 class="card-title">Sumedh Ghavat</h2>
+                                                <h3 style = 'color:rgb(66, 60, 60)'>Blockchain Developer</h3>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Sumedh Ghavat</h4>
+                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./Team member -->
+            
+                    </div>
+                </div>
+            </section>
+            <!-- Team -->
             <!-- TS156491672719158: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
-            <section class="portfolio-widget">
+            <!-- <section class="portfolio-widget">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3">
@@ -193,9 +424,9 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
             <!-- TS156491672712546: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
-            <div class="container">
+            <!-- <div class="container">
                 <div class="row vspace">
                     <div class="col-md-12">
                         <div class="callout-action">
@@ -206,7 +437,7 @@
                 </div>
             </div>
             <!-- TS156491672718195: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
-            <section class="testimonials-container">
+            <!-- <section class="testimonials-container">
                 <div class="container">
                     <div class="col-md-12">
                         <div class="testimonials carousel slide" data-interval="8000">
@@ -245,9 +476,9 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --> 
             <!-- TS156491672719670: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
-            <section class="clients-logos-container">
+            <!-- <section class="clients-logos-container">
                 <div class="container">
                     <div class="row">
                         <div class="client-logos carousel slide" data-ride="carousel" data-interval="5000">
@@ -258,32 +489,29 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
             <!-- TS156491672710581: Xenon - Boostrap Admin Template created by Laborator / Please buy this theme and support the updates --> 
             <section class="footer-widgets">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="#"> <img src="{% static 'assets/frontend/images/logo@2x.png' %}" width="100" /> </a> 
-                            <p>
-                                Vivamus imperdiet felis consectetur onec eget orci adipiscing nunc. <br />
-                                Pellentesque fermentum, ante ac interdum ullamcorper.
+                            <a href="#"> <img src="{% static 'assets/frontend/images/logo.png' %}" width="150" /> </a> 
+                            <p style = 'font-size: 15px;'>
+                                Procurement made easier.
                             </p>
                         </div>
                         <div class="col-sm-3">
                             <h5>Address</h5>
-                            <p>
-                                Loop, Inc. <br />
-                                795 Park Ave, Suite 120 <br />
-                                San Francisco, CA 94107
+                            <p style = 'font-size: 15px;'>
+                                VESIT <br />
+                                Collector's Colony <br />
+                                Chembur, Mumbai 
                             </p>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" id='contact'>
                             <h5>Contact</h5>
-                            <p>
-                                Phone: +1 (52) 2215-251 <br />
-                                Fax: +1 (22) 5138-219 <br />
-                                info@laborator.al
+                            <p style = 'font-size: 15px;'>
+                                2017.jay.bendre@ves.ac.in
                             </p>
                         </div>
                     </div>
@@ -293,20 +521,21 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6">
-                            Copyright &copy; Neon - All Rights Reserved. 
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="social-networks text-right">
-                                <li> <a href="#"> <i class="entypo-instagram"></i> </a> </li>
-                                <li> <a href="#"> <i class="entypo-twitter"></i> </a> </li>
-                                <li> <a href="#"> <i class="entypo-facebook"></i> </a> </li>
-                            </ul>
+                            Copyright &copy; Procchain - All Rights Reserved. 
                         </div>
                     </div>
                 </div>
             </footer>
         </div>
-        <script src="{% static 'assets/frontend/js/gsap/TweenMax.min.js' %}" id="script-resource-1"></script> <script src="{% static 'assets/frontend/js/bootstrap.js' %}" id="script-resource-2"></script> <script src="{% static 'assets/frontend/js/joinable.js' %}" id="script-resource-3"></script> <script src="{% static 'assets/frontend/js/resizeable.js' %}" id="script-resource-4"></script> <script src="{%static/assets/frontend/js/neon-slider.js" id="script-resource-5"></script> <!-- JavaScripts initializations and stuff --> <script src="{%static/assets/frontend/js/neon-custom.js" id="script-resource-6"></script> <script type="text/javascript">
+        <script src="{% static 'assets/frontend/js/gsap/TweenMax.min.js' %}" id="script-resource-1"></script> 
+        <script src="{% static 'assets/frontend/js/bootstrap.js' %}" id="script-resource-2"></script> 
+        <script src="{% static 'assets/frontend/js/joinable.js' %}" id="script-resource-3"></script> 
+        <script src="{% static 'assets/frontend/js/resizeable.js' %}" id="script-resource-4"></script> 
+        <script src="{%static 'assets/frontend/js/neon-slider.js' %}" id="script-resource-5"></script> 
+        <!-- JavaScripts initializations and stuff --> 
+        <script src="{%static 'assets/frontend/js/neon-custom.js' %}" id="script-resource-6"></script> 
+        <script src = "{%static 'assests/frontend/js/navbarscroll.js'%}"></script>
+        <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-28991003-7']);
             _gaq.push(['_setDomainName', 'demo.neontheme.com']);
