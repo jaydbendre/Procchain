@@ -21,7 +21,8 @@ urlpatterns =[
     #GAIL
     path('GailOrg/', views.gailOrg,name = "gailorg"), 
     path("GailOrg/upload-tender/", views.uploadTenderRender, name = "upload-tender"),
-    path("GailOrg/tender/make_bids" , views.make_bids, name = "make_bids"),
+    path("GailOrg/tender/make_bids/" , views.make_bids, name = "make_bids"),
+    path('GailOrg/view-tender/' , views.view_tenders_org , name = "view_tender"),
     
     #MiddleMan
     path("Middleman/", views.middleman, name = "middleman"),
