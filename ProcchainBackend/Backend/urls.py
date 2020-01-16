@@ -22,7 +22,9 @@ urlpatterns =[
     path('GailOrg/', views.gailOrg,name = "gailorg"), 
     path("GailOrg/upload-tender/", views.uploadTenderRender, name = "upload-tender"),
     path("GailOrg/tender/make_bids/" , views.make_bids, name = "make_bids"),
-    path('GailOrg/view-tender/' , views.view_tenders_org , name = "view_tender_org"),
+    path('GailOrg/view-tenders/' , views.view_tenders_org , name = "view_tender_org"),
+    path('GailOrg/view-tender-detail/' , views.view_tender_detail , name = "view_tender_detail"),
+    path('GailOrg/view-bids/', views.view_bids, name = "view_bids"),
     
     #MiddleMan
     path("Middleman/", views.middleman, name = "middleman"),

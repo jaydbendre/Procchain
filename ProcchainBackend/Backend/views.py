@@ -4,9 +4,10 @@ from django.db import connection
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 from django.template.loader import get_template
 from django.contrib.auth import logout
+from django.template import Context
 from jose import jws
 
 from rest_framework import status ,exceptions
@@ -214,14 +215,17 @@ def sendOTP(request):
         #     return JsonResponse({"otp" : otp, "value" : val})
         # else :
         val = str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
-        otp = "Your OTP is : "+val
+        otp = "Your OTP is : " + val
+        t = get_template("mail_otp.html").template
+        c = Context({"otp" : otp}, autoescape = True)
+        # html = render_to_string("mail_otp.html", {'otp': otp}, c).strip()
         send_mail(
             "OTP for user #{}".format(request.session["uid"]),
             otp,
-            "2017.jay.bendre@ves.ac.in",
-            ['2017.harshita.singh@ves.ac.in', '2017.jay.bendre@ves.ac.in', '2017.sumedh.ghavat@ves.ac.in', '2017.vignesh.pillai@ves.ac.in'],
+            "wehire.sight@gmail.com",
+            ['2017.harshita.singh@ves.ac.in', '2017.jay.bendre@gmail.com', '2017.sumedh.ghavat@gmail.com', '2017.vignesh.pillai@gmail.com'],
             fail_silently=False,
-            # html_message=t.render()
+            html_message=t.render( context = c)
         )
         
         return JsonResponse({"otp" :otp})
@@ -234,7 +238,7 @@ def render_file(request) :
     return render(request,"testing/upload.html")
 
 def test(request):
-    return render(request, "Gail/Bids/BidDetails.html")
+    return render(request, "Gail/Bids/BidsList.html")
 
 """
 Vendor
@@ -484,6 +488,19 @@ def tender_file_upload(request) :
             file_hash = str(file_hash)
             cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return HttpResponse(hasher.hexdigest())
+
+def view_tender_detail(request):
+    """ 
+        Views the tender & bid that was selected
+        along with other details
+    """
+    return render(request, 'Gail/Bids/BidDetails.html')
+
+def view_bids(request):
+    """
+        Renders bids made on a particular tender
+    """
+    return render(request, 'Gail/Bids/BidsList.html')
 
 """
 Middleman
