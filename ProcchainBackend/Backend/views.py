@@ -567,6 +567,9 @@ def vendor(request):
 def browse_tenders(request):
     return render(request , 'Vendor/browse_tenders.html')
 
+def view_bids(request):
+    return render(request , 'Vendor/view_bids.html')
+
 def test(request):
     return render(request, "Gail/Bids/BidsList.html")
 
@@ -575,9 +578,6 @@ def authLogin(request):
 
 def gailOrg(request):
     return render(request, 'Gail/index.html')
-
-def vendor(request):
-    return render(request, 'Vendor/index.html')
 
 def middleman(request):
     return render(request, 'Middleman/index.html')
