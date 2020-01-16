@@ -99,7 +99,7 @@ def login(request) :
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
                         return render(request,"Gail/index.html",{"jwt" : jwt , "user_data" : user_data})
-                    
+                        # return redirect('GailOrg/', kwargs={"jwt" : jwt , "user_data" : user_data})
                     elif role[0] in range(100,200):
                         """
                         Vendor
@@ -296,8 +296,9 @@ def make_bids(request,tender_id):
 """
 Gail Org
 """
-def gailOrg(request):
-    return render(request, 'Gail/index.html')
+def gailOrg(request, **kwargs):
+    print(kwargs)
+    return render(request, 'Gail/index.html', kwargs)
 
 def uploadTenderRender(request):
     """ Renders Tender Form """
@@ -400,6 +401,10 @@ def organisation_create(request):
 
             cursor.execute('INSERT into organisation(head,org_details, zone_id, sub_zone_id, location_id, eth_address) values({},{},{},{},{},{})'.format(head,org_details,zone_id, sub_zone_id, location_id, org_eth))
             return Response({'Success':'Organisation added successfully'})
+
+def view_tenders_org(request) :
+    """ Tender List is seen """
+    return render(request, "Gail/Tender/TenderList.html")
 
 def organisation_update(request, org_id):
     """
