@@ -191,34 +191,36 @@ def logout(request):
 def sendOTP(request):
     with connection.cursor() as cursor :
         
-        cursor.execute("SELECT auth_type from middleman where middle_id = any( SELECT middle_id from user_middle_map where uid = {})".format(request.session["uid"]))
+        # cursor.execute("SELECT auth_type from middleman where middle_id = any( SELECT middle_id from user_middle_map where uid = {})".format(request.session["uid"]))
         
-        auth_type = cursor.fetchall()[0][0]
+        # auth_type = cursor.fetchall()[0][0]
         
-        if auth_type == 0 :
-            otp = "Your OTP is : "+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
-            print(otp)
-            data =  urllib.parse.urlencode({'apikey': "mJ1D4ri2AdQ-YOzrxeeKzfJGk3nXcMIYVEFzSYQXB1", 'numbers': "9082467851",
-                'message' : otp})
-            request.session["otp"] = otp
-            data = data.encode('utf-8')
-            request = urllib.request.Request("https://api.textlocal.in/send/?")
-            f = urllib.request.urlopen(request, data)
-            fr = f.read()
-            print(fr)
-            return JsonResponse({"otp" : otp})
-        else :
-            # otp = "Your OTP is : "+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
-            # send_mail(
-            #     "OTP for user #{}".format(request.session["uid"]),
-            #     otp,
-            #     "2017.jay.bendre@ves.ac.in",
-            #     ['2017.harshita.singh@ves.ac.in'],
-            #     fail_silently=False,
-            #     # html_message=t.render()
-            # )
-            
-            return JsonResponse({"otp" : 1234})
+        # if auth_type == 0 :
+        #     val = str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
+        #     otp = "Your OTP is : "+ val
+        #     print(otp)
+        #     data =  urllib.parse.urlencode({'apikey': "mJ1D4ri2AdQ-YOzrxeeKzfJGk3nXcMIYVEFzSYQXB1", 'numbers': "9082467851",
+        #         'message' : otp})
+        #     request.session["otp"] = otp
+        #     data = data.encode('utf-8')
+        #     request = urllib.request.Request("https://api.textlocal.in/send/?")
+        #     f = urllib.request.urlopen(request, data)
+        #     fr = f.read()
+        #     print(fr)
+        #     return JsonResponse({"otp" : otp, "value" : val})
+        # else :
+        val = str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
+        otp = "Your OTP is : "+val
+        send_mail(
+            "OTP for user #{}".format(request.session["uid"]),
+            otp,
+            "2017.jay.bendre@ves.ac.in",
+            ['2017.harshita.singh@ves.ac.in'],
+            fail_silently=False,
+            # html_message=t.render()
+        )
+        
+        return JsonResponse({"otp" :otp})
 
 """
 Testing
