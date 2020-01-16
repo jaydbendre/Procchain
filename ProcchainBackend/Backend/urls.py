@@ -6,7 +6,7 @@ urlpatterns =[
     path('',views.index,name = "index"),#Landing Page
     path('auth-login/', views.authLogin, name = "authLogin"),#Render login
     path('login/', views.login ,name = "login"),#Login Functionality
-    path("logout/", views.logout, name = "logout"),
+    path("logout/", views.log_out, name = "logout"),
     path("sendOTP/",views.sendOTP,name = "sendOTP"),
     
     # Dont know what this is tbh 
