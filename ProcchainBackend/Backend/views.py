@@ -30,12 +30,15 @@ import pyotp
 Utility
 """
 def index(request) : 
+    """ Renders Landing page """
     return render(request,"LandingPage/index.html")
 
 def authLogin(request):
+    """ Renders Login Page """
     return render(request, 'Login/login.html')
 
 def login(request) : 
+    """ Function to log in the user """
     with connection.cursor() as cursor :
         email = request.POST["email"]
         password = request.POST["password"]
@@ -205,6 +208,7 @@ def log_out(request):
 
 @csrf_protect
 def sendOTP(request):
+    """ Sends OTP to the middleman """
     with connection.cursor() as cursor :
         
         # cursor.execute("SELECT auth_type from middleman where middle_id = any( SELECT middle_id from user_middle_map where uid = {})".format(request.session["uid"]))
@@ -241,6 +245,10 @@ def sendOTP(request):
         
         return JsonResponse({"otp" :otp})
 
+def authRegister(request):
+    """ Renders the registeration page """
+    return render(request, "Login/registeration.html")
+
 """
 Testing
 """
@@ -249,7 +257,7 @@ def render_file(request) :
     return render(request,"testing/upload.html")
 
 def test(request):
-    return render(request, "Gail/Bids/BidsList.html")
+    return render(request, "Error/error.html", context = {"error" : { "heading" : "Oops!", "message" : "Some Error has occured." }})
 
 """
 Vendor
@@ -544,8 +552,8 @@ def browse_tenders(request):
 def view_bids(request):
     return render(request , 'Vendor/view_bids.html')
 
-def test(request):
-    return render(request, "Gail/Bids/BidsList.html")
+# def test(request):
+#     return render(request, "Gail/Bids/BidsList.html")
 
 def authLogin(request):
     return render(request, 'Login/login.html')
