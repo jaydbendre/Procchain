@@ -215,7 +215,7 @@ def sendOTP(request):
             "OTP for user #{}".format(request.session["uid"]),
             otp,
             "2017.jay.bendre@ves.ac.in",
-            ['2017.harshita.singh@ves.ac.in'],
+            ['2017.harshita.singh@ves.ac.in', '2017.jay.bendre@ves.ac.in', '2017.sumedh.ghavat@ves.ac.in', '2017.vignesh.pillai@ves.ac.in'],
             fail_silently=False,
             # html_message=t.render()
         )
