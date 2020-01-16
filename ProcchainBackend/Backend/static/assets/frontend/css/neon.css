@@ -149,7 +149,7 @@ body .carousel-inner > .active {
 .site-header .site-nav,
 .site-header .site-logo {
   display: table-cell;
-  position: fixed;
+  position: relative;
   vertical-align: middle;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -172,7 +172,7 @@ body .carousel-inner > .active {
   line-height: 1;
 }
 .site-header .site-nav .main-menu li a {
-  position: fixed;
+  position: relative;
   display: inline-block;
   outline: 0;
   font-family: inherit;
@@ -218,7 +218,7 @@ body .carousel-inner > .active {
   transition: all 350ms;
 }
 .site-header .site-nav .main-menu > li > a {
-  position: fixed;
+  position: relative;
   display: inline-block;
   z-index: 2;
   border: 1px solid transparent;
