@@ -453,41 +453,51 @@ def organisation_update(request, org_id):
                 return Response({'Success': 'Updated successfully'})
 
 def tender_file_upload(request) : 
-    with connection.cursor() as cursor : 
+    with connection.cursor() as cursor :
         cursor.execute("SELECT max(tender_id) from tender")
-        tender_id = cursor.fetchall()[0][0]
-        uid = 1 
-        file_path = 'documents\\tenders\\{}\\'.format(tender_id+1)
-        folder=os.path.join(settings.BASE_DIR,'documents\\tenders\\{}\\'.format(tender_id+1)) 
+        tender_id = cursor.fetchall()[0][0] + 1
+        uid = request.session["uid"]
         
-        if request.method == 'POST' and request.FILES['myfile']:
-            myfile = request.FILES['myfile']
-            fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
-            filename = fs.save(myfile.name, myfile)
-            file_url = fs.url(filename)
+        file_path = "documents\\tenders\\{}".format(tender_id)
+        folder = os.path.join(settings.BASE_DIR , file_path)
+        
+        if request.method == "POST" and request.FILES["file"] :
+            pass
+    # with connection.cursor() as cursor : 
+    #     cursor.execute("SELECT max(tender_id) from tender")
+    #     tender_id = cursor.fetchall()[0][0]
+    #     uid = 1 
+    #     file_path = 'documents\\tenders\\{}\\'.format(tender_id+1)
+    #     folder=os.path.join(settings.BASE_DIR,'documents\\tenders\\{}\\'.format(tender_id+1)) 
+        
+    #     if request.method == 'POST' and request.FILES['myfile']:
+    #         myfile = request.FILES['myfile']
+    #         fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
+    #         filename = fs.save(myfile.name, myfile)
+    #         file_url = fs.url(filename)
             
-            hasher = hashlib.md5()
-            block_size=65536
-            for buf in iter(partial(myfile.read, block_size), b''):
-                hasher.update(buf)
+    #         hasher = hashlib.md5()
+    #         block_size=65536
+    #         for buf in iter(partial(myfile.read, block_size), b''):
+    #             hasher.update(buf)
 
-            tender_hash = hasher.hexdigest()
+    #         tender_hash = hasher.hexdigest()
 
-            file_path = {
-                "bids" : [],
-                "tender" : 'documents\\\\tenders\\\\{}'.format(tender_id+1),
-                "tender_file_name" : file_url,
-                "uploaded_at" : []
-            }
+    #         file_path = {
+    #             "bids" : [],
+    #             "tender" : 'documents\\\\tenders\\\\{}'.format(tender_id+1),
+    #             "tender_file_name" : file_url,
+    #             "uploaded_at" : []
+    #         }
             
-            file_path = str(file_path)
-            file_hash = {
-                "bids" : [],
-                "tender" : hasher.hexdigest()
-            }
-            file_hash = str(file_hash)
-            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
-        return HttpResponse(hasher.hexdigest())
+    #         file_path = str(file_path)
+    #         file_hash = {
+    #             "bids" : [],
+    #             "tender" : hasher.hexdigest()
+    #         }
+    #         file_hash = str(file_hash)
+    #         cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
+    #     return HttpResponse(hasher.hexdigest())
 
 def view_tender_detail(request):
     """ 
