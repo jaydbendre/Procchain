@@ -1,7 +1,39 @@
 {% extends 'Gail/layout/header.html' %}
 {% load static %}
-
+{{user_data}}
 {% block Gail %}
-    Hello, Gail
+    
+    <div class="row">
+        <div class="col-lg-5 col-md-4 col-sm-3">
+            Bids Selected : 
+        </div>
+    </div>
+
+    <hr />
+    
+    <table class="table table-bordered table-responsive table-hover table-primary text-center">
+        <thead>
+            <tr>
+                <td>Tender Name</td>
+                <td>Vendor Name</td>
+                <td>Selected By</td>
+                <!-- <td></td>
+                <td>Total Rank</td> -->
+                <td>&nbsp;</td>
+                <!-- <td>&nbsp;</td> -->
+                <!-- <td>&nbsp;</td> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Steel Pipes</td>
+                <td>Tata Steel Ltd.</td>
+                <td>Code Sparks</td>
+                <td><a class="btn btn-primary" href="{% url 'view_tender_detail' %}"><i class="entypo-info-circled"></i></a></td>
+                <!-- <td><button class="btn btn-danger" onclick="reject({{value.u_id}})">Reject</button></td> -->
+            </tr>
+        </tbody>
+    </table>
+    
 {% endblock %}
 
