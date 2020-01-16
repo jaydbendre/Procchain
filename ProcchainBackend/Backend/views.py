@@ -6,6 +6,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 from django.core.mail import send_mail, send_mass_mail
 from django.template.loader import get_template
+from django.contrib.auth import logout
 from django.template import Context
 from jose import jws
 
@@ -99,7 +100,8 @@ def login(request) :
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return render(request,"Gail/index.html",{"jwt" : jwt , "user_data" : user_data})
+                        request.session["user_data"] = user_data
+                        return redirect("/GailOrg/")
                         # return redirect('GailOrg/', kwargs={"jwt" : jwt , "user_data" : user_data})
                     elif role[0] in range(100,200):
                         """
@@ -136,7 +138,8 @@ def login(request) :
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return render(request, "Vendor/index.html",{"jwt" : jwt , "user_data" : user_data })
+                        request.session["user_data"] = user_data
+                        return redirect("/Vendor/")
                     elif role[0] in range(200,300):
                         """
                         Middle Man
@@ -171,7 +174,8 @@ def login(request) :
                         
                         jwt = jws.sign(user_data, 'seKre8',  algorithm='HS256')
                         
-                        return render(request, "Middleman/index.html",{"jwt" : jwt , "user_data" : user_data })
+                        request.session["user_data"] = user_data
+                        return redirect("/Middleman/")
                     else:
                         """
                         Admin
@@ -182,9 +186,9 @@ def login(request) :
         else:
             return HttpResponse("Error : Email or password cannot be null")
 
-def logout(request):
+def log_out(request):
     """ Logs out the user """
-    del request.session
+    logout(request)
     return redirect('/')
 
 
