@@ -4,6 +4,8 @@ from django.db import connection
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
+from django.core.mail import send_mail
+from django.template.loader import get_template
 from jose import jws
 
 from rest_framework import status ,exceptions
@@ -187,17 +189,36 @@ def logout(request):
 
 @csrf_protect
 def sendOTP(request):
-    otp = "Your OTP is : "+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
-    print(otp)
-    data =  urllib.parse.urlencode({'apikey': "mJ1D4ri2AdQ-YOzrxeeKzfJGk3nXcMIYVEFzSYQXB1", 'numbers': "9082467851",
-        'message' : otp})
-    request.session["otp"] = otp
-    data = data.encode('utf-8')
-    request = urllib.request.Request("https://api.textlocal.in/send/?")
-    f = urllib.request.urlopen(request, data)
-    fr = f.read()
-    print(fr)
-    return JsonResponse({"otp" : otp})
+    with connection.cursor() as cursor :
+        
+        cursor.execute("SELECT auth_type from middleman where middle_id = any( SELECT middle_id from user_middle_map where uid = {})".format(request.session["uid"]))
+        
+        auth_type = cursor.fetchall()[0][0]
+        
+        if auth_type == 0 :
+            otp = "Your OTP is : "+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
+            print(otp)
+            data =  urllib.parse.urlencode({'apikey': "mJ1D4ri2AdQ-YOzrxeeKzfJGk3nXcMIYVEFzSYQXB1", 'numbers': "9082467851",
+                'message' : otp})
+            request.session["otp"] = otp
+            data = data.encode('utf-8')
+            request = urllib.request.Request("https://api.textlocal.in/send/?")
+            f = urllib.request.urlopen(request, data)
+            fr = f.read()
+            print(fr)
+            return JsonResponse({"otp" : otp})
+        else :
+            # otp = "Your OTP is : "+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))+str(random.randint(1,9))
+            # send_mail(
+            #     "OTP for user #{}".format(request.session["uid"]),
+            #     otp,
+            #     "2017.jay.bendre@ves.ac.in",
+            #     ['2017.harshita.singh@ves.ac.in'],
+            #     fail_silently=False,
+            #     # html_message=t.render()
+            # )
+            
+            return JsonResponse({"otp" : 1234})
 
 """
 Testing
