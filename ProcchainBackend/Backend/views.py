@@ -272,7 +272,7 @@ def tender(request,tender_id) :
         
         return render(request , "Vendor/tender.html" , {"tender" : tender})
 def view_tenders(request):
-    return render(request,"Vendor/view_tenders.html")
+    return render(request,"Vendor/browse_tenders.html")
 
 def make_bids(request,tender_id): 
     with connection.cursor() as cursor : 
@@ -500,7 +500,6 @@ def tender_file_upload(request) :
             cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return HttpResponse(hasher.hexdigest())
 
-<<<<<<< HEAD
 def make_bids(request , tender_id): 
     with connection.cursor() as cursor : 
         if request.method == "POST" and request.FILES.getlist('bids') : 
@@ -537,7 +536,7 @@ def make_bids(request , tender_id):
 
 
 def vendor(request):
-    return render(request , 'Vendor/index.html')
+    return render(request , 'Vendor/view_bids.html')
 
 def browse_tenders(request):
     return render(request , 'Vendor/browse_tenders.html')
@@ -550,14 +549,12 @@ def test(request):
 
 def authLogin(request):
     return render(request, 'Login/login.html')
-=======
 def view_tender_detail(request):
     """ 
         Views the tender & bid that was selected
         along with other details
     """
     return render(request, 'Gail/Bids/BidDetails.html')
->>>>>>> 443ce96207edd3d09524f4f015d0d801bf70450d
 
 def view_bids(request):
     """
@@ -565,12 +562,9 @@ def view_bids(request):
     """
     return render(request, 'Gail/Bids/BidsList.html')
 
-<<<<<<< HEAD
-=======
 """
 Middleman
 """
 
->>>>>>> 443ce96207edd3d09524f4f015d0d801bf70450d
 def middleman(request):
     return render(request, 'Middleman/index.html')
