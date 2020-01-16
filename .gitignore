@@ -245,5 +245,6 @@ node_modules
 psd
 thumb
 sketch
-
+.vscode
+Pipfile.lock
 # End of https://www.gitignore.io/api/node,geth,react,django

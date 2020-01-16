@@ -25,7 +25,7 @@ SECRET_KEY = 'f9z%3@to*@w*(*ihb=!k*o&ud=e*3$52*ntd7vb-5m0@(m8ny3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,9 +40,14 @@ INSTALLED_APPS = [
     'Backend',
     'rest_framework',
     'social_django',
+    'smsish'
     # 'corsheaders'
 ]
 
+SMS_BACKEND_CONSOLE = 'smsish.sms.backends.console.SMSBackend'
+SMS_BACKEND_DUMMY = 'smsish.sms.backends.dummy.SMSBackend'
+SMS_BACKEND_TWILIO = 'smsish.sms.backends.twilio.SMSBackend'
+SMS_BACKEND = SMS_BACKEND_DUMMY
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -143,3 +148,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+EMAIL_HOST_USER = 'wehire.sight@gmail.com'
+EMAIL_HOST_PASSWORD = 'CodeSparks#2019'

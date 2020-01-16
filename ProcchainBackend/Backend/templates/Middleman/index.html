@@ -1,5 +1,80 @@
 {% extends 'Middleman/layout/header.html' %}
 {% load static %}
 {% block middleman %}
-    Hello, middleman
+    <h2>
+        Current Orders
+    </h2>
+
+    <table class="table table-bordered table-responsive table-hover table-primary text-center">
+        <thead>
+            <tr>
+                <td>Tender Name</td>
+                <td>Vendor Name</td>
+                <td>Arrival</td>
+                <td>Dispatch</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Steel Pipes</td>
+                <td>Tata Steel Ltd.</td>
+                <td>12th Feb</td>
+                <td>14th Feb</td>
+                <td><a class="btn btn-primary" href="#enter_otp" onclick="sendOTP()" data-toggle = "modal" data-target="#enter_otp">Arrived</a></td>
+                <td><a class="btn btn-info" href="{% url 'testing' %}" onclick="getState(1)" data-toggle = "modal" data-target="#enter_otp">Dispatched</a></td>
+            </tr>
+        </tbody>
+    </table>
+    {% include 'Middleman/OTP.html' %}
+{% endblock %}
+
+{% block middleman_footer %}
+
+<script>
+    function getState(state){
+        sendOTP()
+        $("#enter_otp_body_div").empty();
+        if (state == 0) {
+            $("#enter_otp_body_div").append("Arrived!");
+        } else {
+            $("#enter_otp_body_div").append("Dispatched!");
+        }
+        
+    };
+    function sendOTP() {
+        $(".error").html("").hide();
+        var number = $("#phone_number").val();
+        console.log(number)
+        if (number.length == 10 && number != null) {
+            var input = {
+                "mobile_number" : number,
+                "action" : "send_otp",
+                "formData" : JSON.stringify($("#form1").serializeArray()),
+                "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+            };
+            $.ajax({
+                url : "{% url 'sendOTP' %}",
+                type : 'POST',
+                data : input,
+                success : function(response) {
+                    $("#success").html("<div class='alert alert-success' id = 'success'>OTP sent successfully</div>")
+                }
+            });
+            
+        } else {
+            $(".error").html('Please enter a valid number!')
+            $(".error").show();
+        }
+    }
+    $("#otp").change( function(){
+        console.log($("#otp").val())
+        if ( $("#otp").val() == response["val"])
+        {
+            $("#submit").prop("disabled",false);
+        }
+    })
+</script>
+
 {% endblock %}

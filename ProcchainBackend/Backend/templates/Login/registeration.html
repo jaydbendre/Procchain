@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+{% load static %}
 <!DOCTYPE html> 
 <html lang="en">
     <head>
@@ -11,7 +11,7 @@
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141030632-1"></script> <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
             gtag('config', 'UA-141030632-1', {"groups":"laborator_analytics","link_attribution":true,"linker":{"accept_incoming":true,"domains":["laborator.co","kaliumtheme.com","oxygentheme.com","neontheme.com","themeforest.net","laborator.ticksy.com"]}});
         </script> 
-        <title>Neon | Register</title>
+        <title>ProcChain : Vendor Registration</title>
         <link rel="stylesheet" href="{% static 'assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css" id="style-resource-1">
         <link rel="stylesheet" href="{% static 'assets/css/font-icons/entypo/css/entypo.css" id="style-resource-2">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic" id="style-resource-3">
@@ -88,7 +88,7 @@
                                     </div> -->
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Upload File</label> 
-                                        <div class="col-sm-5"> <input type="file" class="form-control" /> </div>
+                                        <div class="col-sm-5"> <input type="file" required="yes" class="form-control" /> </div>
                                     </div>
                                     <br />
                                 </div>
