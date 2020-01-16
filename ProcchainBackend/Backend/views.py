@@ -234,7 +234,7 @@ def render_file(request) :
     return render(request,"testing/upload.html")
 
 def test(request):
-    return render(request, "Gail/Bids/BidDetails.html")
+    return render(request, "Gail/Bids/BidsList.html")
 
 """
 Vendor
@@ -484,6 +484,19 @@ def tender_file_upload(request) :
             file_hash = str(file_hash)
             cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return HttpResponse(hasher.hexdigest())
+
+def view_tender_detail(request):
+    """ 
+        Views the tender & bid that was selected
+        along with other details
+    """
+    return render(request, 'Gail/Bids/BidDetails.html')
+
+def view_bids(request):
+    """
+        Renders bids made on a particular tender
+    """
+    return render(request, 'Gail/Bids/BidsList.html')
 
 """
 Middleman
