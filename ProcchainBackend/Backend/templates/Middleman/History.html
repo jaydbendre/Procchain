@@ -1,5 +1,32 @@
 {% extends 'Middleman/layout/header.html' %}
 {% load static %}
 {% block middleman %}
-    History
+    <h2>
+        History
+    </h2>
+
+    <table class="table table-bordered responsive table-hover table-primary text-center">
+        <thead>
+            <tr>
+                <td>Serial Number</td>
+                <td>Package Description</td>
+                <td>Arrival Date</td>
+                <td>Received By</td>
+                <td>Dispatch Date</td>
+                <td>Dispatched By</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>TCS Limited</td>
+                <td>Wednesday,15th January 2020 22:07:04</td>
+                <td>Ariel Castillo</td>
+                <td>Friday,17th January 2020 17:03:04</td>
+                <td>Patrick Wells</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+{% block middleman_footer %}
 {% endblock %}

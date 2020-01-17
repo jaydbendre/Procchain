@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form role="form" id = "form" class="form-horizontal">
+                <form role="form" method = "POST" class="form-horizontal" action="{% url 'tender-file-upload' %}" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     <div class="form-group"> 
@@ -65,7 +65,7 @@
             e.preventDefault();
             var formData = new FormData(this);
             $.ajaxSetup({
-            headers: { "X-CSRFToken": '{{csrf_token}}' }
+                headers: { "X-CSRFToken": '{{csrf_token}}' }
             });
             $.ajax({
                 url: "{% url 'file_upload' %}",
@@ -73,11 +73,19 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 data: formData,
                 success: function (response) {
-                    console.log(response)
-                    hashValue = response;
+                    console.log(response);
+                    
                     $("#success-alert").show();
                     document.getElementById("form").reset();
                     setTimeout(function() { $("#success-alert").hide(); }, 5000);
+                    var date =  new Date();
+                    var datastr = json({
+                        address: '',
+                        tender_title: $("#title").val(),
+                        location: '',
+                        upload_date: toString(date),
+
+                    });
                     if(response.error){
                         $.each(response.errors, function(name, error){
                             $("#error-alert").val("<small class='text-muted error'>' + error + '</small>")
