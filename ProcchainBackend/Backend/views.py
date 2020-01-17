@@ -615,40 +615,44 @@ def get_locations(request):
 """
 def make_bids(request , tender_id): 
     with connection.cursor() as cursor : 
-        if request.method == "POST" and request.FILES.getlist('bids') : 
+        if request.method == "POST" and request.FILES.getlist('bids') :
+            file_path = "documents//tender//{}//bids//"
+            bids_path = []
+            bids_hash = []
+            path_data = dict()
+            path_hash = dict() 
             folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format(tender_id))
             for f in request.FILES.getlist('bids'):
-                pass
+                if (f.name).endswith(".pdf") :
+                    fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
+                    filename = fs.save(f.name, f)
+                    file_url = fs.url(filename)
+                    hasher = hashlib.md5()
+                    for buf in iter(partial(f.read,65536),b''):
+                        hasher.update(buf)
+                    
+                    file_path= file_path + f.name
+                    file_hash = hasher.hexdigest()
+                    bids_path.append(file_path)
+                    bids_hash.append(file_hash)
+            
+            cursor.execute("SELECT bid_path from tender where tender_id = {} ".format(tender_id))
+            bid_path = cursor.fetchall()[0]
+            
+            if bid_path == None : 
+                path_data["1"] = bids_path
                 
-            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[3]))
-            uploader = cursor.fetchall()[0]
+                path_hash["1"] = bids_hash
+            else:
+                bid_path = eval(bid_path)
+                id = max(bid_path.keys())
+                path_data[str(id+1)] = bids_path
+                path_hash[str(id+1)] = path_hash
             
-            file_data["uploaded_by"] = uploader[0] + ' ' + uploader[1]
-            
-            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[5]))
-            approver = cursor.fetchall()[0]
-            
-            file_data["approved_by"] = approver[0] + ' ' + approver[1]
-            
-            return JsonResponse(file_data)
-        
-    def post( self, request, tender_id ,format = None):
-        with connection.cursor() as cursor : 
-            data = dict(request.data)
-            
-            jwt = data["jwt"]
-            jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
-            return Response(jwt)
-            
+            cursor.execute("UPDATE tender set bid_path='{}' , bid_hash='{}'  where tender_id = {} ".format(str(path_data),str(path_hash),tender_id))
+            return redirect("/Vendor")
 
-
-
-
-
-
-
-
-
+   
 def vendor(request):
     return render(request , 'Vendor/view_bids.html')
 
