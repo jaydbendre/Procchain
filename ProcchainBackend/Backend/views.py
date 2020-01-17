@@ -494,18 +494,24 @@ def tender_file_upload(request) :
 
             file_path = {
                 "bids" : [],
-                "tender" : 'documents\\\\tenders\\\\{}'.format(tender_id+1),
+                "tender" : "documents\\\\tenders\\\\{}".format(tender_id+1),
                 "tender_file_name" : file_url,
                 "uploaded_at" : []
             }
-            
+            '''
+            file_path_bids = str(file_path["bids"])
+            file_path_tender = str(file_path["tender"])
+            file_path_tenderName = str(file_path[ "tender_file_name"])
+            file_path_uploaded = str(file_path["uploaded_at"])
+            file_path_str = str("bids:"+file_path_bids+"tender:"+file_path_tender+ "tender_file_name"+file_path_tenderName+ "uploaded_at"+file_path_uploaded)
+            '''
             file_path = str(file_path)
             file_hash = {
                 "bids" : [],
                 "tender" : hasher.hexdigest()
             }
             file_hash = str(file_hash)
-            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
+            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},{},{},'{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return HttpResponse(hasher.hexdigest())
 
 def make_bids(request , tender_id): 

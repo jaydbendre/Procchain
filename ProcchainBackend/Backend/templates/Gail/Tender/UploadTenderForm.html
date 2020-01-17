@@ -1,5 +1,6 @@
 {% extends 'Gail/layout/header.html' %}
 {% block Gail %}
+
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-primary">
@@ -9,7 +10,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form role="form" class="form-horizontal">
+                <form role="form" id = "form" class="form-horizontal">
                     {% csrf_token %}
 
                     <div class="form-group"> 
@@ -32,14 +33,14 @@
                             <a class="file-input-wrapper btn form-control file2 inline btn btn-primary">
                                 <i class="glyphicon glyphicon-file"></i> 
                                 Browse
-                                <input type="file" />
+                                <input type="file" id = "myfile" name = "myfile"/>
                             </a>
                         </div> 
                     </div>
                     <div class="form-group">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary">Upload Tender</button>
+                            <button type="submit" onclick="uploadTenders()" class="btn btn-primary">Upload Tender</button>
                         </div>
                     </div>
                 </form>
@@ -47,5 +48,52 @@
         </div>
     </div>
 </div>
+<div class="modal"><!-- Place at bottom of page --></div>
+<script type="text/javascript">
+    // form upload
+    function uploadTenders(){
+        console.log('ajax call');
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function() { $body.addClass("loading");    },
+            ajaxStop: function() { $body.removeClass("loading"); }    
+        });
+
+        $('#form').submit(function(e){
+            e.preventDefault();
+            var formData = new FormData(this);
+            console.log('ajax');
+            $.ajaxSetup({
+            headers: { "X-CSRFToken": '{{csrf_token}}' }
+            });
+            $.ajax({
+                url: "{% url 'file_upload' %}",
+                type: 'POST',
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                data: formData,
+                success: function (response) {
+                    console.log(response)
+                    if(response.error){
+                        $.each(response.errors, function(name, error){
+                            error = '<small class="text-muted error">' + error + '</small>'
+                        })
+                    }
+                    else{
+                        document.write('<p>tender added successfully</p>')
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data'
+            });
+            return false
+        // end
+        });
+    }
+
+   </script>
 
 {% endblock %}
+
