@@ -555,8 +555,8 @@ def vendor(request):
 def browse_tenders(request):
     return render(request , 'Vendor/browse_tenders.html')
 
-def view_bids(request):
-    return render(request , 'Vendor/view_bids.html')
+# def view_bids(request):
+#     return render(request , 'Vendor/view_bids.html')
 
 # def test(request):
 #     return render(request, "Gail/Bids/BidsList.html")
@@ -570,7 +570,7 @@ def view_tender_detail(request):
     """
     return render(request, 'Gail/Bids/BidDetails.html')
 
-def view_bids(request):
+def view_bids(request, addr):
     """
         Renders bids made on a particular tender
     """
