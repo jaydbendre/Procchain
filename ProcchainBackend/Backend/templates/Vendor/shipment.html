@@ -1,0 +1,75 @@
+{% extends "Vendor/layout/header.html" %}
+{% load static %}
+{% block vendor %}
+
+<h2>Shipment Details</h1>
+
+<div class="panel-body">
+	<form role="form" class="form-horizontal form-groups-bordered">
+		<div class="form-group">
+			<label for="field-1" class="col-sm-3 control-label">Source</label>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" id="field-1" placeholder="Mumbai">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="field-2" class="col-sm-3 control-label">Destination</label>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" id="field-2" placeholder="Delhi">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="field-3" class="col-sm-3 control-label">Estimated Days</label>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" name="number" id="field-3" data-validate="number" placeholder="No of Days"/> 
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="field-4" class="col-sm-3 control-label">Middleman</label>
+			<div class="col-sm-5">
+				<div class="col-sm-offset-3 col-sm-5"> <button class="btn btn-info add_field_button">Add</button> </div>  
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="input_fields_wrap ">
+				<div><!-- <input type="text" name="mytext[]"> --></div>
+			</div>
+		</div>
+
+	</form>
+</div>
+{% endblock %}
+
+{% block vendor_footer %}
+
+
+<!-- <link rel="stylesheet" href="{% static 'assets/js/daterangepicker/daterangepicker-bs3.css' %}" id="style-resource-4">
+<script src="{% static 'assets/js/daterangepicker/daterangepicker.js' %}" id="script-resource-16"></script> 
+ -->
+<script type="text/javascript">
+	$(document).ready(function() {
+	var max_fields      = 10; //maximum input boxes allowed
+	var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+	var add_button      = $(".add_field_button"); //Add button ID
+	
+	var x = 1; //initlal text box count
+	$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < max_fields){ //max input box allowed
+			x++; //text box increment
+			// $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field"> x</a></div>'); //add input box
+			$(wrapper).append('<div class="form-group"><label for="field-1" class="col-sm-3 control-label">Name</label><div class="col-sm-5"><input type="text" class="form-control" id="field-1" placeholder="Name of Middleman"></div></div><div class="form-group"><label for="field-5" class="control-label col-sm-3">Email Address</label><div class="col-sm-5"><input type="text" class="form-control" name="email"  id="field-5" data-validate="email" placeholder="Email Field" /></div></div><div class="form-group"><label for="field-ta" class="col-sm-3 control-label">Address</label><div class="col-sm-5"> <textarea class="form-control" id="field-ta" placeholder="Enter Full Address"></textarea></div></div><div class="form-group"><label class="col-sm-3 control-label">Estimated Dispatch and Recieve Dates</label><div class="col-sm-5"><input type="text" class="form-control daterange" /></div></div> <a href="{% url 'shipment_details' %}" class="remove_field"> REMOVE </a></div>'); //add input box
+
+		}
+	});
+	
+	$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('div').remove(); x--;
+	})
+});
+</script>
+{% endblock %}

@@ -15,7 +15,8 @@
                     <h4>
                         <a href="#payment_details" data-toggle="modal" data-target="#payment_details">Tender: </a> 
                         <a href="'+url+'" class="btn btn-primary pull-right" style="margin-right: 20px">Download Tender</a>
-                        <a href="'+url+'" class="btn btn-primary pull-right" style="margin-right: 20px">Bid</a>
+                        <a href="#make_bids"  data-toggle="modal" data-target="#make_bids" class="btn btn-primary pull-right" style="margin-right: 20px">Bid</a>
+                        <!-- <button class="btn btn-black" style="margin-right: 20px"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button> -->
                     </h4>
                     <div class="row info-list">
                         <div class="col-sm-4">
@@ -47,6 +48,8 @@
   {% include 'Vendor/browse_tenders_filters.html' %}
 </div>
 {% include 'Vendor/payment_details_modal.html' %}
+
+{% include 'Vendor/make_bid_modal.html' %}
 
 {% endblock %}
 
