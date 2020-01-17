@@ -33,4 +33,80 @@
             });
         })
     </script>
+    
+<script>
+    $(document).ready(function() {
+        // console.log("hello")
+        $.getJSON("{% static 'assets/blockchainTesting/shipmentDetails.json' %}", function(data){
+            console.log(data)
+            var locations = Array()
+            locations.push(data.source)
+            locations.push(data.destination)
+
+            $.each(data.shipment_details, function(key, val) {
+                locations.push(val.source)
+                locations.push(val.destination)
+            });
+            var test = locations.toString();
+            $.ajax({
+                url : "{% url 'get_locations' %}",
+                method : "GET",
+                data : {"locations" : test},
+                success : function(response){
+                    // console.log(response)
+                    var timeline_time;
+                    var para = "";
+                    var append = "";
+                    var classname = "";
+                    var i = 0;
+                    $.each(data.shipment_details, function(key, val){
+                        
+                        console.log(val)
+                        timeline_time = "";
+                        if (val.actual_receiving_date == "" && val.expected_receiving_date == ""){
+                            var date = new Date(val.actual_delivery_date)
+                            timeline_time = '<time class="timeline-time" datetime="2019-08-04T03:45"><span>'+ String(date) +'</span><br/> <span>Dispatched</span></time> '
+                        }
+                        else if (val.actual_delivery_date == "" && val.expected_delivery_date == ""){
+                            var date = new Date(val.actual_receiving_date)
+                            timeline_time = '<time class="timeline-time" datetime="2019-08-04T03:45"><span>'+ String(date) +'</span><br/> <span>Received with a delay of 1 day</span></time> '
+                        }
+                        else {
+                            var date = new Date(val.actual_delivery_date)
+                            timeline_time = '<time class="timeline-time" datetime=""><span>'+ String(date) +'</span><br/> <span>Dispatched</span></time> '
+                            // timeline_time = '<time class="timeline-time" datetime="2019-08-04T03:45"><span>Good Time</span><br/> <span>Received</span></time> '
+                            para = "<p>Expected Dispatch : " + String(new Date(val.expected_delivery_date)) 
+                            + "<br />"
+                            + "Received At : " + String(new Date(val.actual_receiving_date))
+                            + "<br />"
+                            + "Receiving was expected at : " + String(new Date(val.expected_receiving_date))
+                            + "</p>"
+                        }
+
+                        if (i%2)
+                            classname = "left-aligned"
+                        else 
+                            classname = ""
+                        append += '<article class="timeline-entry left-aligned">'
+                            + '<div class="timeline-entry-inner">'
+                                + timeline_time
+                                + '<div class="timeline-icon bg-success"> <i class="entypo-feather"></i> </div>'
+                                + '<div class="timeline-label">'
+                                    + '<h2>' + response[val.source] + '</h2>'
+                                    + para
+                                +'</div>'
+                            +'</div>'
+                            + "</article>"
+
+                        i++;
+                    });
+
+                    $("#shipment_details_timeline").html(append)
+                },
+                cache: false,
+                contentType: false,
+            });
+        });
+    });
+</script>
 {% endblock %}

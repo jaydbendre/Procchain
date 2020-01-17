@@ -1,7 +1,7 @@
 {
     "address" : "0x66BDCFC8F6BAB8BEC02366BDCFC8F6BAB8BEC023",
-    "selected_bid" : "",
-    "is_bid_selected" : 0,
+    "selected_bid" : 4,
+    "is_bid_selected" : 1,
     "tender_title" : "Steel Pipes",
     "location" : 23,
     "upload_date" : "02-02-1999",

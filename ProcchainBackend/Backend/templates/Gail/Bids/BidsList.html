@@ -73,20 +73,23 @@
             var i = 0;
             $.each(data, function(key, val){
                 console.log(val)
-
+                var classname = "";
+                var style = "";
                 // Setting the last two columns according to bid selection status
-                if (is_bid_selected && i == selected_bid){
-                    columns = "<td class='text-success'>Accepted</td><td>&nnsp;</td>"
+                if (is_bid_selected && key == selected_bid){
+                    columns = "<td class='text-success bg-success'>Accepted</td><td>&nbsp;</td>"
+                    classname = "bg-success"
+                    style = "color: black;"
                 }
                 else if (is_bid_selected && i != selected_bid){
-                    columns = "<td class='text-danger'>Rejected</td><td>&nnsp;</td>"
+                    columns = "<td class='text-danger bg-danger'>Rejected</td><td>&nbsp;</td>"
                 }
                 else {
                     columns = '<td><button class="btn btn-primary">Accept</button></td>'
                     + '<td><button class="btn btn-danger">Reject</button></td>'
                 }
 
-                bids += '<tr>' 
+                bids += '<tr class = "'+ classname +'" style= "'+ style +'" id = "'+ key +'">' 
                         + '<td> '+ val.vendor_name +' </td>'
                         + '<td>' + String(Date(val.initiated_at)) + '</td>'
                         + '<td>' + '<a>Download File</a>' + '</td>'
