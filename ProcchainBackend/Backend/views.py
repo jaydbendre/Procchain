@@ -550,7 +550,17 @@ def make_bids(request , tender_id):
 
 
 def vendor(request):
-    return render(request , 'Vendor/view_bids.html')
+    with open('F:\\SUMEDH\\sih 2020\\SIH2020\\Blockchain Related Details\\paymentHistory.json', 'r') as json_file:
+        data = json.load(json_file)
+        print(data)
+        for i in data:
+            # print(i['acknowledge'])
+            context_dict = dict()
+            context_dict[i] = dict()
+            context_dict[i]['payment_status'] = i['acknowledge']
+            
+    return HttpResponse('123')
+    # return render(request , 'Vendor/view_bids.html')
 
 def browse_tenders(request):
     return render(request , 'Vendor/browse_tenders.html')
