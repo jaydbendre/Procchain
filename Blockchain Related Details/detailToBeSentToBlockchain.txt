@@ -4,8 +4,9 @@ title?: string
 upload_date?: string
 deadline?: string
 location?: int
+uid?: int
 
-createTender(docHash, title, upload_date, deadline, location)
+createTender(docHash, title, upload_date, deadline, location, uid)
 
 # Bidding
 tenderAddress?: address
@@ -14,26 +15,30 @@ initaited_by?: address
 initaited_at?: string
 docHash?: string
 bid_amount?: int
+uid?: int
 
-bidforTender(tenderAddress, vendor_name, initaited_by, initaited_at, docHash, bid_amount)
+bidforTender(tenderAddress, vendor_name, initaited_by, initaited_at, docHash, bid_amount, uid)
 
 # Approving Bid
 bid_id?: int
+uid?: int
 tenderAddress
 
-selectBid(bid_id)
+selectBid(bid_id, uid)
 
 # Payment
 amount?: int
 transactionId?: int
 sent_at?: string
 sender_address
+sender_id?: uid
 
-payment(amount, transactionId, sent_at, sender_address)
+payment(amount, transactionId, sent_at, sender_id)
 
 # Payment acknowledgement
 payment_id?: int
 received_at?: string
 receiver_address
+acknowledged_by_id?: int
 
-payReceive(payment_id, received_at)
+payReceive(payment_id, received_at, acknowledged_by_id)
