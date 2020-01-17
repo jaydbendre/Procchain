@@ -1,0 +1,74 @@
+[
+    {
+        "address": "0xdac1959f1868c12a6bd20b0f18e0540553c8ba5b454454f8cf7360bab589088d55f9f3cd26d65dce", 
+        "location": 7, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 10
+    }, 
+    {
+        "address": "0x966e0f35edbc91d7ee6763ba970b7d9d2f212eeb3d20ece4c6d88cd46ff49fcf13ed56376760967d", 
+        "location": 37, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 1
+    }, 
+    {
+        "address": "0xa7fdcf1b0be4827e2e121ab5f960b69322837e6a2cd6066a8feeec2827d8d038593a4dbe8cd55df2", 
+        "location": 42, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 2
+    }, 
+    {
+        "address": "0x0d54def29bfc1d19ee7941c9e9d5e74ee0d756e21a4e79811c45866041a44b9f884364e2d53fcc79", 
+        "location": 4, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 8
+    }, 
+    {
+        "address": "0xc6fbab698c39ec613b57774c5d19e8f2feca2ba35981bbbac35f43377385cea4d5e66af6a19f6518", 
+        "location": 32, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 5
+    }, 
+    {
+        "address": "0xdc8104e14af0c66caed716bcb312b2c06d35d0e025957cd206312fde4435b009ac835ee94eb9ed3d", 
+        "location": 33, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 1
+    }, 
+    {
+        "address": "0xea359391c62c9e52d679beb0557822a62f42121a75b3c22802068f86f1fad5da0511a6d62fee1bc5", 
+        "location": 40,
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 11
+    }, 
+    {
+        "address": "0x737a3cefab1cc1a5d0ab4d08828ec2d530f0daf451af810cdbcd01e2629e6c2a85f47e9ebd5f35b7", 
+        "location": 40, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 1
+    }, 
+    {
+        "address": "0x4105e8299db3b8deaac89b0b5dabc51d147a3d707c07222d7cd992165442711c736e46a7d1f3042e", 
+        "location": 2, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 3
+    }, 
+    {
+        "address": "0x3e797c03027e8e8584920cc4c9ddba40902ec8ddddf26dcfde7406fe8b20d43cc839437bebfa2b7c", 
+        "location": 6, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 5
+    }, 
+    {
+        "address": "0x09106852f32fbc81f052659dc9010f9c32c4f386bad35eb637336d594ee92a5fa9530709ea0479ac", 
+        "location": 20, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 3
+    }, 
+    {
+        "address": "0x141a199eaf86e98cc8daa8eae2b47bc40f437029920f97b1f241003115c222a58a1fcfef390e82be", 
+        "location": 6, 
+        "upload_date": "2020-01-17 08:53:52.360075", 
+        "selectedBid": 7
+    }
+]
