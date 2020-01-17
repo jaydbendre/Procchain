@@ -481,6 +481,8 @@ def tender_file_upload(request) :
         file_path = "documents\\\\tenders\\\\{}".format(tender_id)
         folder = os.path.join(settings.BASE_DIR , file_path)
         # return HttpResponse("Hello")
+
+        tender_hash = ""
         if request.method == "POST" and request.FILES["myfile"] :
             myfile = request.FILES['myfile']
             # return HttpResponse("Hi")
@@ -496,9 +498,9 @@ def tender_file_upload(request) :
                 
                 file_hash = hasher.hexdigest()
                 
-                cursor.execute("INSERT INTO tender(tender_id , file_path,file_hash,uploaded_at,uploaded_by) values({},'{}', '{}','{}',{})".format(tender_id , file_path , file_hash , datetime.datetime.now() , request.session["uid"]))
+                # cursor.execute("INSERT INTO tender(tender_id , file_path,file_hash,uploaded_at,uploaded_by) values({},'{}', '{}','{}',{})".format(tender_id , file_path , file_hash , datetime.datetime.now() , request.session["uid"]))
                 
-                return JsonResponse({"tender_file_hash" : file_hash})
+                # return JsonResponse({"tender_file_hash" : file_hash})
     # with connection.cursor() as cursor : 
     #     cursor.execute("SELECT max(tender_id) from tender")
     #     tender_id = cursor.fetchall()[0][0]
@@ -518,7 +520,7 @@ def tender_file_upload(request) :
                 hasher.update(buf)
 
             tender_hash = hasher.hexdigest()
-
+            # return JsonResponse({"test":tender_hash})
             file_path = {
                 "bids" : [],
                 "tender" : "documents\\\\tenders\\\\{}".format(tender_id+1),
