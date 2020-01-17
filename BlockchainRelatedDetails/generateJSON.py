@@ -53,4 +53,17 @@ for i in range(0, 4) :
         }
     )
 
-print(payment_history)
+# print(payment_history)
+
+selected_bids = []
+
+for i in range(0,5) :
+    selected_bids.append(
+        {
+            "tender_name" : id_generator(size=8),
+            "vendor_name" : id_generator(size=8),
+            "selected_by" : "Bert Home"
+        }
+    )
+
+print(selected_bids)

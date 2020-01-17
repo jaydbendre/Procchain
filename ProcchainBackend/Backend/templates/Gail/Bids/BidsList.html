@@ -16,13 +16,13 @@
         </tr>
     </thead>
     <tbody id = "table_body_bid_list" >
-        <tr>
+        <!-- <tr>
             <td>XYZ</td>
             <td>Today</td>
             <td>File</td>
-            <td><button class="btn btn-primary" onclick="accept({{value.u_id}})">Accept</button></td>
-            <td><button class="btn btn-danger" onclick="reject({{value.u_id}})">Reject</button></td>
-        </tr>
+            <td><button class="btn btn-primary">Accept</button></td>
+            <td><button class="btn btn-danger">Reject</button></td>
+        </tr> -->
     </tbody>
 </table>
 <div id="test"></div>
@@ -37,13 +37,27 @@
     // Mock Response
     $(document).ready(function(){
         console.log("heya")
+        
+        var is_bid_selected = 0;
+        var selected_bid = -1;
+        var columns = "";
         // Get tender details
         // tender address can be accessed using {{contract_addr}}
         
         // Fetching tender details from mock response
         $.getJSON('{% static "assets/blockchainTesting/tender.json" %}', function(data){
-            console.log("cool")
-            console.log(data)
+            // console.log("cool")
+            // console.log(data)
+
+            $("#tender_details_panel_tender_name").html(data.tender_title)
+            $("#tender_deadline").html(data.deadline)
+
+            is_bid_selected = data.is_bid_selected
+
+            if(is_bid_selected){
+                selected_bid = data.selected_bid
+            }
+
         });
 
         // Get Bid details
@@ -53,14 +67,36 @@
         // Fetching bid list from mock reponses
         $.getJSON('{% static "assets/blockchainTesting/tenderBidList.json" %}', function(data){
             console.log("testing")
-            console.log(data)
+            // console.log(data)
 
             var bids = ""
-
+            var i = 0;
             $.each(data, function(key, val){
-                bids += ""
-            });
+                console.log(val)
 
+                // Setting the last two columns according to bid selection status
+                if (is_bid_selected && i == selected_bid){
+                    columns = "<td class='text-success'>Accepted</td><td>&nnsp;</td>"
+                }
+                else if (is_bid_selected && i != selected_bid){
+                    columns = "<td class='text-danger'>Rejected</td><td>&nnsp;</td>"
+                }
+                else {
+                    columns = '<td><button class="btn btn-primary">Accept</button></td>'
+                    + '<td><button class="btn btn-danger">Reject</button></td>'
+                }
+
+                bids += '<tr>' 
+                        + '<td> '+ val.vendor_name +' </td>'
+                        + '<td>' + String(Date(val.initiated_at)) + '</td>'
+                        + '<td>' + '<a>Download File</a>' + '</td>'
+                        + columns
+                    + '</tr>'
+                
+                
+                i ++;
+            });
+            $("#table_body_bid_list").append(bids)
         });
         console.log("exit")
     });

@@ -238,7 +238,7 @@ def sendOTP(request):
             "OTP for user #{}".format(request.session["uid"]),
             otp,
             "wehire.sight@gmail.com",
-            ['2017.harshita.singh@ves.ac.in', '2017.jay.bendre@gmail.com', '2017.sumedh.ghavat@gmail.com', '2017.vignesh.pillai@gmail.com'],
+            ['2017.aishwarya.nair@ves.ac.in', '2017.jay.bendre@gmail.com', '2017.sumedh.ghavat@gmail.com', '2017.vignesh.pillai@gmail.com'],
             fail_silently=False,
             html_message=t.render( context = c)
         )
@@ -514,6 +514,23 @@ def tender_file_upload(request) :
             cursor.execute('INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},"{}","{}","{}",{})'.format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return JsonResponse({'tenderHash':tender_hash})
 
+def get_locations(request):
+    print(request.GET["locations"])
+    with connection.cursor() as cursor:
+        sql = "SELECT DISTINCT location_id, location_name FROM location WHERE location_id IN({});".format(request.GET["locations"])
+        # sql = "SELECT DISTINCT location_id, location_name WHERE location_id IN (12,34,56,67);"
+        print(sql)
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        # print(result)
+        result_dict = {}
+        for i in result:
+            result_dict[i[0]] = i[1]
+    return JsonResponse(result_dict)
+
+"""
+    Vendor
+"""
 def make_bids(request , tender_id): 
     with connection.cursor() as cursor : 
         if request.method == "POST" and request.FILES.getlist('bids') : 

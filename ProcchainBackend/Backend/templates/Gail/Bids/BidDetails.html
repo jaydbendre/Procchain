@@ -14,5 +14,23 @@
 {% endblock %}
 
 {% block Gail_footer %}
+    <script>
+        $(document).ready(function(){
+            console.log("hello")
+            $.getJSON('{% static "assets/blockchainTesting/tender.json" %}', function(data){
+                // console.log("cool")
+                // console.log(data)
 
+                $("#tender_details_panel_tender_name").html(data.tender_title)
+                $("#tender_deadline").html(data.deadline)
+
+                is_bid_selected = data.is_bid_selected
+
+                if(is_bid_selected){
+                    selected_bid = data.selected_bid
+                }
+
+            });
+        })
+    </script>
 {% endblock %}

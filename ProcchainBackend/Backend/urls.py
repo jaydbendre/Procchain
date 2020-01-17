@@ -36,6 +36,7 @@ urlpatterns =[
     path('GailOrg/view-tenders/' , views.view_tenders_org , name = "view_tender_org"),
     path('GailOrg/view-tender-detail/' , views.view_tender_detail , name = "view_tender_detail"),
     path('GailOrg/view-bids/<slug:addr>/', views.view_bids, name = "view_bids"),
+    path('get_locations/', views.get_locations, name = "get_locations"),
     
     #MiddleMan
     path("Middleman/", views.middleman, name = "middleman"),
