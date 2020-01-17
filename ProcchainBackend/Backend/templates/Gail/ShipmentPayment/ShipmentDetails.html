@@ -1,3 +1,4 @@
+{% load static %}
 <div class="timeline-centered"> 
     <article class="timeline-entry"> 
         <div class="timeline-entry-inner"> 
@@ -56,3 +57,31 @@
     </article> 
     
 </div>
+
+<script>
+    $(document).ready(function() {
+        // console.log("hello")
+        $.getJSON("{% static 'assets/blockchainTesting/shipmentDetails.json' %}", function(data){
+            console.log(data)
+            var locations = Array()
+            locations.push(data.source)
+            locations.push(data.destination)
+
+            $.each(data.shipment_details, function(key, val) {
+                locations.push(val.source)
+                locations.push(val.destination)
+            });
+            var test = locations.toString();
+            $.ajax({
+                url : "{% url 'get_locations' %}",
+                method : "GET",
+                data : {"locations" : test},
+                success : function(response){
+                    // console.log(response)
+                },
+                cache: false,
+                contentType: false,
+            });
+        });
+    });
+</script>

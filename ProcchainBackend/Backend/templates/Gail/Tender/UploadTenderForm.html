@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form role="form" id = "form" class="form-horizontal">
+                <form role="form" method = "POST" class="form-horizontal" action="{% url 'tender-file-upload' %}" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     <div class="form-group"> 
@@ -33,7 +33,11 @@
                             <a class="file-input-wrapper btn form-control file2 inline btn btn-primary">
                                 <i class="glyphicon glyphicon-file"></i> 
                                 Browse
+<<<<<<< HEAD
+                                <input type="file" name = "myfile"/>
+=======
                                 <input type="file" id = "myfile" name = "myfile"/>
+>>>>>>> 83c4c9c74e1f825e9963bfeadc854d3e1e6fa96c
                             </a>
                         </div> 
                     </div>
