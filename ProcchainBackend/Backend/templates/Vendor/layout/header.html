@@ -5,7 +5,9 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <meta name="description" content="Neon Admin Panel" /> <meta name="author" content="Laborator.co" />
-        <link rel="icon" href="{% static 'img/logo_title.png' %}">
+        {% comment %}
+        <!-- <link rel="icon" href="{% static 'img/logo_title.png' %}"> -->
+        {% endcomment %}
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141030632-1"></script> 
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -22,7 +24,9 @@
         <link rel="stylesheet" href="{% static 'assets/css/neon-forms.css' %}" id="style-resource-7"> 
         <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}" id="style-resource-8"> 
         <link rel="stylesheet" href="{% static 'assets/css/skins/black.css' %}" id="style-resource-9">
-        <script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script> 
+        <!-- <link rel="stylesheet" href="{% static 'assets/css/view_bids.css' %}"> -->
+        <script src="{% static 'assets/js/jquery-1.11.3.min.js' %}"></script>
+        
         <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]--> 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --> 
         <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> 
@@ -33,15 +37,12 @@
         {% include 'Vendor/layout/navbar.html' %}
         <div class="main-content">
 
-            <div class="row"> 
-                    <!-- Profile Info and Notifications --> 
-                    <!-- Removed User Info -->
-                    <div class="col-md-6 col-sm-8 clearfix"> 
-                        
-                    </div> 
-                    <!-- Raw Links --> 
+            <div class="row">
+                <div class="col-md-6 col-sm-8 clearfix">
+                    </div>  
                     <div class="col-md-6 col-sm-4 clearfix hidden-xs"> 
                         <ul class="list-inline links-list pull-right"> 
+                            {% comment %}
                             <!-- <li class="dropdown language-selector">
                                 Language: &nbsp;
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true"> 
@@ -75,8 +76,8 @@
                             <span class="badge badge-success chat-notifications-badge is-hidden">0</span> </a> 
                         </li> 
                         <li class="sep"></li>  -->
-                        <li> <a href="{% url 'logout' %}">
-                            Log Out <i class="entypo-logout right"></i> </a> 
+                        {% endcomment %}
+                        <li> <a href="{% url 'logout' %}"> Log Out <i class="entypo-logout right"></i> </a> 
                         </li> 
                     </ul> 
                 </div> 

@@ -8,6 +8,7 @@ urlpatterns =[
     path('login/', views.login ,name = "login"),#Login Functionality
     path("logout/", views.log_out, name = "logout"),
     path("sendOTP/",views.sendOTP,name = "sendOTP"),
+    path('auth-register/', views.authRegister, name = "authRegister"),
     
     # Dont know what this is tbh 
     # path('Supplier', views.vendor,name = "supplier"),

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.db import connection
 from django.contrib.auth import authenticate
+
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 from django.core.mail import send_mail, send_mass_mail
@@ -29,12 +30,15 @@ import pyotp
 Utility
 """
 def index(request) : 
+    """ Renders Landing page """
     return render(request,"LandingPage/index.html")
 
 def authLogin(request):
+    """ Renders Login Page """
     return render(request, 'Login/login.html')
 
 def login(request) : 
+    """ Function to log in the user """
     with connection.cursor() as cursor :
         email = request.POST["email"]
         password = request.POST["password"]
@@ -184,6 +188,16 @@ def login(request) :
                         
                         return HttpResponse("Error")
         else:
+            return Response({"Error" : "Email or password cannot be null"})
+
+
+class Register(APIView):
+
+    """Register new users"""
+
+    def post(request):
+        with connection.cursor() as cursor:
+            data = dict(request.data)
             return HttpResponse("Error : Email or password cannot be null")
 
 def log_out(request):
@@ -194,6 +208,7 @@ def log_out(request):
 
 @csrf_protect
 def sendOTP(request):
+    """ Sends OTP to the middleman """
     with connection.cursor() as cursor :
         
         # cursor.execute("SELECT auth_type from middleman where middle_id = any( SELECT middle_id from user_middle_map where uid = {})".format(request.session["uid"]))
@@ -230,6 +245,10 @@ def sendOTP(request):
         
         return JsonResponse({"otp" :otp})
 
+def authRegister(request):
+    """ Renders the registeration page """
+    return render(request, "Login/registeration.html")
+
 """
 Testing
 """
@@ -238,7 +257,7 @@ def render_file(request) :
     return render(request,"testing/upload.html")
 
 def test(request):
-    return render(request, "Gail/Bids/BidsList.html")
+    return render(request, "Error/error.html", context = {"error" : { "heading" : "Oops!", "message" : "Some Error has occured." }})
 
 """
 Vendor
@@ -261,7 +280,7 @@ def tender(request,tender_id) :
         
         return render(request , "Vendor/tender.html" , {"tender" : tender})
 def view_tenders(request):
-    return render(request,"Vendor/view_tenders.html")
+    return render(request,"Vendor/browse_tenders.html")
 
 def make_bids(request,tender_id): 
     with connection.cursor() as cursor : 
@@ -492,6 +511,7 @@ def tender_file_upload(request) :
     #         filename = fs.save(myfile.name, myfile)
     #         file_url = fs.url(filename)
             
+<<<<<<< HEAD
     #         hasher = hashlib.md5()
     #         block_size=65536
     #         for buf in iter(partial(myfile.read, block_size), b''):
@@ -514,7 +534,86 @@ def tender_file_upload(request) :
     #         file_hash = str(file_hash)
     #         cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
     #     return HttpResponse(hasher.hexdigest())
+=======
+            hasher = hashlib.md5()
+            block_size=65536
+            for buf in iter(partial(myfile.read, block_size), b''):
+                hasher.update(buf)
 
+            tender_hash = hasher.hexdigest()
+
+            file_path = {
+                "bids" : [],
+                "tender" : "documents\\\\tenders\\\\{}".format(tender_id+1),
+                "tender_file_name" : file_url,
+                "uploaded_at" : []
+            }
+            '''
+            file_path_bids = str(file_path["bids"])
+            file_path_tender = str(file_path["tender"])
+            file_path_tenderName = str(file_path[ "tender_file_name"])
+            file_path_uploaded = str(file_path["uploaded_at"])
+            file_path_str = str("bids:"+file_path_bids+"tender:"+file_path_tender+ "tender_file_name"+file_path_tenderName+ "uploaded_at"+file_path_uploaded)
+            '''
+            file_path = str(file_path)
+            file_hash = {
+                "bids" : [],
+                "tender" : hasher.hexdigest()
+            }
+            file_hash = str(file_hash)
+            cursor.execute('INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},"{}","{}","{}",{})'.format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
+        return HttpResponse(str(tender_hash))
+>>>>>>> 83c4c9c74e1f825e9963bfeadc854d3e1e6fa96c
+
+def make_bids(request , tender_id): 
+    with connection.cursor() as cursor : 
+        if request.method == "POST" and request.FILES.getlist('bids') : 
+            folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format())
+            for f in request.FILES.getlist('bids'):
+                pass
+                
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[3]))
+            uploader = cursor.fetchall()[0]
+            
+            file_data["uploaded_by"] = uploader[0] + ' ' + uploader[1]
+            
+            cursor.execute("SELECT fname , lname from users where uid = {} ".format(file[5]))
+            approver = cursor.fetchall()[0]
+            
+            file_data["approved_by"] = approver[0] + ' ' + approver[1]
+            
+            return Response(file_data)
+        
+    def post( self, request, tender_id ,format = None):
+        with connection.cursor() as cursor : 
+            data = dict(request.data)
+            
+            jwt = data["jwt"]
+            jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
+            return Response(jwt)
+
+
+
+
+
+
+
+
+
+def vendor(request):
+    return render(request , 'Vendor/view_bids.html')
+
+def browse_tenders(request):
+    return render(request , 'Vendor/browse_tenders.html')
+
+def view_bids(request):
+    return render(request , 'Vendor/view_bids.html')
+
+# def test(request):
+#     return render(request, "Gail/Bids/BidsList.html")
+
+def authLogin(request):
+    return render(request, 'Login/login.html')
 def view_tender_detail(request):
     """ 
         Views the tender & bid that was selected

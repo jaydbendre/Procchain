@@ -1,5 +1,6 @@
 {% extends 'Gail/layout/header.html' %}
 {% block Gail %}
+
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-primary">
@@ -32,14 +33,18 @@
                             <a class="file-input-wrapper btn form-control file2 inline btn btn-primary">
                                 <i class="glyphicon glyphicon-file"></i> 
                                 Browse
+<<<<<<< HEAD
                                 <input type="file" name = "myfile"/>
+=======
+                                <input type="file" id = "myfile" name = "myfile"/>
+>>>>>>> 83c4c9c74e1f825e9963bfeadc854d3e1e6fa96c
                             </a>
                         </div> 
                     </div>
                     <div class="form-group">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary">Upload Tender</button>
+                            <button type="submit" onclick="uploadTenders()" class="btn btn-primary">Upload Tender</button>
                         </div>
                     </div>
                 </form>
@@ -47,5 +52,50 @@
         </div>
     </div>
 </div>
+<div class="alert alert-success" id="success-alert" style="display:none"> Tender Uploaded Successfully</div>
+<script type="text/javascript">
+    // form upload
+    function uploadTenders(){
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function() { $body.addClass("loading");    },
+            ajaxStop: function() { $body.removeClass("loading"); }    
+        });
+
+        $('#form').submit(function(e){
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajaxSetup({
+            headers: { "X-CSRFToken": '{{csrf_token}}' }
+            });
+            $.ajax({
+                url: "{% url 'file_upload' %}",
+                type: 'POST',
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                data: formData,
+                success: function (response) {
+                    console.log(response)
+                    hashValue = response;
+                    $("#success-alert").show();
+                    setTimeout(function() { $("#success-alert").hide(); }, 5000);
+                    if(response.error){
+                        $.each(response.errors, function(name, error){
+                            error = '<small class="text-muted error">' + error + '</small>'
+                        })
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data'
+            });
+            return false
+        // end
+        });
+    }
+
+   </script>
 
 {% endblock %}
+
