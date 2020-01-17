@@ -1,0 +1,39 @@
+# Creating Tender
+docHash?: string
+title?: string
+upload_date?: string
+deadline?: string
+location?: int
+
+createTender(docHash, title, upload_date, deadline, location)
+
+# Bidding
+tenderAddress?: address
+vendor_name?: string
+initaited_by?: address
+initaited_at?: string
+docHash?: string
+bid_amount?: int
+
+bidforTender(tenderAddress, vendor_name, initaited_by, initaited_at, docHash, bid_amount)
+
+# Approving Bid
+bid_id?: int
+tenderAddress
+
+selectBid(bid_id)
+
+# Payment
+amount?: int
+transactionId?: int
+sent_at?: string
+sender_address
+
+payment(amount, transactionId, sent_at, sender_address)
+
+# Payment acknowledgement
+payment_id?: int
+received_at?: string
+receiver_address
+
+payReceive(payment_id, received_at)

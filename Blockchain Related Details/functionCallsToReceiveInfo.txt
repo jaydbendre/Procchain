@@ -1,0 +1,15 @@
+# To get the payment history
+send tender_address to source files
+paymentHistory()
+
+# Bid List
+send tender_address to source files
+allBids()
+
+# Tender Details
+send tender_address to source files
+sendTenderDetails()
+
+# Tender List
+nothing to send
+allTenders()
