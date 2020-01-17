@@ -1,0 +1,48 @@
+
+{
+    "source": 12, 
+    "destination": 13, 
+    "quantity": 1, 
+    "shipment_details": [
+        {
+            "source": 12, 
+            "destination": 21, 
+            "expected_quatity": 12, 
+            "received_quatity": 12, 
+            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
+            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
+            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+        }, 
+        {
+            "source": 21, 
+            "destination": 41, 
+            "expected_quatity": 12, 
+            "received_quatity": 10, 
+            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
+            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
+            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+        }, 
+        {
+            "source": 41, 
+            "destination": 47, 
+            "expected_quatity": 12, 
+            "received_quatity": 10, 
+            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
+            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
+            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+        }, 
+        {
+            "source": 47, 
+            "destination": 13, 
+            "expected_quatity": 12, 
+            "received_quatity": 10, 
+            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
+            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
+            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+        }
+    ]
+}

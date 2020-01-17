@@ -1,33 +1,9 @@
 {% extends 'Gail/layout/header.html' %}
+{% load static %}
 {% block Gail %}
     <div class="mail-env">
         <div class="mail-body">
             <div class="row" id="search_results">
-                <div class="member-entry" style="margin-left: 30px; margin-right: 30px; left: 0"> 
-                    <div class="member-details"> 
-                        <h4> 
-                            <a href="#job_details" data-toggle="modal" data-target="#job_details" onclick="job_details({{i}},{{j}})">
-                                Tender Name
-                            </a>
-                            <!-- <a href="" class="btn btn-danger pull-right">View Bids</a> 
-                            <a href="" class="btn btn-primary pull-right">View Tender</a> -->
-                            
-                        </h4> 
-                        <!-- <small><i class="entypo-calendar"></i>Closing Date <a href="#">Date</a></small> -->
-                        <div class="row info-list"> 
-                            <div class="col-sm-4"> 
-                                <i class="entypo-calendar"></i>Closing Date <a href="#">Date</a> 
-                            </div>
-                            <div class="col-sm-4"> 
-                                <a href="{% url 'view_bids' %}" class="btn btn-danger pull-right">View Bids / Edit Tender</a>     
-                            </div>
-                            <div class="col-sm-4"> 
-                                <a href="" class="btn btn-primary pull-right">View Tender</a>
-                            </div> 
-                            <div class="clear"></div> 
-                        </div> 
-                    </div> 
-                </div>
             </div>
         </div>
         {% include 'Gail/Tender/TenderFilters.html' %}
@@ -36,9 +12,51 @@
 {% endblock %}
 
 {% block Gail_footer %}
+    <!-- <script src = '{% static "assets/blockchainTesting/readingTenderList.js" %}'></script> -->
     <script>
+        // Load tenders on load
+        $(document).ready(function() {
+
+            // console.log("hello!");
+            
+            $.getJSON('{% static "assets/blockchainTesting/tenderlist.json" %}', function(data) {
+                
+                // console.log(data);
+                // $("#search_results").append(String(data))
+                var append = "";
+
+                $.each(data, function(key, val) {
+                    console.log(val.location)
+                    
+                    // var str = "{% url 'view_bids' '"
+                    var view_bids = '{% url "view_bids" "0x09106852f32fbc81f052659dc9010f9c32c4f386bad35eb637336d594ee92a5fa9530709ea0479ac" %}' 
+                    append += '<div class="member-entry" style="margin-left: 30px; margin-right: 30px; left: 0" >'
+                        + '<div class="member-details" >'
+                            + '<h4>'
+                                + val.tender_title
+                            + '</h4>'
+                            + '<div class="row info-list" >'
+                                + '<div class="col-sm-4">' 
+                                    + '<i class="entypo-calendar"></i>Closing Date <a href="#">' + String(Date(val.deadline)) + '</a>'
+                                + ' </div>'
+                                + '<div class="col-sm-4">' 
+                                    + '<a href="' + view_bids + '" class="btn btn-danger pull-right">View Bids / Edit Tender</a>'
+                                + ' </div>'
+                                + '<div class="col-sm-4">' 
+                                    + '<a href="" class="btn btn-primary pull-right">View Tender</a>'
+                                + ' </div>'
+                            + '</div>'
+                        + '</div>'
+                        + '</div>'
+                });
+
+                $("#search_results").append(append)
+            });
+
+        });
         function filterData() {
             alert($("#filters").get())
         }
     </script>
+
 {% endblock %}

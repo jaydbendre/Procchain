@@ -1,6 +1,6 @@
 {% extends 'Gail/layout/header.html' %}
 {% load static %}
-{{user_data}}
+<!-- {{user_data}} -->
 {% block Gail %}
     <!-- {{request.session}} -->
     <div class="row">
@@ -24,7 +24,7 @@
                 <!-- <td>&nbsp;</td> -->
             </tr>
         </thead>
-        <tbody>
+        <tbody id = "table_body_selected_bids">
             <tr>
                 <td>Steel Pipes</td>
                 <td>Tata Steel Ltd.</td>
@@ -32,8 +32,28 @@
                 <td><a class="btn btn-primary" href="{% url 'view_tender_detail' %}"><i class="entypo-info-circled"></i></a></td>
                 <!-- <td><button class="btn btn-danger" onclick="reject({{value.u_id}})">Reject</button></td> -->
             </tr>
+            <tr>
+                <td>Furniture</td>
+                <td>Lodha</td>
+                <td>Bert Homes</td>
+                <td><a class="btn btn-primary" href="{% url 'view_tender_detail' %}"><i class="entypo-info-circled"></i></a></td>
+                <!-- <td><button class="btn btn-danger" onclick="reject({{value.u_id}})">Reject</button></td> -->
+            </tr>
+            <tr>
+                <td>Wires</td>
+                <td>ASFY</td>
+                <td>Elizabeth Longs</td>
+                <td><a class="btn btn-primary" href="{% url 'view_tender_detail' %}"><i class="entypo-info-circled"></i></a></td>
+                <!-- <td><button class="btn btn-danger" onclick="reject({{value.u_id}})">Reject</button></td> -->
+            </tr>
         </tbody>
     </table>
     
+{% endblock %}
+
+{% block GAIL_footer %}
+    <script>
+        
+    </script>
 {% endblock %}
 
