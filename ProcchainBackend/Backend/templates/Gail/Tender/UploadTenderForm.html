@@ -65,7 +65,7 @@
             e.preventDefault();
             var formData = new FormData(this);
             $.ajaxSetup({
-            headers: { "X-CSRFToken": '{{csrf_token}}' }
+                headers: { "X-CSRFToken": '{{csrf_token}}' }
             });
             $.ajax({
                 url: "{% url 'file_upload' %}",

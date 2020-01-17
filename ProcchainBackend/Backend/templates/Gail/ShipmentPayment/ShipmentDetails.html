@@ -1,15 +1,15 @@
 {% load static %}
-<div class="timeline-centered"> 
+<div class="timeline-centered" id = "shipment_details_timeline"> 
     <article class="timeline-entry"> 
         <div class="timeline-entry-inner"> 
-            <time class="timeline-time" datetime="2019-08-04T03:45"><span>03:45 AM</span> <span>Today</span></time> 
+            <time class="timeline-time" datetime="2019-08-04T03:45"><span>03:45 AM</span> <span>Dispatched</span></time> 
             <div class="timeline-icon bg-success"> <i class="entypo-feather"></i> </div> 
             <div class="timeline-label"> 
-                <h2><a href="#">Art Ramadani</a> <span>posted a status update</span></h2> 
-                <p>Tolerably earnestly middleton extremely distrusts she boy now not. 
+                <h2><a href="#">Location</a> <span>posted a status update</span></h2> 
+                <!-- <p>Tolerably earnestly middleton extremely distrusts she boy now not. 
                     Add and offered prepare how cordial two promise. Greatly who affixed suppose 
                     but enquire compact prepare all put. Added forth chief trees but rooms think may.
-                </p> 
+                </p>  -->
             </div> 
         </div> 
     </article> 
@@ -78,6 +78,50 @@
                 data : {"locations" : test},
                 success : function(response){
                     // console.log(response)
+                    var timeline_time;
+                    var para = "";
+                    var append = "";
+                    var classname = "";
+                    var i = 0;
+                    $.each(data.shipment_details, function(key, val){
+                        
+                        console.log(val)
+                        
+                        if (val.actual_receiving_date == "" && val.expected_receiving_date == ""){
+                            timeline_time = '<time class="timeline-time" datetime="2019-08-04T03:45"><span>'+ String(Date(val.actual_delivery_date)) +'</span><br/> <span>Dispatched</span></time> '
+                        }
+                        else if (val.actual_delivery_date == "" && val.expected_delivery_date == ""){
+                            timeline_time = '<time class="timeline-time" datetime="2019-08-04T03:45"><span>'+ String(Date(val.actual_receiving_date)) +'</span><br/> <span>Received with a delay of 1 day</span></time> '
+                        }
+                        else {
+                            timeline_time = '<time class="timeline-time" datetime="2019-08-04T03:45"><span>'+ String(Date(val.actual_receiving_date)) +'</span><br/> <span>Received</span></time> '
+                            para = "<p>Expected Dispatch : " + String(Date(val.expected_delivery_date)) 
+                            + "<br />"
+                            + "Received At : " + String(Date(val.actual_receiving_date))
+                            + "<br />"
+                            + "Receiving was expected at : " + String(Date(val.expected_receiving_date))
+                            + "</p>"
+                        }
+
+                        if (i%2)
+                            classname = "left-aligned"
+                        else 
+                            classname = ""
+                        append += '<article class="timeline-entry ' + classname + '">'
+                            + '<div class="timeline-entry-inner">'
+                                + timeline_time
+                                + '<div class="timeline-icon bg-success"> <i class="entypo-feather"></i> </div>'
+                                + '<div class="timeline-label">'
+                                    + '<h2>' + response[val.source] + '</h2>'
+                                    + para
+                                +'</div>'
+                            +'</div>'
+                            + "</article>"
+
+                        i++;
+                    });
+
+                    $("#shipment_details_timeline").html(append)
                 },
                 cache: false,
                 contentType: false,
