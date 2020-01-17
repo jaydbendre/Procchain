@@ -25,18 +25,18 @@
             <td class="text-success">$150.00</td>
             <td class="text-error"><button class="btn btn-info">Download</button></td>
             <td class="text-success"><button class="btn btn-info">Download</button></td>
-            <td><button class="btn btn-black">Edit</button> </td>
+            <td><button class="btn btn-black"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button> </td>
         </tr>
         <tr id="demo1" class="collapse">
             <td class="hiddenRow"></td>
             <td  class="hiddenRow">
                 <div>
-                    <button class="btn btn-gold">
-                        <a href="#payment_details" data-toggle="modal" data-target ="#payment_details">Payment Details</a>
-                    </button>
+                    <a href="#payment_details" data-toggle="modal" data-target ="#payment_details">
+                        <button class="btn btn-gold">Payment Details</button>
+                    </a>
                 </div>
             </td>
-            <td  class="hiddenRow"><div><button class="btn btn-gold">Shipment</button></div> </td>
+            <td  class="hiddenRow"><div><a href="{% url 'shipment_details' %}"><button class="btn btn-gold">Shipment</button></a> </div> </td>
             <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</div> </td>
             <td  class="hiddenRow"><div><button class="btn btn-gold">View Invoice</button></div> </td>
             <td colspan="2" class="hiddenRow"><div><button class="btn btn-gold">View Pay Order</button></div> </td>
@@ -48,7 +48,7 @@
             <td class="text-success">$11.00</td>
             <td class="text-error"><button class="btn btn-info">Download</button></td>
             <td class="text-success"><button class="btn btn-info">Download</button></td>
-            <td><button class="btn btn-black">Edit</button> </td>
+            <td><button class="btn btn-black"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button> </td>
         </tr>
         <tr id="demo2" class="collapse">
             <td class="hiddenRow"></td>
@@ -65,7 +65,7 @@
             <td class="text-success">$500.00</td>
             <td class="text-error"><button class="btn btn-info">Download</button></td>
             <td class="text-success"><button class="btn btn-info">Download</button></td>
-            <td><button class="btn btn-black">Edit</button></td>
+            <td><button class="btn btn-black"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button></td>
         </tr>
         <tr id="demo3" class="collapse">
             <td class="hiddenRow"></td>
@@ -81,6 +81,7 @@
 </div>
 
 {% include 'Vendor/payment_details_modal.html' %}
+{% include 'Vendor/edit_bid_modal.html' %}
 
 {% endblock %}
 

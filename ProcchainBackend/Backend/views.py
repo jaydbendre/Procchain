@@ -579,5 +579,8 @@ def authLogin(request):
 def gailOrg(request):
     return render(request, 'Gail/index.html')
 
+def shipment_details(request):
+    return render(request, 'Vendor/shipment.html')
+
 def middleman(request):
     return render(request, 'Middleman/index.html')
