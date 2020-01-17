@@ -683,3 +683,6 @@ def shipment_details(request):
 
 def middleman(request):
     return render(request, 'Middleman/index.html')
+
+def middleman_history(request):
+    return render(request,"Middleman/History.html")

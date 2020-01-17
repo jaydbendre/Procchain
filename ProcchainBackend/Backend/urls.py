@@ -41,7 +41,7 @@ urlpatterns =[
     
     #MiddleMan
     path("Middleman/", views.middleman, name = "middleman"),
-     
+    path("Middleman/history" , views.middleman_history , name= "middleman_history"),
     #testing
     path('render_file_upload/' , views.render_file , name = "render_upload"),
     path('file_upload/' , views.tender_file_upload , name = "file_upload"),
