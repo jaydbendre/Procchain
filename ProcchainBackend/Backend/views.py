@@ -458,11 +458,27 @@ def tender_file_upload(request) :
         tender_id = cursor.fetchall()[0][0] + 1
         uid = request.session["uid"]
         
-        file_path = "documents\\tenders\\{}".format(tender_id)
+        file_path = "documents\\\\tenders\\\\{}".format(tender_id)
         folder = os.path.join(settings.BASE_DIR , file_path)
-        
-        if request.method == "POST" and request.FILES["file"] :
-            pass
+        # return HttpResponse("Hello")
+        if request.method == "POST" and request.FILES["myfile"] :
+            myfile = request.FILES['myfile']
+            # return HttpResponse("Hi")
+            if (myfile.name).endswith(".pdf") :
+                fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
+                filename = fs.save(myfile.name, myfile)
+                file_url = fs.url(filename)
+                
+                hasher = hashlib.md5()
+                
+                for buf in iter(partial(myfile.read,65536),b''):
+                    hasher.update(buf)
+                
+                file_hash = hasher.hexdigest()
+                
+                cursor.execute("INSERT INTO tender(tender_id , file_path,file_hash,uploaded_at,uploaded_by) values({},'{}', '{}','{}',{})".format(tender_id , file_path , file_hash , datetime.datetime.now() , request.session["uid"]))
+                
+                return redirect("/GailOrg/upload-tender")
     # with connection.cursor() as cursor : 
     #     cursor.execute("SELECT max(tender_id) from tender")
     #     tender_id = cursor.fetchall()[0][0]
