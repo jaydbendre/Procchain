@@ -498,7 +498,7 @@ def tender_file_upload(request) :
                 
                 cursor.execute("INSERT INTO tender(tender_id , file_path,file_hash,uploaded_at,uploaded_by) values({},'{}', '{}','{}',{})".format(tender_id , file_path , file_hash , datetime.datetime.now() , request.session["uid"]))
                 
-                return redirect("/GailOrg/upload-tender")
+                return JsonResponse({"tender_file_hash" : file_hash})
     # with connection.cursor() as cursor : 
     #     cursor.execute("SELECT max(tender_id) from tender")
     #     tender_id = cursor.fetchall()[0][0]
@@ -637,7 +637,7 @@ def make_bids(request , tender_id):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
-            '''
+            
 
 
 
