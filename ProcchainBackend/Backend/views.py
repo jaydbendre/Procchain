@@ -243,7 +243,7 @@ def sendOTP(request):
             html_message=t.render( context = c)
         )
         
-        return JsonResponse({"otp" :otp})
+        return HttpResponse(val)
 
 def authRegister(request):
     """ Renders the registeration page """
@@ -316,10 +316,11 @@ def make_bids(request,tender_id):
             file_path = str(file_path)
             file_hash = str(file_hash)
             
-            cursor.execute("UPDATE tender set file_path = '{}' , file_hash = '{}' , uploaded_at = '{}' ,uploaded_by = '{}' where tender_id = {} ".format(file_path,file_hash,datetime.datetime.now(),request.session["uid"], tender_id))
+            cursor.execute('UPDATE tender set file_path = "{}" , file_hash = "{}" , uploaded_at = "{}" ,uploaded_by = "{}" where tender_id = {} '.format(file_path,file_hash,datetime.datetime.now(),request.session["uid"], tender_id))
+            return JsonResponse({'bids_path':str(bids_path),'bids_hash':str(bids_hash)})
         
         return redirect("/Vendor/tender/{}".format(tender_id))
-        return HttpResponse(bids_path,bids_hash)
+        
 
 
 """
@@ -511,6 +512,36 @@ def tender_file_upload(request) :
     #         filename = fs.save(myfile.name, myfile)
     #         file_url = fs.url(filename)
             
+            hasher = hashlib.md5()
+            block_size=65536
+            for buf in iter(partial(myfile.read, block_size), b''):
+                hasher.update(buf)
+
+            tender_hash = hasher.hexdigest()
+
+            file_path = {
+                "bids" : [],
+                "tender" : "documents\\\\tenders\\\\{}".format(tender_id+1),
+                "tender_file_name" : file_url,
+                "uploaded_at" : []
+            }
+            '''
+            file_path_bids = str(file_path["bids"])
+            file_path_tender = str(file_path["tender"])
+            file_path_tenderName = str(file_path[ "tender_file_name"])
+            file_path_uploaded = str(file_path["uploaded_at"])
+            file_path_str = str("bids:"+file_path_bids+"tender:"+file_path_tender+ "tender_file_name"+file_path_tenderName+ "uploaded_at"+file_path_uploaded)
+            '''
+            file_path = str(file_path)
+            file_hash = {
+                "bids" : [],
+                "tender" : hasher.hexdigest()
+            }
+            file_hash = str(file_hash)
+            cursor.execute('INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},"{}","{}","{}",{})'.format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
+        return JsonResponse({'tenderHash':tender_hash})
+'''
+def get_bids(request , tender_id): 
     #         hasher = hashlib.md5()
     #         block_size=65536
     #         for buf in iter(partial(myfile.read, block_size), b''):
@@ -583,7 +614,7 @@ def get_locations(request):
 def make_bids(request , tender_id): 
     with connection.cursor() as cursor : 
         if request.method == "POST" and request.FILES.getlist('bids') : 
-            folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format())
+            folder = os.path.join(settings.BASE_DIR,"documents/tender/{}/bids/".format(tender_id))
             for f in request.FILES.getlist('bids'):
                 pass
                 
@@ -597,7 +628,7 @@ def make_bids(request , tender_id):
             
             file_data["approved_by"] = approver[0] + ' ' + approver[1]
             
-            return Response(file_data)
+            return JsonResponse(file_data)
         
     def post( self, request, tender_id ,format = None):
         with connection.cursor() as cursor : 
@@ -606,6 +637,7 @@ def make_bids(request , tender_id):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
+            '''
 
 
 
