@@ -19,7 +19,7 @@
                                 <i class="entypo-calendar"></i>Closing Date <a href="#">Date</a> 
                             </div>
                             <div class="col-sm-4"> 
-                                <a href="" class="btn btn-danger pull-right">View Bids</a>     
+                                <a href="{% url 'view_bids' %}" class="btn btn-danger pull-right">View Bids / Edit Tender</a>     
                             </div>
                             <div class="col-sm-4"> 
                                 <a href="" class="btn btn-primary pull-right">View Tender</a>
@@ -33,4 +33,12 @@
         {% include 'Gail/Tender/TenderFilters.html' %}
     </div>
     
+{% endblock %}
+
+{% block Gail_footer %}
+    <script>
+        function filterData() {
+            alert($("#filters").get())
+        }
+    </script>
 {% endblock %}

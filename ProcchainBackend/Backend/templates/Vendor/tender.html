@@ -1,0 +1,10 @@
+{% extends 'Vendor/layout/header.html' %}
+{% load static %}
+{% block vendor %}
+    {{ tender.items }}
+    <form action="/Vendor/tender/{{ tender.tender_id }}/make_bids" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="bids" id="" multiple/>
+    <button type = "submit" class = "btn btn-primary"> Make Bids</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,48 @@
+
+<div class="modal fade responsive" id="enter_otp" tabindex="-1" role="dialog" aria-labelledby="enter_otp" aria-hidden="true" style="background-color: rgba(245, 106, 51, 0.308);"> 
+    <div class="modal-dialog" role="document"> 
+        <div class="modal-content"> 
+            <div class="modal-header"> 
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> 
+                <h2 class="modal-title" id="enter_otp_title"> Verification </h2> 
+            </div> 
+            <div class="modal-body" id="enter_otp_body" style="color: rgb(34, 33, 33); font-size: 12px;"> 
+                    
+                <form method="POST" role="form" class="form-horizontal" id = "form1">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="order_id" class="col-sm-3 control-label">Order Id : </label> 
+                        <div class="col-sm-5"> 
+                            <input type="text" class="form-control" id="order_id" placeholder="Order Id" disabled> 
+                        </div> 
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_no" class="col-sm-3 control-label">Phone Number : </label> 
+                        <div class="col-sm-5"> 
+                            <input type="text" class="form-control" id="phone_number" placeholder="phonenumber" value = "{{ request.session.user_data.details.ph_no }}" disabled> 
+                        </div> 
+                    </div>
+                    <div id = "response"></div>
+                    <div class="form-group">
+                        <label for="otp" class="col-sm-3 control-label">OTP : </label> 
+                        <div class="col-sm-5"> 
+                            <input type="number" class="form-control" name = "otp" id="otp" placeholder="XXXXXX"> 
+                        </div> 
+                    </div>
+                </form>
+                <div id = "enter_otp_body_div"></div>
+                <div id="resendOTP" style="visibility: hidden;">
+                    <br/>
+                    <hr />
+                    <button class="btn btn-warning pull-right" onclick="sendOTP()">Resend OTP</button>
+                </div>
+            </div> 
+            <div class="modal-footer"> 
+                
+                <button type="submit" class="btn btn-warning pull-left" id="#submit" disabled>Submit</button> 
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> 
+                
+            </div> 
+        </div> 
+    </div> 
+</div>
