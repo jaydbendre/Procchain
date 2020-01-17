@@ -49,6 +49,8 @@
     </div>
 </div>
 <div class="alert alert-success" id="success-alert" style="display:none"> Tender Uploaded Successfully</div>
+<div class="alert alert-error" id="errors-alert" style="display:none"> </div>
+
 <script type="text/javascript">
     // form upload
     function uploadTenders(){
@@ -74,10 +76,13 @@
                     console.log(response)
                     hashValue = response;
                     $("#success-alert").show();
+                    document.getElementById("form").reset();
                     setTimeout(function() { $("#success-alert").hide(); }, 5000);
                     if(response.error){
                         $.each(response.errors, function(name, error){
-                            error = '<small class="text-muted error">' + error + '</small>'
+                            $("#error-alert").val("<small class='text-muted error'>' + error + '</small>")
+                            $("#error-alert").show()
+                            setTimeout(function() { $("#error-alert").hide(); }, 5000);
                         })
                     }
                 },
