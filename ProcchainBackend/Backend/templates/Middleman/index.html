@@ -45,8 +45,7 @@
     };
     function sendOTP() {
         $(".error").html("").hide();
-        var number = $("#phone_number").val();
-        console.log(number)
+        var number = '9292929292';
         if (number.length == 10 && number != null) {
             var input = {
                 "mobile_number" : number,
@@ -59,7 +58,20 @@
                 type : 'POST',
                 data : input,
                 success : function(response) {
+
+                    $("#otp").change( function(){
+                    if ( $("#otp").val() == response)
+                    {
+                        console.log("in function")
+                        $("#submit").prop("disabled",false);
+                    }
+                    else {
+                        console.log("out of function");
+                    }
+                });
+            
                     $("#response").html("<div class='alert alert-success' id = 'success'>OTP sent successfully</div>")
+                    
                 },
                 error : function(xhr, status, error) {
                     $("#response").html("<div class='alert alert-danger' id = 'success'>Some Error Occurred!</div>")
@@ -72,13 +84,7 @@
             $(".error").show();
         }
     }
-    $("#otp").change( function(){
-        console.log($("#otp").val())
-        if ( $("#otp").val() == response["val"])
-        {
-            $("#submit").prop("disabled",false);
-        }
-    })
+    
 </script>
 
 {% endblock %}

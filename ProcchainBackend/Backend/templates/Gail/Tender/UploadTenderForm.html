@@ -73,8 +73,8 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 data: formData,
                 success: function (response) {
-                    console.log(response)
-                    hashValue = response;
+                    console.log(response);
+                    
                     $("#success-alert").show();
                     document.getElementById("form").reset();
                     setTimeout(function() { $("#success-alert").hide(); }, 5000);
