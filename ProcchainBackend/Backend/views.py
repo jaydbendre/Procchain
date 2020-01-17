@@ -574,7 +574,7 @@ def view_bids(request, addr):
     """
         Renders bids made on a particular tender
     """
-    return render(request, 'Gail/Bids/BidsList.html')
+    return render(request, 'Gail/Bids/BidsList.html', context = {"contract_addr" : addr})
 
 """
 Middleman
