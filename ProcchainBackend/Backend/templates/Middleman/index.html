@@ -35,6 +35,7 @@
 <script>
     function getState(state){
         sendOTP()
+        console.log('getState');
         $("#enter_otp_body_div").empty();
         if (state == 0) {
             $("#enter_otp_body_div").append("Arrived!");
@@ -45,8 +46,10 @@
     };
     function sendOTP() {
         $(".error").html("").hide();
-        var number = '9292929292';
+        console.log('in fx');
+        var number = '9820712020'//'{{ request.session.user_data.details.ph_no }}';
         if (number.length == 10 && number != null) {
+            console.log('get Number checked');
             var input = {
                 "mobile_number" : number,
                 "action" : "send_otp",
@@ -58,7 +61,7 @@
                 type : 'POST',
                 data : input,
                 success : function(response) {
-
+                    console.log('success');
                     $("#otp").change( function(){
                     if ( $("#otp").val() == response)
                     {

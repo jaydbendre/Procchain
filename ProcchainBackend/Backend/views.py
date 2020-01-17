@@ -282,11 +282,11 @@ def tender(request,tender_id) :
 def view_tenders(request):
     return render(request,"Vendor/browse_tenders.html")
 
-def make_bids(request,tender_id): 
+def add_bids(request,tender_id): 
     with connection.cursor() as cursor : 
         if request.method == "POST" and request.FILES.getlist('bids') : 
             folder = os.path.join(settings.BASE_DIR,"documents\\tenders\\{}\\bids\\".format(tender_id))
-            cursor.execute("SELECT file_path , file_hash from tender where tender_id = {} ".format(tender_id))
+            cursor.execute("SELECT file_path,file_hash from tender where tender_id = {} ".format(tender_id))
             tender_data = cursor.fetchall()[0]
             file_path = eval(tender_data[0])
             file_hash = eval(tender_data[1])
