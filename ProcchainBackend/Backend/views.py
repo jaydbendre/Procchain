@@ -511,8 +511,8 @@ def tender_file_upload(request) :
                 "tender" : hasher.hexdigest()
             }
             file_hash = str(file_hash)
-            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},{},{},'{}',{})".format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
-        return HttpResponse(hasher.hexdigest())
+            cursor.execute('INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},"{}","{}","{}",{})'.format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
+        return HttpResponse(str(tender_hash))
 
 def make_bids(request , tender_id): 
     with connection.cursor() as cursor : 
