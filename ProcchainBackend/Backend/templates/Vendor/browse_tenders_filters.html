@@ -27,99 +27,61 @@
             <ul class="mail-menu"> 
                 <li>
                     <br> 
-                    <div class="form-group location">
-                        <p class="text-center"> <label class="control-label" style="color: black;">Location</label> </p>
+                    <div class="form-group">
+                        <p class="text-center"> <label class="control-label" style="color: black;">Zone</label> </p>
                         <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="location" id="mumbai" onchange="" value="mumbai">Mumbai</label>
+                            <label><input type="checkbox" name="location" id="mumbai" value="mumbai">North Zone</label>
                         </div>
                         <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="location" id="delhi" value="delhi" onchange="">Delhi</label>
+                            <label><input type="checkbox" name="location" id="delhi" value="delhi">South Zone</label>
                         </div>
                         <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="location" id="kolkata" value="kolkata" onchange="">Kolkata</label>
+                            <label><input type="checkbox" name="location" id="kolkata" value="kolkata">East Zone</label>
                         </div>
                         <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="location" id="chennai" value="chennai" onchange="">Chennai</label>
-                        </div>
-                    </div>
-                </li> 
-                <li> 
-                    <br>
-                    <div class="form-group designation">
-                        <p class="text-center"><label class="control-label" style="color: black;">Designation</label> </p>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="designation" id="ceo" value="ceo">CEO</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="designation" id="project_manager" value="project_manager">Project Manager</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="designation" id="programmer" value="programmer">Programmer</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="designation" id="department_head" value="department_head">Department Head</label>
-                        </div>
-                    </div>
-                </li> 
-                <li> 
-                    <!-- <a href="#">Drafts</a>  -->
-                    <br>
-                    <div class="form-group skills">
-                        <p class="text-center"><label class="control-label" style="color: black;">Skills</label> </p>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="html" value="html">HTML</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="sql" value="sql">SQL</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="java" value="java">Java</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="python" value="Python">Python</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="cpp" value="cpp">C++</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="css" value="css">CSS</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="javascript" value="javascript">Javascript</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="skills" id="dbms" value="dbms">DBMS</label>
+                            <label><input type="checkbox" name="location" id="kolkata" value="kolkata">West Zone</label>
                         </div>
                     </div>
                 </li> 
                 <li class="text-center"> 
+                    <br>
+                    <div class="form-group">
+                        <p class="text-center"><label class="control-label" style="color: black;">Sub - Zone</label> </p>
+                        <input type="text" name="subZone" id="subZone" />
+                    </div>
+                </li> 
+                <li class="text-center"> 
+                    <!-- <a href="#">Drafts</a>  -->
+                    <br>
+                    <div class="form-group">
+                        <p class="text-center"><label class="control-label" style="color: black;">Tender Name</label> </p>
+                        <input type="text" name="tenderName" id="tenderName" />
+                    </div>
+                </li> 
+                <li class=""> 
                     <!-- <a href="#"> <span class="badge badge-gray pull-right">1</span>Spam</a>  -->
                     <br>
-                    <div class="form-group experience">
-                        <p><label class="control-label" style="color: black;">Experience</label> </p>
+                    <div class="form-group">
+                        <p class="text-center"><label class="control-label" style="color: black;">Closing Date</label> </p>
                         <!-- <div class="slider slider-gold" data-postfix=" $" data-min="0" data-max="10" data-min-val="0" data-max-val="10"></div> -->
                         <!-- <div class="slider slider-gold" data-vertical="0" data-postfix="years" data-min="0" data-max="10" data-min-val="0" data-max-val="1"></div> -->
-                        <input type="number" name="experience" id="experience">
+                        <!-- <input type="number" name="experience" id="experience"> -->
+                        <div class="checkbox" style="margin-left: 40px; color: black">
+                            <label><input type="checkbox" name="location" id="mumbai" value="mumbai">Closed</label>
+                        </div>
+                        <div class="checkbox" style="margin-left: 40px; color: black">
+                            <label><input type="checkbox" name="location" id="delhi" value="delhi">Open</label>
+                        </div>
+                        <p class="text-center"><label class="control-label" style="color: black;">Enter Date</label> </p>
+                        <p class="text-center"><input type="text" name="tenderName" id="tenderName" /></p>
                     </div>
                 </li> 
                 <li> 
                     <!-- <a href="#">Trash</a>  -->
                     <br>
-                    <div class="form-group qualification">
-                        <p class="text-center"><label class="control-label" style="color: black;">Qualification</label> </p>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="qualification" id="hsc" value="hsc">HSC</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="qualification" id="be" value="be">Bachelor of Engg.</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="qualification" id="mtech" value="mtech">Master of Technology</label>
-                        </div>
-                        <div class="checkbox" style="margin-left: 40px; color: black">
-                            <label><input type="checkbox" name="qualification" id="PhD" value="PhD">PhD</label>
-                        </div>
-                    </div>
+                    <div class="form-group">
+                        <p class="text-center"><label class="control-label" style="color: black;">Number of Bids</label> </p>
+                        <p class="text-center"><input type="number" name="tenderName" id="tenderName" /></p>
                 </li> 
             </ul> 
             <!-- <div class="mail-distancer"></div>

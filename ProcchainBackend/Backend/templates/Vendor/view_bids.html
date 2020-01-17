@@ -5,7 +5,80 @@
 <h3>Applied Bids</h3>
 
 <div class="container">
-    <table class="table table-condensed responsive table-hover table-primary text-center"  id="myTable">
+<table class="table table-condensed"  id="myTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tender Name</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Download Tender</th>
+            <th>Download Bid</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody class="panel">
+        <tr data-toggle="collapse" data-target="#demo1" data-parent="#myTable">
+            <td>1</td>
+            <td>05 May 2013</td>
+            <td>Credit Account</td>
+            <td class="text-success">$150.00</td>
+            <td class="text-error"><button class="btn btn-info">Download</button></td>
+            <td class="text-success"><button class="btn btn-info">Download</button></td>
+            <td><button class="btn btn-black"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button> </td>
+        </tr>
+        <tr id="demo1" class="collapse">
+            <td class="hiddenRow"></td>
+            <td  class="hiddenRow">
+                <div>
+                    <a href="#payment_details" data-toggle="modal" data-target ="#payment_details">
+                        <button class="btn btn-gold">Payment Details</button>
+                    </a>
+                </div>
+            </td>
+            <td  class="hiddenRow"><div><a href="{% url 'shipment_details' %}"><button class="btn btn-gold">Shipment</button></a> </div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">View Invoice</button></div> </td>
+            <td colspan="2" class="hiddenRow"><div><button class="btn btn-gold">View Pay Order</button></div> </td>
+        </tr>
+        <tr data-toggle="collapse" data-target="#demo2" data-parent="#myTable">
+            <td>2</td>
+            <td>05 May 2013</td>
+            <td>Credit Account</td>
+            <td class="text-success">$11.00</td>
+            <td class="text-error"><button class="btn btn-info">Download</button></td>
+            <td class="text-success"><button class="btn btn-info">Download</button></td>
+            <td><button class="btn btn-black"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button> </td>
+        </tr>
+        <tr id="demo2" class="collapse">
+            <td class="hiddenRow"></td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Payment Details</button></div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Shipment</button></div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">View Invoice</button></div> </td>
+            <td colspan="2" class="hiddenRow"><div><button class="btn btn-gold">View Pay Order</button></div> </td>
+        </tr>
+        <tr data-toggle="collapse" data-target="#demo3" data-parent="#myTable">
+            <td>3</td>
+            <td>05 May 2013</td>
+            <td>Credit Account</td>
+            <td class="text-success">$500.00</td>
+            <td class="text-error"><button class="btn btn-info">Download</button></td>
+            <td class="text-success"><button class="btn btn-info">Download</button></td>
+            <td><button class="btn btn-black"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button></td>
+        </tr>
+        <tr id="demo3" class="collapse">
+            <td class="hiddenRow"></td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Payment Details</button></div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Shipment</button></div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">View Invoice</button></div> </td>
+            <td colspan="2" class="hiddenRow"><div><button class="btn btn-gold">View Pay Order</button></div> </td>
+        </tr>
+        </tr>
+    </tbody>
+</table>
+    <!-- <table class="table table-condensed responsive table-hover table-primary text-center"  id="myTable">
         <thead>
             <tr>
                 <th>#</th>
@@ -77,10 +150,12 @@
             </tr>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+
 </div>
 
 {% include 'Vendor/payment_details_modal.html' %}
+{% include 'Vendor/edit_bid_modal.html' %}
 
 {% endblock %}
 

@@ -13,3 +13,6 @@ sendTenderDetails()
 # Tender List
 nothing to send
 allTenders()
+
+# Applied tenders list for vendor
+appliedTenders()

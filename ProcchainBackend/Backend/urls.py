@@ -2,6 +2,16 @@ from django.urls import path
 from . import views
 
 urlpatterns =[
+
+    path('',views.index,name = "index"),
+    path('login/', views.login ,name = "login"),
+    # path('user/<int:pk>',views.UserView.as_view()),
+    # path('tender_info/<int:tender_id>',views.TenderView.as_view()),
+    path('vendor/', views.vendor , name = 'vendors_index'),
+    path('vendor/browse_tenders/', views.browse_tenders , name = 'browse_tenders'),
+    path('vendor/view_bids/', views.view_bids , name = 'view_bids'),
+    path('vendor/view_bids/shipment_details/', views.shipment_details , name = 'shipment_details'),
+  
     #Utility
     path('',views.index,name = "index"),#Landing Page
     path('auth-login/', views.authLogin, name = "authLogin"),#Render login
@@ -26,7 +36,8 @@ urlpatterns =[
     path("GailOrg/tender/make_bids/" , views.make_bids, name = "make_bids"),
     path('GailOrg/view-tenders/' , views.view_tenders_org , name = "view_tender_org"),
     path('GailOrg/view-tender-detail/' , views.view_tender_detail , name = "view_tender_detail"),
-    path('GailOrg/view-bids/', views.view_bids, name = "view_bids"),
+    path('GailOrg/view-bids/<slug:addr>/', views.view_bids, name = "view_bids"),
+    path('get_locations/', views.get_locations, name = "get_locations"),
     
     #MiddleMan
     path("Middleman/", views.middleman, name = "middleman"),

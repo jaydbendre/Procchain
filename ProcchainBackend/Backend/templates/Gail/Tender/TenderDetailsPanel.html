@@ -3,7 +3,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-title" style="color: black; font-size: 24px;">
-                    <em>Tender Details</em>
+                    <em id = "tender_details_panel">Tender Details</em>
                 </div>
                 <div class="panel-options">
                     <a href="#" data-rel="collapse">
@@ -16,11 +16,13 @@
                     Job details here                    
                 -->
                 <p style="color: black; font-size: 14px;">
-                    <h3>Tender Name</h3>
-                    Deadline
-                    <br />
-                    File
+                    <h3 id = "tender_details_panel_tender_name">Tender Name</h3>
+                    <br/>
+                    <i class="entypo-calendar"></i><span id = "tender_deadline"> </span>
+                    <br /> <br/>
+                    <a href="#">Link to file</a>
                 </p>
+                <br />
                 <div class="row text-center">
                     <div class="col-md-4 col-sm-12">
                         <button class="btn btn-basic" onclick=payOrderForm()>Generate Pay Order</button>
@@ -108,6 +110,12 @@
     function logPaymentForm(){
         var form = '<form role="form" class="form-horizontal">'
             + '{% csrf_token %}'
+            + '<div class="form-group">' 
+            + '<label for="transaction_id" class="col-sm-3 control-label">Transaction Id</label> '
+            + '<div class="col-sm-5"> '
+            + '<input type="text" class="form-control" id="transaction_id" placeholder="Transaction Id" required="yes" data-label="" style="left: 41.7px; top: 17.2125px;" />'
+            + '</div>' 
+            + '</div>'
             + '<div class="form-group">' 
             + '<label for="tender" class="col-sm-3 control-label">Amount</label> '
             + '<div class="col-sm-5"> '
