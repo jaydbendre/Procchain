@@ -263,7 +263,7 @@ def test(request):
 Vendor
 """
 def vendor(request) : 
-    return render(request,"Vendor/index.html")
+    return render(request,"Vendor/view_bids.html")
 
 def tender(request,tender_id) :
     with connection.cursor() as cursor :
@@ -299,6 +299,7 @@ def view_tenders(request):
 
 def add_bids(request,tender_id): 
     with connection.cursor() as cursor : 
+        return redirect("/Vendor/view_tenders")
         if request.method == "POST" and request.FILES.getlist('bids') : 
             folder = os.path.join(settings.BASE_DIR,"documents\\tenders\\{}\\bids\\".format(tender_id))
             cursor.execute("SELECT file_path,file_hash from tender where tender_id = {} ".format(tender_id))
