@@ -1,0 +1,77 @@
+{% extends 'Gail/layout/header.html' %}
+{% load static %}
+{% block Gail %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h1 style="color: black"><em>{{ request.session.name }}'s Profile</em></h1>
+                </div>
+                <div class="panel-options">
+                    <a href="" class="btn">Save Changes</a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
+                    <!-- Persons Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="control-label">First Name</label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{first_name}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="last_name" class="control-label">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{last_name}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Email</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{email}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Password -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password" class="password-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" value="{{password}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- Contact -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="contact" class="control-label">Contact</label>
+                                <input type="text" class="form-control" name="contact" id="name" value="{{phone}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block GAIL_footer %}
+{% endblock %}

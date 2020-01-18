@@ -22,8 +22,8 @@
                 <td>Tata Steel Ltd.</td>
                 <td>12th Feb</td>
                 <td>14th Feb</td>
-                <td><a class="btn btn-primary" href="#enter_otp" onclick="getState(0)" data-toggle = "modal" data-target="#enter_otp">Arrived</a></td>
-                <!-- <td class="text-success bg-success">Arrived</td> -->
+                <td id = "Arrival"><a class="btn btn-primary" href="#enter_otp" onclick="getState(0)" data-toggle = "modal" data-target="#enter_otp">Arrived</a></td>
+                <td class="text-success bg-success" style="display:none">Arrived</td> 
                 <td><a class="btn btn-info" href="{% url 'testing' %}" onclick="getState(1)" data-toggle = "modal" data-target="#enter_otp">Dispatched</a></td>
             </tr>
         </tbody>
@@ -38,9 +38,9 @@
         sendOTP()
         console.log('getState');
         $("#enter_otp_body_div").empty();
-        // if (state == 0) {
+       // if (state == 0) {
         //     $("#enter_otp_body_div").append("Arrived!");
-        // } else {
+        //} else {
         //     $("#enter_otp_body_div").append("Dispatched!");
         // }
         
@@ -66,8 +66,9 @@
                     $("#otp").change( function(){
                     if ( $("#otp").val() == response)
                     {
-                        console.log("in function")
+                        console.log("in function");
                         $("#submit").prop("disabled",false);
+                        //$('#submit').prop
                     }
                     else {
                         console.log("out of function");
@@ -87,6 +88,11 @@
             $(".error").html('Please enter a valid number!')
             $(".error").show();
         }
+    }
+    function modalFade(){
+        $('#enter_otp').modal('hide');
+        document.getElementById('Arrival').innerHTML = "<p class = 'text-success'> Arrived </p>"
+        
     }
     
 </script>

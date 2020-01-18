@@ -1,5 +1,5 @@
 {% extends 'Vendor/layout/header.html' %}
 {% load static %}
 {% block vendor %}
-    Hello, {{ user_data.fname}}&nbsp;{{ user_data.lname }}
+    Hello, {{ request.session.name }}&nbsp;{{ user_data.lname }}
 {% endblock %}

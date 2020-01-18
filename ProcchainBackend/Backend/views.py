@@ -42,13 +42,12 @@ def login(request) :
     with connection.cursor() as cursor :
         email = request.POST["email"]
         password = request.POST["password"]
-        
+        # return HttpResponse(email + " " +password)
         # email  = "BertHorne@gmail.com" 
         # password = "pass1"
         if email !=''  or password != '':
             cursor.execute("SELECT * from users where email = '{}' and password = '{}' and active_status =1 ".format(email,password))
             user = cursor.fetchone()
-            
             if len(user) == 0:
                 return HttpResponse("No records found")
             user_data = {
@@ -61,6 +60,7 @@ def login(request) :
             
             request.session["email"] = email
             request.session["uid"] = user[0]
+            request.session["name"] = user_data["fname"] + " " + user_data["lname"]
             cursor.execute("SELECT * from user_post_role_map where uid = '{}'".format(user_data["uid"]))
             role_data = cursor.fetchall()
             user_data["role"] = dict()
@@ -73,14 +73,14 @@ def login(request) :
                     user_data["role"][str(r[2])]["role_id"].append(r[3])
                 
                 user_data["role"][str(r[2])]["role_id"] = sorted(user_data["role"][str(r[2])]["role_id"])
-            # return Response(user_data)
+            # return HttpResponse(user_data.items())
             for role_id in user_data["role"].values():
                 for role in role_id.values():
                     if role[0] in range(1,100):
                         """
                         GAIL
                         """
-                        
+                        # return HttpResponse("hi")
                         cursor.execute("SELECT org_id from user_org_map where uid = {}".format(user_data["uid"]))
                         org_data = cursor.fetchall()
                         
@@ -188,7 +188,7 @@ def login(request) :
                         
                         return HttpResponse("Error")
         else:
-            return Response({"Error" : "Email or password cannot be null"})
+            return HttpResponse("Hi")
 
 
 class Register(APIView):
@@ -264,6 +264,9 @@ Vendor
 """
 def vendor(request) : 
     return render(request,"Vendor/view_bids.html")
+
+def vendor_edit_profile(request):
+    return render(request, "Vendor/EditProfile.html" )
 
 def tender(request,tender_id) :
     with connection.cursor() as cursor :
@@ -350,6 +353,8 @@ def uploadTenderRender(request):
     """ Renders Tender Form """
     return render(request, 'Gail/Tender/UploadTenderForm.html')
 
+def gail_edit_profile(request):
+    return render(request, 'Gail/EditProfile.html' )
 
 def organisation_retrieve(request, org_id):
     """
@@ -683,7 +688,7 @@ def make_bids(request , tender_id):
 
    
 # def vendor(request):
-#     with open(os.path.join(settings.STATIC_URL,"blockchainTesting/payment"), 'r') as json_file:
+#     with open('F:\\SUMEDH\\sih 2020\\SIH2020\\Blockchain Related Details\\paymentHistory.json', 'r') as json_file:
 #         data = json.load(json_file)
 #         print(data)
 #         for i in data:
@@ -693,7 +698,7 @@ def make_bids(request , tender_id):
 #             context_dict[i]['payment_status'] = i['acknowledge']
             
 #     return HttpResponse('123')
-    # return render(request , 'Vendor/view_bids.html')
+#     # return render(request , 'Vendor/view_bids.html')
 
 def browse_tenders(request):
     return render(request , 'Vendor/browse_tenders.html')
@@ -731,3 +736,6 @@ def middleman(request):
 
 def middleman_history(request):
     return render(request,"Middleman/History.html")
+
+def middleman_edit_profile(request):
+    return render(request, 'MiddleMan/EditProfile.html')
