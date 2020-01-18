@@ -1,0 +1,117 @@
+{% extends 'Vendor/layout/EditProfile.html' %}
+{% block Vendor %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h1 style="color: black"><em>{{name}}'s Profile</em></h1>
+                </div>
+                <div class="panel-options">
+                    <a href="" class="btn">Save Changes</a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
+                    <!-- Company Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{name}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Email</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{email}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- Gender -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <!-- <div class="form-group">
+                                <label for="gender" class="control-label">Gender</label>
+                                <input type="radio" name="gender" id="" value="M" class="radio"> Male
+                                <input type="radio" name="gender" id="" value="F" class="radio"> Female
+                            </div> -->
+                            <label for="gender" class="control-label">Gender</label>                    
+                        </div>
+                        {% if gender == 'M' %}
+                          <div class="col-sm-3">
+                              <div class="radio radio-replace">
+                                  <input type="radio" id="rd-1" name="gender" value="M" checked> 
+                                  <label>Male</label> 
+                                </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="radio radio-replace">
+                                  <input type="radio" id="rd-1" name="gender" value="F"> 
+                                  <label>Female</label> 
+                                </div>
+                          </div>
+                        {% else %}
+                          <div class="col-sm-3">
+                              <div class="radio radio-replace">
+                                  <input type="radio" id="rd-1" name="gender" value="M"> 
+                                  <label>Male</label> 
+                                </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="radio radio-replace">
+                                  <input type="radio" id="rd-1" name="gender" value="F" checked> 
+                                  <label>Female</label> 
+                                </div>
+                          </div>
+                        {% endif %}
+                    </div>
+                    
+                    <br>
+
+                    <!-- Contact -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="contact" class="control-label">Contact</label>
+                                <input type="text" class="form-control" name="contact" id="name" value="{{phone}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="address" class="control-label">Address</label>
+                                    <textarea name="address" id="" cols="30" rows="10" class="form-control" data-validate="required">{{address}}
+                                    </textarea>
+                                    <!-- <input type="text" class="form-control" name="name" id="name" value="{{phone}}" data-validate="required"> -->
+                                </div>
+                            </div>
+                    </div>
+                    
+                    <!-- Date of Birth -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dob" class="control-label">Date Of Birth</label>
+                                <!-- <input type="text" class="form-control" name="alternative_email_id" id="name" value="{{alternative_email_id}}"> -->
+                                <input class="form-control datepicker" name="dob" id="" data-validate="required" placeholder="Date of Birth" value="{{dob}}" /> 
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
