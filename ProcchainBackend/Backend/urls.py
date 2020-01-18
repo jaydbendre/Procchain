@@ -29,6 +29,7 @@ urlpatterns =[
     path("Vendor/tender/<int:tender_id>" , views.tender , name = "view_tender"),
     path("Vendor/tender/<int:tender_id>/make_bids" , views.make_bids , name = "make_bids"),
     path("Vendor/tender/<int:tender_id>/add_bids" , views.add_bids , name = "add_bids"),
+    path("Vendor/EditProfile" , views.vendor_edit_profile, name =  "edit_profile"),
     
     #GAIL
     path('GailOrg/', views.gailOrg,name = "gailorg"), 
@@ -39,6 +40,7 @@ urlpatterns =[
     path('GailOrg/view-tender-detail/' , views.view_tender_detail , name = "view_tender_detail"),
     path('GailOrg/view-bids/<slug:addr>/', views.view_bids, name = "view_bids"),
     path('get_locations/', views.get_locations, name = "get_locations"),
+    path('gail_edit_profile', views.gail_edit_profile, name = 'gail_edit_profile'),
     
     #MiddleMan
     path("Middleman/", views.middleman, name = "middleman"),
@@ -47,5 +49,6 @@ urlpatterns =[
     path('render_file_upload/' , views.render_file , name = "render_upload"),
     path('file_upload/' , views.tender_file_upload , name = "file_upload"),
     path('testing/', views.test, name = "testing"),
+    path('Middleman/EditProfile', views.middleman_edit_profile, name = 'middleman_edit_profile'),
    
 ] 

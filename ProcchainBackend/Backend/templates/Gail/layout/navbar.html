@@ -42,7 +42,7 @@
                     </a> 
                 </div> 
                 <div class="sui-hover inline-links animate-in"> 
-                    <a href=""> 
+                    <a href="{% url 'gail_edit_profile'%}"> 
                         <i class="entypo-user"></i>Edit Profile
                     </a> 
                     
@@ -71,6 +71,10 @@
             <li> <a href="{% url 'upload-tender'%}">
                 <i class="entypo-upload"></i>
                 <span class="title">Add Tender</span></a> 
+            </li>
+            <li> <a href="{% url 'gail_edit_profile'%}">
+                <i class="entypo-user"></i>
+                <span class="title">Edit Profile</span></a> 
             </li>
             </ul> 
         

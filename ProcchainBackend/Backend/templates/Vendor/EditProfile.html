@@ -1,11 +1,11 @@
-{% extends 'Vendor/layout/EditProfile.html' %}
-{% block Vendor %}
+{% extends 'Vendor/layout/header.html' %}
+{% block vendor %}
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-title">
-                    <h1 style="color: black"><em>{{name}}'s Profile</em></h1>
+                    <h1 style="color: black"><em>{{ request.session.name }}'s Profile</em></h1>
                 </div>
                 <div class="panel-options">
                     <a href="" class="btn">Save Changes</a>
@@ -14,12 +14,21 @@
             <div class="panel-body">
                 <form action="" method="post" class="form">
                     {% csrf_token %}
-                    <!-- Company Name -->
+                    <!-- Persons Name -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="name" class="control-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" value="{{name}}" data-validate="required">
+                                <label for="name" class="control-label">First Name</label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{first_name}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="last_name" class="control-label">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{last_name}}" data-validate="required">
                             </div>
                         </div>
                     </div>
@@ -36,16 +45,26 @@
 
                     <br>
 
-                    <!-- Gender -->
+                    <!-- Password -->
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password" class="password-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" value="{{password}}" data-validate="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <!-- <div class="row">
+                        <div class="col-md-2"> -->
                             <!-- <div class="form-group">
                                 <label for="gender" class="control-label">Gender</label>
                                 <input type="radio" name="gender" id="" value="M" class="radio"> Male
                                 <input type="radio" name="gender" id="" value="F" class="radio"> Female
                             </div> -->
-                            <label for="gender" class="control-label">Gender</label>                    
-                        </div>
+                            <!-- <label for="gender" class="control-label">Gender</label>                     
+                        <!-- </div>
                         {% if gender == 'M' %}
                           <div class="col-sm-3">
                               <div class="radio radio-replace">
@@ -73,7 +92,7 @@
                                 </div>
                           </div>
                         {% endif %}
-                    </div>
+                    </div> -->
                     
                     <br>
 
@@ -87,28 +106,28 @@
                         </div>
                     </div>
 
-                    <!-- Address -->
+                    <!-- Password
                     <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="address" class="control-label">Address</label>
-                                    <textarea name="address" id="" cols="30" rows="10" class="form-control" data-validate="required">{{address}}
+                                    <label for="password" class="control-label">password</label>
+                                    <textarea name="password" id="" cols="30" rows="10" class="form-control" data-validate="required">{{address}}
                                     </textarea>
                                     <!-- <input type="text" class="form-control" name="name" id="name" value="{{phone}}" data-validate="required"> -->
-                                </div>
+                                <!-- </div>
                             </div>
                     </div>
-                    
+                     --> 
                     <!-- Date of Birth -->
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="dob" class="control-label">Date Of Birth</label>
                                 <!-- <input type="text" class="form-control" name="alternative_email_id" id="name" value="{{alternative_email_id}}"> -->
-                                <input class="form-control datepicker" name="dob" id="" data-validate="required" placeholder="Date of Birth" value="{{dob}}" /> 
+                                <!-- <input class="form-control datepicker" name="dob" id="" data-validate="required" placeholder="Date of Birth" value="{{dob}}" /> 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

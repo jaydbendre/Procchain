@@ -42,7 +42,7 @@
                     </a> 
                 </div> 
                 <div class="sui-hover inline-links animate-in"> 
-                    <a href=""> 
+                    <a href="{% url 'edit_profile' %}"> 
                         <i class="entypo-user"></i>Edit Profile
                     </a>
                     <a href="{% url 'logout' %}"> 
@@ -59,9 +59,15 @@
                     <a href="/Vendor/view_tenders"><i class="entypo-gauge"></i>
                     <span class="title">View Active Tenders</span></a>
                 </li> 
-            <li> <a href="" >
+            <li> 
+                <a href="" >
                 <i class="entypo-archive"></i>
                 <span class="title">History of Bids</span></a> 
+            </li> 
+            <li>
+                <a href="/Vendor/EditProfile">
+                <i class="entypo-user"></i>
+                <span class="title">Edit Profile</span></a>
             </li> 
             </ul> 
         
