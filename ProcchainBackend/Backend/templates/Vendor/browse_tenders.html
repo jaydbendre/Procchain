@@ -9,18 +9,21 @@
   <div class="mail-body">
     <div class="row" id="search_results">
       <!-- Make the necessary changes -->
+      {% if tender_data == '' %}
             <h2 class="text-center"><em>No tenders found!</em></h2>
+        {% else %}
+        {% for k,v in tender_data.items %}
             <div class="member-entry" style="margin-left: 30px; margin-right: 30px;">
                 <div class="member-details">
                     <h4>
-                        <a href="#payment_details" data-toggle="modal" data-target="#payment_details">Tender: </a> 
-                        <a href="'+url+'" class="btn btn-primary pull-right" style="margin-right: 20px">Download Tender</a>
+                        <a href="#payment_details" data-toggle="modal" data-target="#payment_details">Tender ID : {{ k }}</a> 
+                        <a href="/Vendor/download/{{ v.file_path }}" class="btn btn-primary pull-right" style="margin-right: 20px" download>Download Tender</a>
                         <a href="#make_bids"  data-toggle="modal" data-target="#make_bids" class="btn btn-primary pull-right" style="margin-right: 20px">Bid</a>
                         <!-- <button class="btn btn-black" style="margin-right: 20px"><a href="#edit_bids" data-toggle="modal" data-target="#edit_bids" style="color: #FFFFFF">Edit</a></button> -->
                     </h4>
                     <div class="row info-list">
                         <div class="col-sm-4">
-                            <i class="entypo-briefcase"></i>Posted By <a href="#">hi</a>
+                            <i class="entypo-briefcase"></i>Posted At : {{ v.uploaded_at }} 
                         </div>
                         <!-- <div class="col-sm-4">'
                             <i class="entypo-mail"></i> <a href="#">hi</a> 
@@ -37,12 +40,11 @@
                         <div class="col-sm-4">
                             <i class="entypo-newspaper"></i>Qualification: <a href="#">hi</a>
                         </div> -->
-                        <div class="col-sm-4">'
-                            <i class="entypo-calendar"></i> Apply By <a href="#">hi</a>
-                        </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
   {% include 'Vendor/browse_tenders_filters.html' %}
