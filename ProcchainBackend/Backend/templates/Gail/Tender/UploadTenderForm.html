@@ -33,11 +33,7 @@
                             <a class="file-input-wrapper btn form-control file2 inline btn btn-primary">
                                 <i class="glyphicon glyphicon-file"></i> 
                                 Browse
-<<<<<<< HEAD
-                                <input type="file" name = "myfile"/>
-=======
                                 <input type="file" id = "myfile" name = "myfile"/>
->>>>>>> 83c4c9c74e1f825e9963bfeadc854d3e1e6fa96c
                             </a>
                         </div> 
                     </div>
@@ -69,7 +65,7 @@
             e.preventDefault();
             var formData = new FormData(this);
             $.ajaxSetup({
-            headers: { "X-CSRFToken": '{{csrf_token}}' }
+                headers: { "X-CSRFToken": '{{csrf_token}}' }
             });
             $.ajax({
                 url: "{% url 'file_upload' %}",
@@ -82,6 +78,14 @@
                     $("#success-alert").show();
                     document.getElementById("form").reset();
                     setTimeout(function() { $("#success-alert").hide(); }, 5000);
+                    var date =  new Date();
+                    var datastr = json({
+                        address: '',
+                        tender_title: $("#title").val(),
+                        location: '',
+                        upload_date: toString(date),
+
+                    });
                     if(response.error){
                         $.each(response.errors, function(name, error){
                             $("#error-alert").val("<small class='text-muted error'>' + error + '</small>")

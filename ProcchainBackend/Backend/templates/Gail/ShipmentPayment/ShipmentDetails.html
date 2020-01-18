@@ -1,15 +1,15 @@
 {% load static %}
-<div class="timeline-centered"> 
+<div class="timeline-centered" id = "shipment_details_timeline"> 
     <article class="timeline-entry"> 
         <div class="timeline-entry-inner"> 
-            <time class="timeline-time" datetime="2019-08-04T03:45"><span>03:45 AM</span> <span>Today</span></time> 
+            <time class="timeline-time" datetime="2019-08-04T03:45"><span>03:45 AM</span> <span>Dispatched</span></time> 
             <div class="timeline-icon bg-success"> <i class="entypo-feather"></i> </div> 
             <div class="timeline-label"> 
-                <h2><a href="#">Art Ramadani</a> <span>posted a status update</span></h2> 
-                <p>Tolerably earnestly middleton extremely distrusts she boy now not. 
+                <h2><a href="#">Location</a> <span>posted a status update</span></h2> 
+                <!-- <p>Tolerably earnestly middleton extremely distrusts she boy now not. 
                     Add and offered prepare how cordial two promise. Greatly who affixed suppose 
                     but enquire compact prepare all put. Added forth chief trees but rooms think may.
-                </p> 
+                </p>  -->
             </div> 
         </div> 
     </article> 
@@ -57,31 +57,3 @@
     </article> 
     
 </div>
-
-<script>
-    $(document).ready(function() {
-        // console.log("hello")
-        $.getJSON("{% static 'assets/blockchainTesting/shipmentDetails.json' %}", function(data){
-            console.log(data)
-            var locations = Array()
-            locations.push(data.source)
-            locations.push(data.destination)
-
-            $.each(data.shipment_details, function(key, val) {
-                locations.push(val.source)
-                locations.push(val.destination)
-            });
-            var test = locations.toString();
-            $.ajax({
-                url : "{% url 'get_locations' %}",
-                method : "GET",
-                data : {"locations" : test},
-                success : function(response){
-                    // console.log(response)
-                },
-                cache: false,
-                contentType: false,
-            });
-        });
-    });
-</script>

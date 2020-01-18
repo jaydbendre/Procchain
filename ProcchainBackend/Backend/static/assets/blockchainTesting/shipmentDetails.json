@@ -9,20 +9,20 @@
             "destination": 21, 
             "expected_quatity": 12, 
             "received_quatity": 12, 
-            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
-            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
-            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
-            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+            "expected_delivery_date": "2020-01-08 10:00:38.286155", 
+            "actual_delivery_date": "2020-01-08 10:00:38.286155", 
+            "expected_receiving_date": "", 
+            "actual_receiving_date": ""
         }, 
         {
             "source": 21, 
             "destination": 41, 
             "expected_quatity": 12, 
             "received_quatity": 10, 
-            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
-            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
-            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
-            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+            "expected_delivery_date": "2020-01-10 10:00:38.286155", 
+            "actual_delivery_date": "2020-01-13 10:00:38.286155", 
+            "expected_receiving_date": "2020-01-09 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-09 10:00:38.286155"
         }, 
         {
             "source": 41, 
@@ -30,19 +30,19 @@
             "expected_quatity": 12, 
             "received_quatity": 10, 
             "expected_delivery_date": "2020-01-17 10:00:38.286155", 
-            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
-            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
-            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+            "actual_delivery_date": "2020-01-18 10:00:38.286155", 
+            "expected_receiving_date": "2020-01-11 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-11 10:00:38.286155"
         }, 
         {
             "source": 47, 
             "destination": 13, 
             "expected_quatity": 12, 
             "received_quatity": 10, 
-            "expected_delivery_date": "2020-01-17 10:00:38.286155", 
-            "actual_delivery_date": "2020-01-17 10:00:38.286155", 
-            "expected_receiving_date": "2020-01-17 10:00:38.286155", 
-            "actual_receiving_date": "2020-01-17 10:00:38.286155"
+            "expected_delivery_date": "", 
+            "actual_delivery_date": "", 
+            "expected_receiving_date": "2020-01-18 10:00:38.286155", 
+            "actual_receiving_date": "2020-01-19 10:00:38.286155"
         }
     ]
 }

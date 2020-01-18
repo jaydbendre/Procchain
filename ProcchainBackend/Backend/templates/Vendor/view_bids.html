@@ -1,11 +1,12 @@
 {% extends "Vendor/layout/header.html" %}
+{% load static %}
 {% block vendor %}
 
 <!-- {{request.session.user_data}} -->
 <h3>Applied Bids</h3>
 
 <div class="container">
-<table class="table table-condensed"  id="myTable">
+<table class="table table-condensed responsive table-hover"  id="myTable">
     <thead>
         <tr>
             <th>#</th>
@@ -31,13 +32,13 @@
             <td class="hiddenRow"></td>
             <td  class="hiddenRow">
                 <div>
-                    <a href="#payment_details" data-toggle="modal" data-target ="#payment_details">
+                    <a href="#payment_details" data-toggle="modal" data-target ="#payment_details" onclick="loadPaymentDetails()">
                         <button class="btn btn-gold">Payment Details</button>
                     </a>
                 </div>
             </td>
             <td  class="hiddenRow"><div><a href="{% url 'shipment_details' %}"><button class="btn btn-gold">Shipment</button></a> </div> </td>
-            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</button> </div> </td>
             <td  class="hiddenRow"><div><button class="btn btn-gold">View Invoice</button></div> </td>
             <td colspan="2" class="hiddenRow"><div><button class="btn btn-gold">View Pay Order</button></div> </td>
         </tr>
@@ -54,7 +55,7 @@
             <td class="hiddenRow"></td>
             <td  class="hiddenRow"><div><button class="btn btn-gold">Payment Details</button></div> </td>
             <td  class="hiddenRow"><div><button class="btn btn-gold">Shipment</button></div> </td>
-            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</div> </td>
+            <td  class="hiddenRow"><div><button class="btn btn-gold">Generate Invoice</button>  </div> </td>
             <td  class="hiddenRow"><div><button class="btn btn-gold">View Invoice</button></div> </td>
             <td colspan="2" class="hiddenRow"><div><button class="btn btn-gold">View Pay Order</button></div> </td>
         </tr>
@@ -78,7 +79,11 @@
         </tr>
     </tbody>
 </table>
+<<<<<<< HEAD
+<!--     <table class="table table-condensed responsive table-hover table-primary text-center"  id="myTable">
+=======
     <!-- <table class="table table-condensed responsive table-hover table-primary text-center"  id="myTable">
+>>>>>>> d19c92f75668feabbf44eb0314a1591442fe9637
         <thead>
             <tr>
                 <th>#</th>
@@ -160,5 +165,32 @@
 {% endblock %}
 
 {% block vendor_footer %}
+
+<script>
+
+    function loadPaymentDetails(){
+        $.getJSON('{% static "assets/blockchainTesting/paymentHistory.json" %}', function(data){
+            var append = "";
+            var t = "";
+            $.each(data, function(key, val){
+                if (val.acknowledge){
+                    t = "<td class='bg-success text-success'>Acknowledged</td>"
+                }
+                else {
+                    t = "<td><button class='btn btn-info' id = '"+ key +"'> Acknowledge </button></td>"
+                }
+                append += '<tr id = "'+ val.payment_id +'">'
+                    + '<td>' + val.transaction_id + '</td>'
+                    + '<td>' + val.amount + '</td>'
+                    + '<td>' + String(new Date(val.send_at)) + '</td>'
+                    + t
+                +'</tr>'
+            });
+            var header = "<thead class='text-center'><th>Transaction Id</th><th>Amount</th><th>Sent At</th><th>&nbsp;</th></thead><tbody>"
+            $("#payment_details_modal_body").html("<table class='text-center table table-condensed responsive table-hover table-primary table-bordered'>" + header + append + "</tbody></table>")
+        });
+    }
+
+</script>
 
 {% endblock %}
