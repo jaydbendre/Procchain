@@ -42,13 +42,12 @@ def login(request) :
     with connection.cursor() as cursor :
         email = request.POST["email"]
         password = request.POST["password"]
-        
+        # return HttpResponse(email + " " +password)
         # email  = "BertHorne@gmail.com" 
         # password = "pass1"
         if email !=''  or password != '':
             cursor.execute("SELECT * from users where email = '{}' and password = '{}' and active_status =1 ".format(email,password))
             user = cursor.fetchone()
-            
             if len(user) == 0:
                 return HttpResponse("No records found")
             user_data = {
@@ -73,14 +72,14 @@ def login(request) :
                     user_data["role"][str(r[2])]["role_id"].append(r[3])
                 
                 user_data["role"][str(r[2])]["role_id"] = sorted(user_data["role"][str(r[2])]["role_id"])
-            # return Response(user_data)
+            # return HttpResponse(user_data.items())
             for role_id in user_data["role"].values():
                 for role in role_id.values():
                     if role[0] in range(1,100):
                         """
                         GAIL
                         """
-                        
+                        # return HttpResponse("hi")
                         cursor.execute("SELECT org_id from user_org_map where uid = {}".format(user_data["uid"]))
                         org_data = cursor.fetchall()
                         
@@ -188,7 +187,7 @@ def login(request) :
                         
                         return HttpResponse("Error")
         else:
-            return Response({"Error" : "Email or password cannot be null"})
+            return HttpResponse("Hi")
 
 
 class Register(APIView):
@@ -637,13 +636,6 @@ def make_bids(request , tender_id):
             jwt = data["jwt"]
             jwt = json.loads(jws.verify(jwt, 'seKre8', algorithms=['HS256']).decode())
             return Response(jwt)
-            '''
-
-
-
-
-
-
 
 
 
