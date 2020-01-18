@@ -23,6 +23,7 @@
                 <td>12th Feb</td>
                 <td>14th Feb</td>
                 <td><a class="btn btn-primary" href="#enter_otp" onclick="getState(0)" data-toggle = "modal" data-target="#enter_otp">Arrived</a></td>
+                <!-- <td class="text-success bg-success">Arrived</td> -->
                 <td><a class="btn btn-info" href="{% url 'testing' %}" onclick="getState(1)" data-toggle = "modal" data-target="#enter_otp">Dispatched</a></td>
             </tr>
         </tbody>
@@ -35,18 +36,21 @@
 <script>
     function getState(state){
         sendOTP()
+        console.log('getState');
         $("#enter_otp_body_div").empty();
-        if (state == 0) {
-            $("#enter_otp_body_div").append("Arrived!");
-        } else {
-            $("#enter_otp_body_div").append("Dispatched!");
-        }
+        // if (state == 0) {
+        //     $("#enter_otp_body_div").append("Arrived!");
+        // } else {
+        //     $("#enter_otp_body_div").append("Dispatched!");
+        // }
         
     };
     function sendOTP() {
         $(".error").html("").hide();
-        var number = '9292929292';
+        console.log('in fx');
+        var number = '9820712020'//'{{ request.session.user_data.details.ph_no }}';
         if (number.length == 10 && number != null) {
+            console.log('get Number checked');
             var input = {
                 "mobile_number" : number,
                 "action" : "send_otp",
@@ -58,7 +62,7 @@
                 type : 'POST',
                 data : input,
                 success : function(response) {
-
+                    console.log('success');
                     $("#otp").change( function(){
                     if ( $("#otp").val() == response)
                     {

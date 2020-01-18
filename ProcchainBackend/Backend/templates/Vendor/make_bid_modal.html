@@ -51,6 +51,7 @@
                 <button type="submit" onclick= "uploadBids()" class="btn btn-primary" id = "apply_now_modal_btn">Make bid</button> 
                 <button type="button" class="btn btn-success" data-dismiss="modal">Close</button> 
             </div> 
+            <div class="alert alert-success" id="success-alert" style="display:none"> Bid Uploaded Successfully</div>
         </div> 
     </div> 
 
@@ -82,7 +83,7 @@
             });
             
             $.ajax({
-                url: "{% url 'make_bids' 10047 %}",
+                url: "{% url 'add_bids' 10036 %}",
                 type: 'POST',
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 data: formData,
@@ -92,6 +93,7 @@
                     $("#success-alert").show();
                     document.getElementById("form").reset();
                     setTimeout(function() { $("#success-alert").hide(); }, 5000);
+                    $body.removeClass("loading");
                     if(response.error){
                         $.each(response.errors, function(name, error){
                             $("#error-alert").val("<small class='text-muted error'>' + error + '</small>")
