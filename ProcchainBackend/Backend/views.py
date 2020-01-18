@@ -283,7 +283,22 @@ def tender(request,tender_id) :
         
         return render(request , "Vendor/tender.html" , {"tender" : tender})
 def view_tenders(request):
-    return render(request,"Vendor/browse_tenders.html")
+    with connection.cursor() as cursor :
+        cursor.execute("SELECT * from tender order by uploaded_at DESC".format(request.session["uid"]))
+        tender = cursor.fetchall()
+        tender_data = dict()
+        for t in tender:
+            if t[1]!= None  and t[5]!= None:
+                # file_path=t[1].replace("\\","\\\\")
+                # return HttpResponse(t[5])
+                tender_data[str(t[0])] = {
+                    "file_path" : t[1],
+                    "file_hash" : t[2],
+                    "uploaded_at" : str(t[5])
+                }
+        
+        # return HttpResponse(tender_data.items())
+        return render(request,"Vendor/browse_tenders.html",{"tender_data" : tender_data})
 
 def add_bids(request,tender_id): 
     with connection.cursor() as cursor : 
@@ -483,7 +498,7 @@ def tender_file_upload(request) :
         tender_id = cursor.fetchall()[0][0] + 1
         uid = request.session["uid"]
         
-        file_path = "documents\\\\tenders\\\\{}".format(tender_id)
+        file_path = "documents\\\\tenders\\\\{}\\\\".format(tender_id)
         folder = os.path.join(settings.BASE_DIR , file_path)
         # return HttpResponse("Hello")
 
@@ -503,8 +518,19 @@ def tender_file_upload(request) :
                 
                 file_hash = hasher.hexdigest()
                 
+            file_path = file_path+file_url
+            BLOCK_SIZE = 65536
+            with open(file_path,'rb') as f:
+                fb= f.read(BLOCK_SIZE)
+                while len(fb) > 0:
+                    hasher.update(fb)
+                    fb = f.read(BLOCK_SIZE)
+            file_hash = hasher.hexdigest()
+            # return HttpResponse(file_hash)
+            # return HttpResponse(file_path+file_url + " " + file_hash)
+            cursor.execute("INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},'{}','{}','{}',{})".format(tender_id,file_path,file_hash,datetime.datetime.now(),request.session["uid"]))
                 # cursor.execute("INSERT INTO tender(tender_id , file_path,file_hash,uploaded_at,uploaded_by) values({},'{}', '{}','{}',{})".format(tender_id , file_path , file_hash , datetime.datetime.now() , request.session["uid"]))
-                
+            return redirect("/GailOrg/upload-tender")
                 # return JsonResponse({"tender_file_hash" : file_hash})
     # with connection.cursor() as cursor : 
     #     cursor.execute("SELECT max(tender_id) from tender")
@@ -520,30 +546,32 @@ def tender_file_upload(request) :
     #         file_url = fs.url(filename)
             
             hasher = hashlib.md5()
-            block_size=65536
-            for buf in iter(partial(myfile.read, block_size), b''):
-                hasher.update(buf)
-
+            # block_size=100
+            # for buf in iter(partial(myfile.read, block_size), b''):
+            #     hasher.update()
+            BLOCK_SIZE = 65536
+            
+            hasher.update(myfile.read)
             tender_hash = hasher.hexdigest()
             # return JsonResponse({"test":tender_hash})
-            file_path = {
-                "bids" : [],
-                "tender" : "documents\\\\tenders\\\\{}".format(tender_id+1),
-                "tender_file_name" : file_url,
-                "uploaded_at" : []
-            }
+            # file_path = {
+            #     "bids" : [],
+            #     "tender" : "documents\\\\tenders\\\\{}".format(tender_id+1),
+            #     "tender_file_name" : file_url,
+            #     "uploaded_at" : []
+            # }
             '''
             file_path_bids = str(file_path["bids"])
             file_path_tender = str(file_path["tender"])
             file_path_tenderName = str(file_path[ "tender_file_name"])
             file_path_uploaded = str(file_path["uploaded_at"])
             file_path_str = str("bids:"+file_path_bids+"tender:"+file_path_tender+ "tender_file_name"+file_path_tenderName+ "uploaded_at"+file_path_uploaded)
-            '''
-            file_path = str(file_path)
-            file_hash = {
-                "bids" : [],
-                "tender" : hasher.hexdigest()
-            }
+            # '''
+            # file_path = str(file_path)
+            # file_hash = {
+            #     "bids" : [],
+            #     "tender" : hasher.hexdigest()
+            # }
             file_hash = str(file_hash)
             cursor.execute('INSERT INTO tender(tender_id,file_path,file_hash,uploaded_at,uploaded_by) values({},"{}","{}","{}",{})'.format(tender_id+1,file_path,file_hash,datetime.datetime.now(),uid))
         return JsonResponse({'tenderHash':tender_hash})

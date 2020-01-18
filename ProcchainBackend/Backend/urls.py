@@ -1,4 +1,7 @@
 from django.urls import path
+from django.conf.urls import url
+from django.conf import settings
+from django.views.static import serve
 from . import views
 
 urlpatterns =[
@@ -30,6 +33,7 @@ urlpatterns =[
     path("Vendor/tender/<int:tender_id>/make_bids" , views.make_bids , name = "make_bids"),
     path("Vendor/tender/<int:tender_id>/add_bids" , views.add_bids , name = "add_bids"),
     path("Vendor/EditProfile" , views.vendor_edit_profile, name =  "edit_profile"),
+     url(r'^Vendor/download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     
     #GAIL
     path('GailOrg/', views.gailOrg,name = "gailorg"), 
