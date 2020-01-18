@@ -6,12 +6,18 @@ contract Tenderfactory {
     address[] temp;
     mapping (address => address) public tenderaddress;
     
+    // For storing applied Tenders address for each person
+    mapping (address => address[]) public appliedTenders;
+    
     struct TenderDetails {
+        string title;
         address tenderAddress;
         uint location;
         string upload_date;
-        address selectedBid;
+        string deadline;
+        uint selectedBid;
     }
+    
     
     // For storing all the Tenders
     mapping (address => uint) public allTendersmap;
@@ -22,14 +28,16 @@ contract Tenderfactory {
     }
 
     function createTender(string docHash, string title1, string uploadDate1, string deadline, uint loc, uint creator) public {
-        Tender tend = new Tender(docHash, title1, uploadDate1, deadline, loc, msg.sender, creator);
+        Tender tend = new Tender(docHash, title1, uploadDate1, deadline, loc, msg.sender, creator, this);
         tenders.push(tend);
         
         // Appending the created tender in Global List
         TenderDetails memory tdlist = TenderDetails({
+            title: title1,
             tenderAddress: tenders[tenderCount],
             location: loc,
             upload_date: uploadDate1,
+            deadline: deadline,
             selectedBid: 0
         });
         
@@ -42,9 +50,13 @@ contract Tenderfactory {
         // Stores the latest Tender Address of the user
         tenderaddress[msg.sender] = tdlist.tenderAddress;
         
+        // Stores all the Tender Address of the User
+        appliedTenders[msg.sender].push(tdlist.tenderAddress);
+        
         // Count of Tender uploaded by GAIL
         tenderCount++;
     }
+    
     
     function getTenderAddress() public view returns(address) {
         return tenderaddress[msg.sender];
@@ -56,10 +68,14 @@ contract Tenderfactory {
     
     // Update TenderList after Selection of Bid
     // No need of this function
-    function selectedBid(address tenderaddr, address bidselect) public{
-        uint loc = allTendersmap[tenderaddr];
-        TenderDetails storage tempTender = allTenderslist[loc];
-        tempTender.selectedBid = bidselect;
+    // function selectedBid(address tenderaddr, uint id, uint creator, string vendor_name, address initiated_by, string initiated_at, uint takenBack_status, string date_takenBack, uint bidAmount) public{
+    //     uint loc = allTendersmap[tenderaddr];
+    //     TenderDetails storage tempTender = allTenderslist[loc];
+    // }
+    
+    // Returns all the applied Tenders of the Vendor
+    function appliedTenders() public view returns(address[]){
+        return appliedTenders[msg.sender];
     }
     
     // Returns all Tenders
@@ -69,6 +85,7 @@ contract Tenderfactory {
 }
 
 contract Tender {
+    address public parent;
     uint public creator;
     address public manager;
     string private tenderdocumentHash;
@@ -109,6 +126,7 @@ contract Tender {
         uint takenBack_status;
         string date_takenBack;
         uint bidAmount;
+        string bidsdocumentHash;
     }
     
     // Payment Details
@@ -135,20 +153,15 @@ contract Tender {
         string deadline;
         string tender_file_hash;
         Bid bid_details;
-        // string vendor_name;
-        // address bid_initiated_by;
-        // string bid_file_hash;
-        // string initiated_at;
-        // uint bid_amount;
     }
     
-    function bidforTender(address tenderAddr, string vendor_nm, address initiatedby, string initiatedat, string docHash, uint amt, uint creator) public returns(uint) {
+    function bidforTender(address tenderAddr, string vendor_nm, address initiatedby, string initiatedat, string docHash, uint amt, uint creator1) public returns(uint) {
         // For avoiding Redo of Bid
         require(bidsMap[msg.sender] != 0);
         
         bidCount++;
         Bid memory temp = Bid({
-            creator: creator,
+            creator: creator1,
             id: bidCount,
             tenderAddress: tenderAddr,
             vendor_name: vendor_nm,
@@ -156,7 +169,8 @@ contract Tender {
             initiated_at: initiatedat,
             bidAmount: amt,
             takenBack_status: 0,
-            date_takenBack: ""
+            date_takenBack: "",
+            bidsdocumentHash: docHash
         });
         bidsdocumentHash[bidCount] = docHash;
         allBids.push(temp);
@@ -164,8 +178,9 @@ contract Tender {
     }
     
     
-    function Tender(string docHash, string title1, string uploadDate1, string deadline1, uint loc, address manager1, uint creator) public{
-        creator = creator;
+    function Tender(string docHash, string title1, string uploadDate1, string deadline1, uint loc, address manager1, uint creator1, address parent1) public{
+        parent = parent1;
+        creator = creator1;
         manager = manager1;
         tenderdocumentHash = docHash;
         title = title1;
@@ -257,6 +272,8 @@ contract Tender {
         is_bid_selected = 1;
         bid_details = tempBid;
         approved_by = approver;
+        
+        // parent.call(bytes4(keccak256("updatebidTender(address, int)")),this,1);
     }
     
     // Payment

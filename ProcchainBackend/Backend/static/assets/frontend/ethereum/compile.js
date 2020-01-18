@@ -6,7 +6,7 @@ const buildPath = path.resolve(__dirname,'build');
 fs.removeSync(buildPath);
 
 const tenderPath = path.resolve(__dirname,'contracts','newTenderBids.sol');
-const source = fs.readFileSync(tenderPath);
+const source = fs.readFileSync(tenderPath,'utf8');
 const output = solc.compile(source,1).contracts;
 
 fs.ensureDirSync(buildPath);
