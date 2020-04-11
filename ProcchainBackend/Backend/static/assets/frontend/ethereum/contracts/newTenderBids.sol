@@ -27,14 +27,14 @@ contract Tenderfactory {
         tenderCount = 0;
     }
 
-    function createTender(string docHash, string title1, string uploadDate1, string deadline, uint loc, uint creator) public {
+    function createTender(string docHash, string title1, string uploadDate1, string deadline, uint loc, uint creator) public returns(address) {
         Tender tend = new Tender(docHash, title1, uploadDate1, deadline, loc, msg.sender, creator, this);
         tenders.push(tend);
         
         // Appending the created tender in Global List
         TenderDetails memory tdlist = TenderDetails({
             title: title1,
-            tenderAddress: tenders[tenderCount],
+            tenderAddress: tend,
             location: loc,
             upload_date: uploadDate1,
             deadline: deadline,
@@ -45,19 +45,21 @@ contract Tenderfactory {
         allTenderslist.push(tdlist);
         
         // Stores mapping of Tenders for quick search
-        allTendersmap[tdlist.tenderAddress] = tenderCount;
+        allTendersmap[tend] = tenderCount;
         
         // Stores the latest Tender Address of the user
-        tenderaddress[msg.sender] = tdlist.tenderAddress;
+        tenderaddress[msg.sender] = tend;
         
         // Stores all the Tender Address of the User
-        appliedTenders[msg.sender].push(tdlist.tenderAddress);
+        appliedTenders[msg.sender].push(tend);
         
         // Count of Tender uploaded by GAIL
         tenderCount++;
+        
+        return tend;
     }
     
-    
+    // Not Required
     function getTenderAddress() public view returns(address) {
         return tenderaddress[msg.sender];
     }
